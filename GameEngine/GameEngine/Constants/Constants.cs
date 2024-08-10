@@ -5,6 +5,7 @@ internal static class Constants
     internal static class Config
     {
         public static string Content = "Content";
+        public static float InputSensibility = 0.1f;
     }
 
     internal static class Sprite

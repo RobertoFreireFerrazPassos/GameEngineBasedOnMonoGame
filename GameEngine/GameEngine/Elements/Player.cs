@@ -3,7 +3,6 @@ using GameEngine.Enums;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using static GameEngine.Enums.Constants;
 
 namespace GameEngine.Elements;
@@ -23,27 +22,28 @@ internal class Player : Object
 
         void SetDirection()
         {
-            var state = Keyboard.GetState();
+            var input = new InputUtils();
 
-            if (state.IsKeyDown(Keys.Down))
+            if (input.IsKeyUp())
+            {
+                direction.Y -= 1;
+            }
+
+            if (input.IsKeyDown())
             {
                 direction.Y += 1;
             }
 
-            if (state.IsKeyDown(Keys.Right))
+            if (input.IsKeyRight())
             {
                 direction.X += 1;
             }
 
-            if (state.IsKeyDown(Keys.Left))
+            if (input.IsKeyLeft())
             {
                 direction.X -= 1;
             }
-
-            if (state.IsKeyDown(Keys.Up))
-            {
-                direction.Y -= 1;
-            }
+            
 
             if (direction != Vector2.Zero)
             {
