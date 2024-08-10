@@ -1,13 +1,11 @@
-﻿using System.Drawing;
-
-namespace GameEngine.Elements.Sprites;
+﻿namespace GameEngine.Elements.Sprites;
 
 internal class CollisionBox
 {
-    private int X;
-    private int Y;
-    private int Width;
-    private int Height;
+    public int X { get; private set; }
+    public int Y { get; private set; }
+    public int Width { get; private set; }
+    public int Height { get; private set; }
 
     public CollisionBox(int x, int y, int width, int height)
     {
@@ -15,10 +13,5 @@ internal class CollisionBox
         Y = y;
         Width  = width; 
         Height = height;
-    }
-
-    public Rectangle GetBox(int positionX, int positionY)
-    {
-        return new Rectangle(positionX + X, positionY + Y, Width, Height);
     }
 }

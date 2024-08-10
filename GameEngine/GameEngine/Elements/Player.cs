@@ -5,17 +5,18 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using static GameEngine.Enums.Constants;
 
 namespace GameEngine.Elements;
 
 internal class Player : Object
 {
+    public bool Alive = true;
+
     public Player(int x, int y, Texture texture) : base(x, y)
     {
         Speed = 2;
 
-        var playerAnimations = new Dictionary<string, Sprites.Animation>
+        var animations = new Dictionary<string, Sprites.Animation>
             {
                 {
                     Constants.Animation.Idle,
@@ -49,19 +50,27 @@ internal class Player : Object
         AnimatedSprite = new AnimatedSprite(
                     texture
                     , Color.White
-                    , playerAnimations
+                    , animations
                     , Constants.Animation.Idle
                 );
         CollisionBox = new CollisionBox(2, 2, 36, 36);        
     }
 
-    public override void Update(GameTime gameTime)
+    public void Update(GameTime gameTime, List<Enemy> enemies)
     {
         var direction = Vector2.Zero;
         var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / Constants.Config.SixtyFramesASecond);
 
         SetDirection();
         UpdateAnimation();
+
+        foreach (var enemy in enemies)
+        {
+            if (GetBox().Intersects(enemy.GetBox()))
+            {
+                Alive = false;
+            }
+        }
 
         void SetDirection()
         {
@@ -121,8 +130,6 @@ internal class Player : Object
 
     public override void Draw(SpriteBatch batch, GameTime gameTime)
     {
-        AnimatedSprite.Update(gameTime);
-        (int x, int y) = SpriteUtils.ConvertNumberToXY(AnimatedSprite);
-        batch.Draw(AnimatedSprite.Texture.Texture2D, new Vector2(X, Y), new Rectangle(x * Sprite.Pixels, y * Sprite.Pixels, Sprite.Pixels, Sprite.Pixels), AnimatedSprite.Color, 0, new Vector2(1, 1), new Vector2(1, 1), AnimatedSprite.FlipHorizontally, 0f);
+        base.Draw(batch, gameTime);
     }
 }

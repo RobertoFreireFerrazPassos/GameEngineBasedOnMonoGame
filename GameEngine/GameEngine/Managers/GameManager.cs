@@ -30,14 +30,16 @@ internal class GameManager
 
     private void LoadGame()
     {
-        _players.Add(new Player(0, 0, _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites)));
+        var spriteTexture = _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites);
+        _players.Add(new Player(0, 0, spriteTexture));
+        _enemies.Add(new Enemy(50, 50, spriteTexture));
     }
 
     public void Update(GameTime gameTime)
     {
         foreach (var ply in _players)
         {
-            ply.Update(gameTime);
+            ply.Update(gameTime, _enemies);
         }
 
         foreach (var eny in _enemies)
