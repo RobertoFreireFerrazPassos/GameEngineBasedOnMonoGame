@@ -28,12 +28,19 @@ internal class GameManager
 
     private void LoadGame()
     {
-        var coin = new Node();
-        coin.Nodes.Add(Constants.Node.AnimatedCoin, new AnimatedSprite(
+        var coin1 = new Node();
+        coin1.Nodes.Add(Constants.Node.AnimatedCoin, new AnimatedSprite(
                 _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Coin), 
                 new Vector2(100, 100), 
                 Color.White));
-        _rootNode.Nodes.Add(Constants.Node.Coin, coin);
+        var coin2 = new Node();
+        coin2.Nodes.Add(Constants.Node.AnimatedCoin, new AnimatedSprite(
+                _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Coin),
+                new Rectangle(100, 164, 256, 64),
+                Color.White));
+
+        _rootNode.Nodes.Add(Constants.Node.Coin1, coin1);
+        _rootNode.Nodes.Add(Constants.Node.Coin2, coin2);
     }
 
     public void Update(GameTime gameTime)
@@ -49,14 +56,11 @@ internal class GameManager
 
         foreach (var nodeKeyValuePair in _rootNode.Nodes)
         {
-            // TODO: create an optimized way to draw animations. _rootNode.Nodes is a tree structure 
+            // TODO: create an optimized way to draw animations. _rootNode.Nodes is a tree structure
+
+            var coinAnimatedSprite = (AnimatedSprite) nodeKeyValuePair.Value.Nodes.GetValueOrDefault(Constants.Node.AnimatedCoin);
+            coinAnimatedSprite.Draw(batch);
         }
-
-        // Draw test:
-        var coin = _rootNode.Nodes.GetValueOrDefault(Constants.Node.Coin);
-        AnimatedSprite coinAnimatedSprite = (AnimatedSprite) coin.Nodes.GetValueOrDefault(Constants.Node.AnimatedCoin);
-
-        batch.Draw(coinAnimatedSprite.Texture, coinAnimatedSprite.Vector2, coinAnimatedSprite.Color);
 
         batch.End();
     }
