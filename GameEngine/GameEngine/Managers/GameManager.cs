@@ -31,10 +31,7 @@ internal class GameManager
 
     private void LoadGame()
     {
-        _players.Add(new Player()
-        {
-            AnimatedSprite = new AnimatedSprite(_textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites),0,0,2,Color.White)
-        });
+        _players.Add(new Player(0, 0, 2, new AnimatedSprite(_textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites), 2, Color.White)));
     }
 
     public void Update(GameTime gameTime)
@@ -58,12 +55,12 @@ internal class GameManager
 
         foreach (var ply in _players)
         {
-            ply.AnimatedSprite?.Draw(batch);
+            ply.Draw(batch);
         }
 
         foreach (var eny in _enemies)
         {
-            eny.AnimatedSprite?.Draw(batch);
+            eny.Draw(batch);
         }
 
         batch.End();
