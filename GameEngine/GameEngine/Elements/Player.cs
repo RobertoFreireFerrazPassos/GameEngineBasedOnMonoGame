@@ -16,6 +16,7 @@ internal class Player : Object
     public override void Update(GameTime gameTime)
     {
         var direction = Vector2.Zero;
+        var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / Constants.Config.SixtyFramesASecond);
 
         SetDirection();
         UpdateAnimation();
@@ -49,9 +50,9 @@ internal class Player : Object
             {
                 direction.Normalize();
             }
-
-            X += direction.X * Speed;
-            Y += direction.Y * Speed;
+            
+            X += direction.X * Speed * elapsedTime;
+            Y += direction.Y * Speed * elapsedTime;
         }
 
         void UpdateAnimation()
