@@ -6,9 +6,9 @@ namespace GameEngine.Elements;
 
 internal abstract class Object
 {
-    public int X;
+    public float X;
 
-    public int Y;
+    public float Y;
 
     public int Speed;
 

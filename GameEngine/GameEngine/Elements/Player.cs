@@ -18,29 +18,30 @@ internal class Player : Object
     {
         AnimatedSprite.FlipHorizontally = SpriteEffects.None;
         var state = Keyboard.GetState();
+        var direction = Vector2.Zero;
 
         if (state.IsKeyDown(Keys.Down))
         {
-            Y += 1 * Speed;
+            direction.Y += 1;
             AnimatedSprite.SetState(Constants.Animation.Moving);
         }
 
         if (state.IsKeyDown(Keys.Right))
         {
-            X += 1 * Speed;
+            direction.X += 1;
             AnimatedSprite.SetState(Constants.Animation.Moving);
         }
 
         if (state.IsKeyDown(Keys.Left))
         {
-            X -= 1 * Speed;
+            direction.X -= 1;
             AnimatedSprite.SetState(Constants.Animation.Moving);
             AnimatedSprite.FlipHorizontally = SpriteEffects.FlipHorizontally;
         }
 
         if (state.IsKeyDown(Keys.Up))
         {
-            Y -= 1 * Speed;
+            direction.Y -= 1;
             AnimatedSprite.SetState(Constants.Animation.Up);
         }
 
@@ -49,6 +50,14 @@ internal class Player : Object
         {
             AnimatedSprite.SetState(Constants.Animation.Idle);
         }
+
+        if (direction != Vector2.Zero)
+        {
+            direction.Normalize();
+        }
+
+        X += direction.X * Speed;
+        Y += direction.Y * Speed;
     }
 
     public override void Draw(SpriteBatch batch, GameTime gameTime)
