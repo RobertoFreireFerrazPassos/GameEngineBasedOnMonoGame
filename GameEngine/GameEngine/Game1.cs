@@ -22,7 +22,7 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            _gameManager.LoadContent(GraphicsDevice);
+            _gameManager.LoadContent(GraphicsDevice, Content.Load<SpriteFont>("Fonts/8bitOperatorPlus-Bold"));
         }
 
         protected override void Update(GameTime gameTime)

@@ -24,7 +24,7 @@ internal abstract class Object
         Y = y;
     }
 
-    public virtual void Draw(SpriteBatch batch, GameTime gameTime)
+    public virtual void Draw(SpriteBatch batch, GameTime gameTime, SpriteFont font)
     {
         AnimatedSprite.Update(gameTime);
         (int x, int y) = SpriteUtils.ConvertNumberToXY(AnimatedSprite);

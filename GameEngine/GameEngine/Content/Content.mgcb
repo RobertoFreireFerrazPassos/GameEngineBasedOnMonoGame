@@ -13,6 +13,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Fonts/8bitOperatorPlus-Bold.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/8bitOperatorPlus-Bold.spritefont
+
 #begin sprites.png
 /importer:TextureImporter
 /processor:TextureProcessor

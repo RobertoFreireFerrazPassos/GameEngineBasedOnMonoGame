@@ -39,8 +39,8 @@ internal class Enemy : Object
     {
     }
 
-    public override void Draw(SpriteBatch batch, GameTime gameTime)
+    public override void Draw(SpriteBatch batch, GameTime gameTime, SpriteFont font)
     {
-        base.Draw(batch, gameTime);
+        base.Draw(batch, gameTime, font);
     }
 }

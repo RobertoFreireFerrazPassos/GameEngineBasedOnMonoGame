@@ -14,6 +14,7 @@ internal class GameManager
     private List<Player> _players = new List<Player>();
     private List<Enemy> _enemies = new List<Enemy>();
     private TileMap _tileMap = new TileMap();
+    private SpriteFont _font;
 
     public GameManager(Game1 game, ContentManager content)
     {
@@ -21,8 +22,9 @@ internal class GameManager
         _textureManager = new TextureManager(content);
     }
 
-    public void LoadContent(GraphicsDevice graphicsDevice)
+    public void LoadContent(GraphicsDevice graphicsDevice, SpriteFont font)
     {
+        _font = font;
         _spriteManager.LoadSpriteBatch(graphicsDevice);
         _textureManager.AddTexture(Constants.Sprite.Sprites, 3, 13);
         LoadGame();
@@ -56,14 +58,14 @@ internal class GameManager
 
         foreach (var ply in _players)
         {
-            ply.Draw(batch, gameTime);
+            ply.Draw(batch, gameTime, _font);
         }
 
         foreach (var eny in _enemies)
         {
-            eny.Draw(batch, gameTime);
+            eny.Draw(batch, gameTime, _font);
         }
-
+        
         batch.End();
     }
 }

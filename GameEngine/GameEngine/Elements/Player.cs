@@ -128,8 +128,13 @@ internal class Player : Object
         }
     }
 
-    public override void Draw(SpriteBatch batch, GameTime gameTime)
+    public override void Draw(SpriteBatch batch, GameTime gameTime, SpriteFont font)
     {
-        base.Draw(batch, gameTime);
+        if (!Alive)
+        {
+            batch.DrawString(font, "You Died", new Vector2(100, 200), Color.Red);
+        }
+        
+        base.Draw(batch, gameTime, font);
     }
 }
