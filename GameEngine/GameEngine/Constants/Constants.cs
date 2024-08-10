@@ -10,7 +10,13 @@ internal static class Constants
     internal static class Sprite
     {
         public static string Sprites = "sprites";
-
         public static int Pixels = 40;
+    }
+
+    internal static class Animation
+    {
+        public static string Idle = "idle";
+        public static string Moving = "moving";
+        public static string Up = "up";
     }
 }

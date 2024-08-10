@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System;
 
 namespace GameEngine.Managers;
 
@@ -31,19 +32,45 @@ internal class GameManager
 
     private void LoadGame()
     {
-        _players.Add(new Player(0, 0, 2, new AnimatedSprite(_textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites), 2, Color.White)));
+        var playerAnimation = new Dictionary<string, Animation>();
+        playerAnimation.Add(Constants.Animation.Idle, new Animation()
+        {
+            Frames = new int[] { 2 },
+            FrameDuration = TimeSpan.FromMilliseconds(300),
+            Loop = false
+        });
+        playerAnimation.Add(Constants.Animation.Up, new Animation()
+        {
+            Frames = new int[] { 4, 5 },
+            FrameDuration = TimeSpan.FromMilliseconds(300),
+            Loop = true
+        });
+        playerAnimation.Add(Constants.Animation.Moving, new Animation()
+        {
+            Frames = new int[] { 2, 3 },
+            FrameDuration = TimeSpan.FromMilliseconds(300),
+            Loop = true
+        });
+
+        _players.Add(new Player(0, 0, 2, 
+            new AnimatedSprite(
+                _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites)
+                , Color.White
+                , playerAnimation
+                , Constants.Animation.Idle))
+            );
     }
 
     public void Update(GameTime gameTime)
     {
         foreach (var ply in _players)
         {
-            ply.Update();
+            ply.Update(gameTime);
         }
 
         foreach (var eny in _enemies)
         {
-            eny.Update();
+            eny.Update(gameTime);
         }
     }
 
@@ -55,12 +82,12 @@ internal class GameManager
 
         foreach (var ply in _players)
         {
-            ply.Draw(batch);
+            ply.Draw(batch, gameTime);
         }
 
         foreach (var eny in _enemies)
         {
-            eny.Draw(batch);
+            eny.Draw(batch, gameTime);
         }
 
         batch.End();

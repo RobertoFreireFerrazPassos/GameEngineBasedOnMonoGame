@@ -1,17 +1,18 @@
 ﻿using GameEngine.Elements.Sprites;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Elements;
 
 internal abstract class Object
 {
-    public int X { get; set; }
+    public int X;
 
-    public int Y { get; set; }
+    public int Y;
 
-    public int Speed { get; set; }
+    public int Speed;
 
-    public AnimatedSprite AnimatedSprite { get; set; }
+    public AnimatedSprite AnimatedSprite;
 
     public Object(int x, int y, int speed, AnimatedSprite sprite)
     {
@@ -21,7 +22,7 @@ internal abstract class Object
         AnimatedSprite = sprite;
     }
 
-    public abstract void Update();
+    public abstract void Update(GameTime gameTime);
 
-    public abstract void Draw(SpriteBatch batch);
+    public abstract void Draw(SpriteBatch batch, GameTime gameTime);
 }
