@@ -78,7 +78,7 @@ internal class GameManager
     {
         var batch = _spriteManager.SpriteBatch;
 
-        batch.Begin();
+        batch.Begin(samplerState: SamplerState.PointClamp);
 
         foreach (var ply in _players)
         {
