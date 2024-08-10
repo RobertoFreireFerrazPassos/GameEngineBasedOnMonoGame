@@ -14,12 +14,12 @@ internal abstract class Object
 
     public AnimatedSprite AnimatedSprite;
 
-    public Object(int x, int y, int speed, AnimatedSprite sprite)
+    public CollisionBox CollisionBox;
+
+    public Object(int x, int y)
     {
         X = x;
         Y = y;
-        Speed = speed;
-        AnimatedSprite = sprite;
     }
 
     public abstract void Update(GameTime gameTime);

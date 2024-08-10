@@ -1,12 +1,11 @@
-﻿using GameEngine.Elements.Sprites;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Elements;
 
 internal class Enemy : Object
 {
-    public Enemy(int x, int y, int speed, AnimatedSprite sprite) : base(x, y, speed, sprite)
+    public Enemy(int x, int y) : base(x, y)
     {
     }
 

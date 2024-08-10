@@ -3,14 +3,56 @@ using GameEngine.Enums;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 using static GameEngine.Enums.Constants;
 
 namespace GameEngine.Elements;
 
 internal class Player : Object
 {
-    public Player(int x, int y, int speed, AnimatedSprite sprite) : base(x, y, speed, sprite)
+    public Player(int x, int y, Texture texture) : base(x, y)
     {
+        Speed = 2;
+
+        var playerAnimations = new Dictionary<string, Sprites.Animation>
+            {
+                {
+                    Constants.Animation.Idle,
+                    new Sprites.Animation()
+                    {
+                        Frames = new int[] { 2 },
+                        FrameDuration = TimeSpan.FromMilliseconds(300),
+                        Loop = false
+                    }
+                },
+                {
+                    Constants.Animation.Up,
+                    new Sprites.Animation()
+                    {
+                        Frames = new int[] { 4, 5 },
+                        FrameDuration = TimeSpan.FromMilliseconds(300),
+                        Loop = true
+                    }
+                },
+                {
+                    Constants.Animation.Moving,
+                    new Sprites.Animation()
+                    {
+                        Frames = new int[] { 2, 3 },
+                        FrameDuration = TimeSpan.FromMilliseconds(300),
+                        Loop = true
+                    }
+                }
+            };
+
+        AnimatedSprite = new AnimatedSprite(
+                    texture
+                    , Color.White
+                    , playerAnimations
+                    , Constants.Animation.Idle
+                );
+        CollisionBox = new CollisionBox(2, 2, 36, 36);        
     }
 
     public override void Update(GameTime gameTime)

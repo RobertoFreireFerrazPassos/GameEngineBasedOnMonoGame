@@ -1,11 +1,9 @@
 ﻿using GameEngine.Enums;
 using GameEngine.Elements;
-using GameEngine.Elements.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System;
 
 namespace GameEngine.Managers;
 
@@ -32,33 +30,7 @@ internal class GameManager
 
     private void LoadGame()
     {
-        var playerAnimation = new Dictionary<string, Animation>();
-        playerAnimation.Add(Constants.Animation.Idle, new Animation()
-        {
-            Frames = new int[] { 2 },
-            FrameDuration = TimeSpan.FromMilliseconds(300),
-            Loop = false
-        });
-        playerAnimation.Add(Constants.Animation.Up, new Animation()
-        {
-            Frames = new int[] { 4, 5 },
-            FrameDuration = TimeSpan.FromMilliseconds(300),
-            Loop = true
-        });
-        playerAnimation.Add(Constants.Animation.Moving, new Animation()
-        {
-            Frames = new int[] { 2, 3 },
-            FrameDuration = TimeSpan.FromMilliseconds(300),
-            Loop = true
-        });
-
-        _players.Add(new Player(0, 0, 2, 
-            new AnimatedSprite(
-                _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites)
-                , Color.White
-                , playerAnimation
-                , Constants.Animation.Idle))
-            );
+        _players.Add(new Player(0, 0, _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites)));
     }
 
     public void Update(GameTime gameTime)
