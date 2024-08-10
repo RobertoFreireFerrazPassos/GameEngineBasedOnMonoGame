@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Nodes.Properties;
+﻿namespace GameEngine.Elements.Sprites;
 
 internal class Visibility
 {

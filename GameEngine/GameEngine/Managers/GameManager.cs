@@ -1,5 +1,6 @@
 ﻿using GameEngine.Enums;
-using GameEngine.Nodes;
+using GameEngine.Elements;
+using GameEngine.Elements.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +12,10 @@ internal class GameManager
 {
     private SpriteManager _spriteManager;
     private TextureManager _textureManager;
-    private Node _rootNode = new Node();
+    private List<Player> _players = new List<Player>();
+    private List<Object> _objects = new List<Object>();
+    private List<Enemy> _enemies = new List<Enemy>();
+    private TileMap _tileMap = new TileMap();
 
     public GameManager(Game1 game, ContentManager content)
     {
@@ -28,19 +32,20 @@ internal class GameManager
 
     private void LoadGame()
     {
-        var coin1 = new Node();
-        coin1.Nodes.Add(Constants.Node.AnimatedCoin, new AnimatedSprite(
-                _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Coin), 
-                new Vector2(100, 100), 
-                Color.White));
-        var coin2 = new Node();
-        coin2.Nodes.Add(Constants.Node.AnimatedCoin, new AnimatedSprite(
+        _objects.Add(new Object()
+        {
+            AnimatedSprite = new AnimatedSprite(
+                _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Coin),
+                new Vector2(100, 100),
+                Color.White)
+        });
+        _objects.Add(new Object()
+        {
+            AnimatedSprite = new AnimatedSprite(
                 _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Coin),
                 new Rectangle(100, 164, 256, 64),
-                Color.White));
-
-        _rootNode.Nodes.Add(Constants.Node.Coin1, coin1);
-        _rootNode.Nodes.Add(Constants.Node.Coin2, coin2);
+                Color.White)
+        });
     }
 
     public void Update(GameTime gameTime)
@@ -54,12 +59,19 @@ internal class GameManager
 
         batch.Begin();
 
-        foreach (var nodeKeyValuePair in _rootNode.Nodes)
+        foreach (var ply in _players)
         {
-            // TODO: create an optimized way to draw animations. _rootNode.Nodes is a tree structure
+            ply.AnimatedSprite?.Draw(batch);
+        }
 
-            var coinAnimatedSprite = (AnimatedSprite) nodeKeyValuePair.Value.Nodes.GetValueOrDefault(Constants.Node.AnimatedCoin);
-            coinAnimatedSprite.Draw(batch);
+        foreach (var obj in _objects)
+        {
+            obj.AnimatedSprite?.Draw(batch);
+        }
+
+        foreach (var eny in _enemies)
+        {
+            eny.AnimatedSprite?.Draw(batch);
         }
 
         batch.End();

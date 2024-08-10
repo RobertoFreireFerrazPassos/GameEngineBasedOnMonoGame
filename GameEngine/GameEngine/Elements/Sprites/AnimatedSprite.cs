@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine.Nodes;
+namespace GameEngine.Elements.Sprites;
 
 public class RectangleSprite
 {
@@ -12,13 +12,17 @@ public class RectangleSprite
     public Rectangle Rectangle { get; set; }
 }
 
-internal class AnimatedSprite : Node
+internal class AnimatedSprite
 {
     public Texture2D Texture { get; set; }
 
     public RectangleSprite Rectangle { get; set; } = new RectangleSprite();
 
     public Color Color { get; set; }
+
+    public Visibility Visibility { get; set; } = new Visibility();
+
+    public Order Ordering { get; set; } = new Order();
 
     public AnimatedSprite(Texture2D texture, Rectangle rectangle, Color color)
     {
