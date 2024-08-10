@@ -1,22 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Enums;
+using GameEngine.Utils;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Elements.Sprites;
 
-public class RectangleSprite
+internal class AnimatedSprite
 {
-    public int Type { get; set; }
+    public Texture Texture { get; set; }
 
     public Vector2 Vector2 { get; set; }
 
-    public Rectangle Rectangle { get; set; }
-}
-
-internal class AnimatedSprite
-{
-    public Texture2D Texture { get; set; }
-
-    public RectangleSprite Rectangle { get; set; } = new RectangleSprite();
+    public Rectangle Source { get; set; }
 
     public Color Color { get; set; }
 
@@ -24,32 +19,17 @@ internal class AnimatedSprite
 
     public Order Ordering { get; set; } = new Order();
 
-    public AnimatedSprite(Texture2D texture, Rectangle rectangle, Color color)
+    public AnimatedSprite(Texture texture, Vector2 vector, int number, Color color)
     {
         Texture = texture;
-        Rectangle.Type = 0;
-        Rectangle.Rectangle = rectangle;
-        Color = color;
-    }
-
-    public AnimatedSprite(Texture2D texture, Vector2 vector, Color color)
-    {
-        Texture = texture;
-        Rectangle.Type = 1;
-        Rectangle.Vector2 = vector;
+        Vector2 = vector;
+        (int x, int y) = SpriteUtils.ConvertNumberToXY(number, Texture.Rows, Texture.Columns);
+        Source = new Rectangle(x * Constants.Sprite.Pixels, y * Constants.Sprite.Pixels, Constants.Sprite.Pixels, Constants.Sprite.Pixels);
         Color = color;
     }
 
     public void Draw(SpriteBatch batch)
     {
-        if (Rectangle.Type == 0)
-        {
-            batch.Draw(Texture, Rectangle.Rectangle, Color);
-
-        }
-        else if (Rectangle.Type == 1)
-        {
-            batch.Draw(Texture, Rectangle.Vector2, Color);
-        }
+        batch.Draw(Texture.Texture2D, Vector2, Source, Color);
     }
 }

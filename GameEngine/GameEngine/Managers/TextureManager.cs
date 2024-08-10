@@ -7,7 +7,7 @@ namespace GameEngine.Managers;
 
 internal class TextureManager
 {
-    public Dictionary<string, Texture2D> Textures { get; set; } = new Dictionary<string, Texture2D>();
+    public Dictionary<string, Elements.Texture> Textures { get; set; } = new Dictionary<string, Elements.Texture>();
 
     private ContentManager Content;
 
@@ -17,8 +17,13 @@ internal class TextureManager
         Content = content;
     }
 
-    public void AddTexture(string textureKey)
+    public void AddTexture(string textureKey, int rows, int columns)
     {
-        Textures.Add(textureKey, Content.Load<Texture2D>(textureKey));
+        Textures.Add(textureKey, new Elements.Texture()
+        {
+            Texture2D = Content.Load<Texture2D>(textureKey),
+            Rows = rows,
+            Columns = columns
+        });
     }
 }

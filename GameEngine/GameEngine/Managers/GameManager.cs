@@ -26,24 +26,18 @@ internal class GameManager
     public void LoadContent(GraphicsDevice graphicsDevice)
     {
         _spriteManager.LoadSpriteBatch(graphicsDevice);
-        _textureManager.AddTexture(Constants.Sprite.Coin);
+        _textureManager.AddTexture(Constants.Sprite.Sprites, 3, 13);
         LoadGame();
     }
 
     private void LoadGame()
     {
-        _objects.Add(new Object()
+        _players.Add(new Player()
         {
             AnimatedSprite = new AnimatedSprite(
-                _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Coin),
-                new Vector2(100, 100),
-                Color.White)
-        });
-        _objects.Add(new Object()
-        {
-            AnimatedSprite = new AnimatedSprite(
-                _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Coin),
-                new Rectangle(100, 164, 256, 64),
+                _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites),
+                new Vector2(0, 0),
+                2,
                 Color.White)
         });
     }

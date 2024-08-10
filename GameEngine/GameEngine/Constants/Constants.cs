@@ -9,6 +9,8 @@ internal static class Constants
 
     internal static class Sprite
     {
-        public static string Coin = "coin_sprites";
+        public static string Sprites = "sprites";
+
+        public static int Pixels = 40;
     }
 }
