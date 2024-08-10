@@ -2,7 +2,9 @@
 
 namespace GameEngine.Elements;
 
-internal class Object
+internal abstract class Object
 {
     public AnimatedSprite AnimatedSprite { get; set; }
+
+    public abstract void Update();
 }

@@ -1,8 +1,8 @@
-﻿using GameEngine.Elements.Sprites;
+﻿namespace GameEngine.Elements;
 
-namespace GameEngine.Elements;
-
-internal class Enemy
+internal class Enemy : Object
 {
-    public AnimatedSprite AnimatedSprite {  get; set; }
+    public override void Update()
+    {
+    }
 }

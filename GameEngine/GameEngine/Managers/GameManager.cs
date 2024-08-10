@@ -13,7 +13,6 @@ internal class GameManager
     private SpriteManager _spriteManager;
     private TextureManager _textureManager;
     private List<Player> _players = new List<Player>();
-    private List<Object> _objects = new List<Object>();
     private List<Enemy> _enemies = new List<Enemy>();
     private TileMap _tileMap = new TileMap();
 
@@ -34,17 +33,21 @@ internal class GameManager
     {
         _players.Add(new Player()
         {
-            AnimatedSprite = new AnimatedSprite(
-                _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites),
-                new Vector2(0, 0),
-                2,
-                Color.White)
+            AnimatedSprite = new AnimatedSprite(_textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites),0,0,2,Color.White)
         });
     }
 
     public void Update(GameTime gameTime)
     {
+        foreach (var ply in _players)
+        {
+            ply.Update();
+        }
 
+        foreach (var eny in _enemies)
+        {
+            eny.Update();
+        }
     }
 
     public void Draw(GameTime gameTime)
@@ -56,11 +59,6 @@ internal class GameManager
         foreach (var ply in _players)
         {
             ply.AnimatedSprite?.Draw(batch);
-        }
-
-        foreach (var obj in _objects)
-        {
-            obj.AnimatedSprite?.Draw(batch);
         }
 
         foreach (var eny in _enemies)
