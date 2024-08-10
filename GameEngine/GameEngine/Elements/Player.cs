@@ -16,48 +16,64 @@ internal class Player : Object
 
     public override void Update(GameTime gameTime)
     {
-        AnimatedSprite.FlipHorizontally = SpriteEffects.None;
-        var state = Keyboard.GetState();
         var direction = Vector2.Zero;
 
-        if (state.IsKeyDown(Keys.Down))
+        SetDirection();
+        UpdateAnimation();
+
+        void SetDirection()
         {
-            direction.Y += 1;
-            AnimatedSprite.SetState(Constants.Animation.Moving);
+            var state = Keyboard.GetState();
+
+            if (state.IsKeyDown(Keys.Down))
+            {
+                direction.Y += 1;
+            }
+
+            if (state.IsKeyDown(Keys.Right))
+            {
+                direction.X += 1;
+            }
+
+            if (state.IsKeyDown(Keys.Left))
+            {
+                direction.X -= 1;
+            }
+
+            if (state.IsKeyDown(Keys.Up))
+            {
+                direction.Y -= 1;
+            }
+
+            if (direction != Vector2.Zero)
+            {
+                direction.Normalize();
+            }
+
+            X += direction.X * Speed;
+            Y += direction.Y * Speed;
         }
 
-        if (state.IsKeyDown(Keys.Right))
+        void UpdateAnimation()
         {
-            direction.X += 1;
-            AnimatedSprite.SetState(Constants.Animation.Moving);
-        }
+            if (direction.Y == 0 && direction.X == 0)
+            {
+                AnimatedSprite.SetState(Constants.Animation.Idle);
+            }
+            else
+            {
+                AnimatedSprite.FlipHorizontally = direction.X < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-        if (state.IsKeyDown(Keys.Left))
-        {
-            direction.X -= 1;
-            AnimatedSprite.SetState(Constants.Animation.Moving);
-            AnimatedSprite.FlipHorizontally = SpriteEffects.FlipHorizontally;
+                if (direction.Y < 0)
+                {
+                    AnimatedSprite.SetState(Constants.Animation.Up);
+                }
+                else
+                {
+                    AnimatedSprite.SetState(Constants.Animation.Moving);
+                }
+            }
         }
-
-        if (state.IsKeyDown(Keys.Up))
-        {
-            direction.Y -= 1;
-            AnimatedSprite.SetState(Constants.Animation.Up);
-        }
-
-        if (!state.IsKeyDown(Keys.Down) && !state.IsKeyDown(Keys.Up)
-            && !state.IsKeyDown(Keys.Left) && !state.IsKeyDown(Keys.Right))
-        {
-            AnimatedSprite.SetState(Constants.Animation.Idle);
-        }
-
-        if (direction != Vector2.Zero)
-        {
-            direction.Normalize();
-        }
-
-        X += direction.X * Speed;
-        Y += direction.Y * Speed;
     }
 
     public override void Draw(SpriteBatch batch, GameTime gameTime)
