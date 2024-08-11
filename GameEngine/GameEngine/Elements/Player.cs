@@ -100,8 +100,8 @@ internal class Player : Object
                 direction.Normalize();
             }
             
-            X += direction.X * Speed * elapsedTime;
-            Y += direction.Y * Speed * elapsedTime;
+            X += (int) (direction.X * Speed * elapsedTime);
+            Y += (int) (direction.Y * Speed * elapsedTime);
         }
 
         void UpdateAnimation()
