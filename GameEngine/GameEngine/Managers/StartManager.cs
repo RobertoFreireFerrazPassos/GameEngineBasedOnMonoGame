@@ -11,7 +11,8 @@ internal class StartManager : ISceneManager
     private SceneManager _sceneManager; 
     private float _timer;
     private float _opaque = 1f;
-    private float _fadeoutTime = 5f;
+    private float _freezeTime = 3f;
+    private float _fadeoutTime = 3f;
 
     public StartManager(SpriteManager spriteManager, TextureManager textureManager, SceneManager sceneManager)
     {
@@ -28,14 +29,28 @@ internal class StartManager : ISceneManager
     {
         var seconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
         _timer += seconds;
-        _opaque -= seconds/(_fadeoutTime);
 
-        if (_timer >= _fadeoutTime)
+        if (_timer > _freezeTime)
         {
-            _sceneManager.Scene = SceneEnum.MENU;
-            _timer = 0f;
-            _opaque = 1f;
+            ApplyFadeOutEffect(seconds);
         }
+
+        if (_timer > _freezeTime + _fadeoutTime)
+        {
+            NextScreen();
+        }
+    }
+
+    private void NextScreen()
+    {
+        _sceneManager.Scene = SceneEnum.MENU;
+        _timer = 0f;
+        _opaque = 1f;
+    }
+
+    private void ApplyFadeOutEffect(float seconds)
+    {
+        _opaque -= seconds / (_fadeoutTime);
     }
 
     public void Draw(GameTime gameTime)
