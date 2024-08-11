@@ -1,5 +1,4 @@
-﻿using GameEngine.Enums;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
@@ -13,7 +12,7 @@ internal class TextureManager
 
     public TextureManager(ContentManager content)
     {
-        content.RootDirectory = Constants.Config.Content;
+        content.RootDirectory = GameConstants.Constants.Config.Content;
         Content = content;
     }
 

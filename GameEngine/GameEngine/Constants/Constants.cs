@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Enums;
+﻿namespace GameEngine.GameConstants;
 
 internal static class Constants
 {

@@ -10,8 +10,6 @@ internal class MenuManager : ISceneManager
     private SpriteManager _spriteManager;
     private TextureManager _textureManager;
     private SceneManager _sceneManager;
-    private InputUtils _input = new InputUtils();
-    private SpriteFont _font;
 
     public MenuManager(SpriteManager spriteManager, TextureManager textureManager, SceneManager sceneManager)
     {
@@ -26,7 +24,7 @@ internal class MenuManager : ISceneManager
 
     public void Update(GameTime gameTime)
     {
-        if (_input.IsKeyEnter())
+        if (InputUtils.IsKeyEnter())
         {
             _sceneManager.Scene = SceneEnum.GAME;
         }            

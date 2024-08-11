@@ -12,8 +12,6 @@ internal class Player : Object
 {
     public bool Alive = true;
 
-    private InputUtils _input = new InputUtils();
-
     public Player(int x, int y, Texture texture) : base(x, y)
     {
         Speed = 2;
@@ -61,7 +59,7 @@ internal class Player : Object
     public void Update(GameTime gameTime, List<Enemy> enemies)
     {
         var direction = Vector2.Zero;
-        var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / Constants.Config.SixtyFramesASecond);
+        var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / GameConstants.Constants.Config.SixtyFramesASecond);
 
         SetDirection();
         UpdateAnimation();
@@ -76,22 +74,22 @@ internal class Player : Object
 
         void SetDirection()
         {
-            if (_input.IsKeyUp())
+            if (InputUtils.IsKeyUp())
             {
                 direction.Y -= 1;
             }
 
-            if (_input.IsKeyDown())
+            if (InputUtils.IsKeyDown())
             {
                 direction.Y += 1;
             }
 
-            if (_input.IsKeyRight())
+            if (InputUtils.IsKeyRight())
             {
                 direction.X += 1;
             }
 
-            if (_input.IsKeyLeft())
+            if (InputUtils.IsKeyLeft())
             {
                 direction.X -= 1;
             }

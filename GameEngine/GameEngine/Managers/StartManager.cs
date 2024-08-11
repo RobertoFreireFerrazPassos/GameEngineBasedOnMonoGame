@@ -8,7 +8,7 @@ internal class StartManager : ISceneManager
 {
     private SpriteManager _spriteManager;
     private TextureManager _textureManager;
-    private SceneManager _sceneManager;
+    private SceneManager _sceneManager; 
     private float timer;
 
     public StartManager(SpriteManager spriteManager, TextureManager textureManager, SceneManager sceneManager)

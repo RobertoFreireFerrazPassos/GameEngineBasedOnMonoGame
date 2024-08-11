@@ -13,7 +13,6 @@ namespace GameEngine
         private StartManager _startManager;
         private SpriteManager _spriteManager; 
         private TextureManager _textureManager;
-        private InputUtils _input = new InputUtils();
 
         public Game1()
         {
@@ -42,7 +41,7 @@ namespace GameEngine
 
         protected override void Update(GameTime gameTime)
         {
-            if (_input.IsKeyEscape())
+            if (InputUtils.IsKeyEscape())
                 Exit();
 
             switch(_sceneManager.Scene)
