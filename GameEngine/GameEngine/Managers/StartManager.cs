@@ -1,10 +1,10 @@
-﻿using GameEngine.Elements.Sprites;
-using GameEngine.Enums;
+﻿using GameEngine.Enums;
 using GameEngine.GameConstants;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Managers;
 
@@ -12,7 +12,11 @@ internal class StartManager : ISceneManager
 {
     private SpriteManager _spriteManager;
     private TextureManager _textureManager;
-    private SceneManager _sceneManager; 
+    private SceneManager _sceneManager;
+    private ContentManager _content;
+    private SoundEffect _introSfx;
+    private bool _isIntroSfxPlaying = false;
+    private float _introSfxtimer = 2f;
     private float _timer;
     private float _opaque = 1f;
     private float _freezeTime = 3f;
@@ -21,17 +25,19 @@ internal class StartManager : ISceneManager
     private int _screenWidth = 0;
     private int _screenHeight = 0;
 
-    public StartManager(GraphicsDeviceManager graphicsDeviceManager, SpriteManager spriteManager, TextureManager textureManager, SceneManager sceneManager)
+    public StartManager(GraphicsDeviceManager graphicsDeviceManager, ContentManager content, SpriteManager spriteManager, TextureManager textureManager, SceneManager sceneManager)
     {
         _spriteManager = spriteManager;
         _textureManager = textureManager;
         _sceneManager = sceneManager;
         _screenWidth = graphicsDeviceManager.PreferredBackBufferWidth;
         _screenHeight = graphicsDeviceManager.PreferredBackBufferHeight;
+        _content = content;
     }
 
     public void LoadContent()
     {
+        _introSfx = _content.Load<SoundEffect>(Constants.Audio.Intro);
     }
 
     public void Update(GameTime gameTime)
@@ -50,6 +56,12 @@ internal class StartManager : ISceneManager
     {
         var seconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
         _timer += seconds;
+
+        if (_timer > _introSfxtimer && !_isIntroSfxPlaying)
+        {
+            _introSfx.Play();
+            _isIntroSfxPlaying = true;
+        }
 
         if (_timer > _freezeTime)
         {

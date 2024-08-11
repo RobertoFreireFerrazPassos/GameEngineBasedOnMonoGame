@@ -14,4 +14,9 @@ internal static class Constants
         public static string Sprites = "Sprite-0001";
         public static int Pixels = 40;
     }
+
+    internal static class Audio
+    {
+        public static string Intro = "Audio/intro";
+    }
 }

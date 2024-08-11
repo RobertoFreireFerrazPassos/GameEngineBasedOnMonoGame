@@ -3,6 +3,7 @@ using GameEngine.Managers;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 namespace GameEngine
 {
     public class Game1 : Game
@@ -23,7 +24,7 @@ namespace GameEngine
             _sceneManager = new SceneManager();
             _gameManager = new GameManager(graphics, _spriteManager, _textureManager, _sceneManager);
             _menuManager = new MenuManager(_spriteManager, _textureManager, _sceneManager);
-            _startManager = new StartManager(graphics, _spriteManager, _textureManager, _sceneManager);
+            _startManager = new StartManager(graphics, Content, _spriteManager, _textureManager, _sceneManager);
             IsMouseVisible = false;
         }
 
