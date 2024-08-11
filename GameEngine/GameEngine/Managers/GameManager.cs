@@ -58,7 +58,7 @@ internal class GameManager : ISceneManager
 
             if (!ply.Alive)
             {
-                batch.DrawString(_spriteManager.Font, "You Died", new Vector2(100, 200), Color.Red);
+                batch.DrawString(_spriteManager.Font, "You Died", new Vector2(350, 200), Color.Red);
             }
         }
 

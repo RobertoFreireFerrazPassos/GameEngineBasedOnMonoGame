@@ -23,7 +23,7 @@ namespace GameEngine
             _gameManager = new GameManager(_spriteManager, _textureManager, _sceneManager);
             _menuManager = new MenuManager(_spriteManager, _textureManager, _sceneManager);
             _startManager = new StartManager(_spriteManager, _textureManager, _sceneManager);
-            IsMouseVisible = true;
+            IsMouseVisible = false;
         }
 
         protected override void Initialize()
