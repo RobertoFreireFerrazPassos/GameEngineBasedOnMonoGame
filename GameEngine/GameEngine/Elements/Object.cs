@@ -3,6 +3,7 @@ using GameEngine.GameConstants;
 using GameEngine.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Elements;
 
@@ -28,7 +29,10 @@ internal abstract class Object
     {
         var pixels = Constants.Sprite.Pixels;
         AnimatedSprite.Update(gameTime);
-        (int x, int y) = SpriteManager.ConvertNumberToXY(AnimatedSprite);
+        int number = AnimatedSprite.Sprite;
+        int rows = AnimatedSprite.Texture.Rows;
+        int columns = AnimatedSprite.Texture.Columns;
+        (int x, int y) = SpriteManager.ConvertNumberToXY(number, rows, columns);
 
         var box = GetBox();
         var position = new Vector2(

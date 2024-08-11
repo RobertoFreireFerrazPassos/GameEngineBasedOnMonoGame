@@ -24,12 +24,8 @@ internal class SpriteManager
         SpriteBatch = new SpriteBatch(graphicsDevice);
     }
 
-    public static (int x, int y) ConvertNumberToXY(AnimatedSprite sprite)
+    public static (int x, int y) ConvertNumberToXY(int number, int rows, int columns)
     {
-        int number = sprite.Sprite;
-        int rows = sprite.Texture.Rows;
-        int columns = sprite.Texture.Columns;
-
         var max = rows * columns;
         if (number < 1 || number > max)
             throw new ArgumentOutOfRangeException(nameof(number), $"Number must be between 1 and {max}.");

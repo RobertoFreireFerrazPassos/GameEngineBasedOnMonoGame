@@ -27,7 +27,7 @@ internal class GameManager : ISceneManager
 
     public void LoadContent()
     {
-        _textureManager.AddTexture(GameConstants.Constants.Sprite.Sprites, 3, 13);
+        _textureManager.AddTexture(GameConstants.Constants.Sprite.Sprites, 26, 13);
         LoadGame();
     }
 
