@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Enums;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,13 @@ internal class AnimatedSprite
 {
     public Texture Texture;
 
-    public Dictionary<string, Animation> Animations = new Dictionary<string, Animation>();
+    public Dictionary<AnimationEnum, Animation> Animations = new Dictionary<AnimationEnum, Animation>();
 
     public SpriteEffects FlipHorizontally; 
 
-    public string State {  get; private set; }
+    public AnimationEnum State {  get; private set; }
 
-    public void SetState(string state)
+    public void SetState(AnimationEnum state)
     {
         if (State == state)
         {
@@ -50,8 +51,8 @@ internal class AnimatedSprite
     public AnimatedSprite(
         Texture texture, 
         Color color,
-        Dictionary<string, Animation> animations,
-        string state)
+        Dictionary<AnimationEnum, Animation> animations,
+        AnimationEnum state)
     {
         Texture = texture;
         Color = color;

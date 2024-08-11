@@ -16,10 +16,10 @@ internal class Player : Object
     {
         Speed = 2;
 
-        var animations = new Dictionary<string, Sprites.Animation>
+        var animations = new Dictionary<AnimationEnum, Sprites.Animation>
             {
                 {
-                    Constants.Animation.Idle,
+                    AnimationEnum.IDLE,
                     new Sprites.Animation()
                     {
                         Frames = new int[] { 2 },
@@ -28,7 +28,7 @@ internal class Player : Object
                     }
                 },
                 {
-                    Constants.Animation.Up,
+                    AnimationEnum.UP,
                     new Sprites.Animation()
                     {
                         Frames = new int[] { 4, 5 },
@@ -37,7 +37,7 @@ internal class Player : Object
                     }
                 },
                 {
-                    Constants.Animation.Moving,
+                    AnimationEnum.MOVING,
                     new Sprites.Animation()
                     {
                         Frames = new int[] { 2, 3 },
@@ -51,7 +51,7 @@ internal class Player : Object
                     texture
                     , Color.White
                     , animations
-                    , Constants.Animation.Idle
+                    , AnimationEnum.IDLE
                 );
         CollisionBox = new CollisionBox(2, 2, 36, 36);        
     }
@@ -110,7 +110,7 @@ internal class Player : Object
         {
             if (direction.Y == 0 && direction.X == 0)
             {
-                AnimatedSprite.SetState(Constants.Animation.Idle);
+                AnimatedSprite.SetState(AnimationEnum.IDLE);
             }
             else
             {
@@ -118,11 +118,11 @@ internal class Player : Object
 
                 if (direction.Y < 0)
                 {
-                    AnimatedSprite.SetState(Constants.Animation.Up);
+                    AnimatedSprite.SetState(AnimationEnum.UP);
                 }
                 else
                 {
-                    AnimatedSprite.SetState(Constants.Animation.Moving);
+                    AnimatedSprite.SetState(AnimationEnum.MOVING);
                 }
             }
         }

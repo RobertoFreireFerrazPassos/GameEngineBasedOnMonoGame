@@ -13,10 +13,10 @@ internal class Enemy : Object
     {
         Speed = 2;
 
-        var animations = new Dictionary<string, Sprites.Animation>
+        var animations = new Dictionary<AnimationEnum, Sprites.Animation>
             {
                 {
-                    Constants.Animation.Idle,
+                    AnimationEnum.IDLE,
                     new Sprites.Animation()
                     {
                         Frames = new int[] { 6 },
@@ -30,7 +30,7 @@ internal class Enemy : Object
                     texture
                     , Color.White
                     , animations
-                    , Constants.Animation.Idle
+                    , AnimationEnum.IDLE
                 );
         CollisionBox = new CollisionBox(6, 17, 28, 18);
     }
