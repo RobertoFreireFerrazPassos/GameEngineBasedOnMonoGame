@@ -7,15 +7,18 @@ internal class SpriteManager
 {
     private GraphicsDeviceManager _graphics;
 
+    public SpriteFont Font;
+
     public SpriteBatch SpriteBatch;
 
-    public SpriteManager(Game game)
+    public SpriteManager(GraphicsDeviceManager graphics)
     {
-        _graphics = new GraphicsDeviceManager(game);
+        _graphics = graphics;
     }
 
-    public void LoadSpriteBatch(GraphicsDevice graphicsDevice)
+    public void LoadSpriteBatch(GraphicsDevice graphicsDevice, SpriteFont font)
     {
+        Font = font;
         SpriteBatch = new SpriteBatch(graphicsDevice);
     }
 }

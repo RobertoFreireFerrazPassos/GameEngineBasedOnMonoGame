@@ -35,5 +35,15 @@ namespace GameEngine.Utils
         {
             return _keyboard.IsKeyDown(Keys.Down) || _gamepadPly1.ThumbSticks.Left.Y < -_sensibility || _gamepadPly1.DPad.Down == ButtonState.Pressed;
         }
+
+        public bool IsKeyEscape()
+        {
+            return _keyboard.IsKeyDown(Keys.Escape) || _gamepadPly1.Buttons.Back == ButtonState.Pressed;
+        }
+
+        public bool IsKeyEnter()
+        {
+            return _keyboard.IsKeyDown(Keys.Enter) || _gamepadPly1.Buttons.Start == ButtonState.Pressed;
+        }
     }
 }

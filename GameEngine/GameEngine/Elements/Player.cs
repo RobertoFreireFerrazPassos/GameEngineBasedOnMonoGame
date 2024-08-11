@@ -12,6 +12,8 @@ internal class Player : Object
 {
     public bool Alive = true;
 
+    private InputUtils _input = new InputUtils();
+
     public Player(int x, int y, Texture texture) : base(x, y)
     {
         Speed = 2;
@@ -74,24 +76,22 @@ internal class Player : Object
 
         void SetDirection()
         {
-            var input = new InputUtils();
-
-            if (input.IsKeyUp())
+            if (_input.IsKeyUp())
             {
                 direction.Y -= 1;
             }
 
-            if (input.IsKeyDown())
+            if (_input.IsKeyDown())
             {
                 direction.Y += 1;
             }
 
-            if (input.IsKeyRight())
+            if (_input.IsKeyRight())
             {
                 direction.X += 1;
             }
 
-            if (input.IsKeyLeft())
+            if (_input.IsKeyLeft())
             {
                 direction.X -= 1;
             }

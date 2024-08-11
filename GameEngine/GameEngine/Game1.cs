@@ -1,17 +1,29 @@
-﻿using GameEngine.Managers;
+﻿using GameEngine.Enums;
+using GameEngine.Managers;
+using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-
 namespace GameEngine
 {
     public class Game1 : Game
     {
         private GameManager _gameManager;
+        private SceneManager _sceneManager;
+        private MenuManager _menuManager;
+        private StartManager _startManager;
+        private SpriteManager _spriteManager; 
+        private TextureManager _textureManager;
+        private InputUtils _input = new InputUtils();
 
         public Game1()
         {
-            _gameManager = new GameManager(this,Content);
+            var graphics = new GraphicsDeviceManager(this);
+            _spriteManager = new SpriteManager(graphics);
+            _textureManager = new TextureManager(Content);
+            _sceneManager = new SceneManager();
+            _gameManager = new GameManager(_spriteManager, _textureManager, _sceneManager);
+            _menuManager = new MenuManager(_spriteManager, _textureManager, _sceneManager);
+            _startManager = new StartManager(_spriteManager, _textureManager, _sceneManager);
             IsMouseVisible = true;
         }
 
@@ -22,15 +34,29 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            _gameManager.LoadContent(GraphicsDevice, Content.Load<SpriteFont>("Fonts/8bitOperatorPlus-Bold"));
+            _spriteManager.LoadSpriteBatch(GraphicsDevice, Content.Load<SpriteFont>("Fonts/8bitOperatorPlus-Bold"));
+            _startManager.LoadContent();
+            _menuManager.LoadContent();
+            _gameManager.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (_input.IsKeyEscape())
                 Exit();
 
-            _gameManager.Update(gameTime);
+            switch(_sceneManager.Scene)
+            {
+                case SceneEnum.START:
+                    _startManager.Update(gameTime);
+                    break;
+                case SceneEnum.MENU:
+                    _menuManager.Update(gameTime);
+                    break;
+                case SceneEnum.GAME:
+                    _gameManager.Update(gameTime);
+                    break;
+            };
 
             base.Update(gameTime);
         }
@@ -39,7 +65,18 @@ namespace GameEngine
         {
             GraphicsDevice.Clear(Color.Black);
 
-            _gameManager.Draw(gameTime);
+            switch (_sceneManager.Scene)
+            {
+                case SceneEnum.START:
+                    _startManager.Draw(gameTime);
+                    break;
+                case SceneEnum.MENU:
+                    _menuManager.Draw(gameTime);
+                    break;
+                case SceneEnum.GAME:
+                    _gameManager.Draw(gameTime);
+                    break;
+            };
 
             base.Draw(gameTime);
         }
