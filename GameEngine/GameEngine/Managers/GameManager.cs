@@ -10,12 +10,16 @@ internal class GameManager : ISceneManager
     private SpriteManager _spriteManager;
     private TextureManager _textureManager;
     private SceneManager _sceneManager;
-    private List<Player> _players = new List<Player>();
+    private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();
     private TileMap _tileMap = new TileMap();
+    private FollowCamera _followCamera;
+    private GraphicsDeviceManager _graphicsDeviceManager;
+    private bool _firstTime = true;
 
-    public GameManager(SpriteManager spriteManager, TextureManager textureManager, SceneManager sceneManager)
+    public GameManager(GraphicsDeviceManager graphicsDeviceManager, SpriteManager spriteManager, TextureManager textureManager, SceneManager sceneManager)
     {
+        _graphicsDeviceManager = graphicsDeviceManager;
         _spriteManager = spriteManager;
         _textureManager = textureManager;
         _sceneManager = sceneManager;
@@ -30,17 +34,14 @@ internal class GameManager : ISceneManager
     private void LoadGame()
     {
         var spriteTexture = _textureManager.Textures.GetValueOrDefault(GameConstants.Constants.Sprite.Sprites);
-        _players.Add(new Player(0, 0, spriteTexture));
+        _player = new Player(0, 0, spriteTexture);
+        _followCamera = new FollowCamera(Vector2.Zero);
         _enemies.Add(new Enemy(50, 50, spriteTexture));
     }
 
     public void Update(GameTime gameTime)
     {
-        foreach (var ply in _players)
-        {
-            ply.Update(gameTime, _enemies);
-        }
-
+        _player.Update(gameTime, _enemies); 
         foreach (var eny in _enemies)
         {
             eny.Update(gameTime);
@@ -52,19 +53,17 @@ internal class GameManager : ISceneManager
         var batch = _spriteManager.SpriteBatch;
         batch.Begin(samplerState: SamplerState.PointClamp);
 
-        foreach (var ply in _players)
-        {
-            ply.Draw(batch, gameTime);
+        _followCamera.Follow(_player.GetBox(), new Vector2(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight));
+        _player.Draw(batch, gameTime, _followCamera.Position);
 
-            if (!ply.Alive)
-            {
-                batch.DrawString(_spriteManager.Font, "You Died", new Vector2(350, 200), Color.Red);
-            }
+        if (!_player.Alive)
+        {
+            batch.DrawString(_spriteManager.Font, "You Died", new Vector2(350, 200), Color.Red);
         }
 
         foreach (var eny in _enemies)
         {
-            eny.Draw(batch, gameTime);
+            eny.Draw(batch, gameTime, _followCamera.Position);
         }
         
         batch.End();

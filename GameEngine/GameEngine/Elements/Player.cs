@@ -126,8 +126,8 @@ internal class Player : Object
         }
     }
 
-    public override void Draw(SpriteBatch batch, GameTime gameTime)
+    public override void Draw(SpriteBatch batch, GameTime gameTime, Vector2 offset)
     {        
-        base.Draw(batch, gameTime);
+        base.Draw(batch, gameTime, offset);
     }
 }

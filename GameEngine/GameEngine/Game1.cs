@@ -20,7 +20,7 @@ namespace GameEngine
             _spriteManager = new SpriteManager(graphics);
             _textureManager = new TextureManager(Content);
             _sceneManager = new SceneManager();
-            _gameManager = new GameManager(_spriteManager, _textureManager, _sceneManager);
+            _gameManager = new GameManager(graphics, _spriteManager, _textureManager, _sceneManager);
             _menuManager = new MenuManager(_spriteManager, _textureManager, _sceneManager);
             _startManager = new StartManager(_spriteManager, _textureManager, _sceneManager);
             IsMouseVisible = false;
