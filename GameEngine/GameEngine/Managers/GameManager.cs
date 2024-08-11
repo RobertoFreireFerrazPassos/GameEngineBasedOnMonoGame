@@ -58,12 +58,18 @@ internal class GameManager
 
         foreach (var ply in _players)
         {
-            ply.Draw(batch, gameTime, _font);
+            ply.Draw(batch, gameTime);
+
+
+            if (!ply.Alive)
+            {
+                batch.DrawString(_font, "You Died", new Vector2(100, 200), Color.Red);
+            }
         }
 
         foreach (var eny in _enemies)
         {
-            eny.Draw(batch, gameTime, _font);
+            eny.Draw(batch, gameTime);
         }
         
         batch.End();
