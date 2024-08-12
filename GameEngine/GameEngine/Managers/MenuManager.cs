@@ -8,13 +8,11 @@ namespace GameEngine.Managers;
 internal class MenuManager : ISceneManager
 {
     private SpriteManager _spriteManager;
-    private TextureManager _textureManager;
     private SceneManager _sceneManager;
 
-    public MenuManager(SpriteManager spriteManager, TextureManager textureManager, SceneManager sceneManager)
+    public MenuManager(SpriteManager spriteManager, SceneManager sceneManager)
     {
         _spriteManager = spriteManager;
-        _textureManager = textureManager;
         _sceneManager = sceneManager;
     }
 

@@ -4,19 +4,19 @@ using System.Collections.Generic;
 
 namespace GameEngine.Managers;
 
-internal class TextureManager
+internal static class TextureManager
 {
-    public Dictionary<string, Elements.Texture> Textures { get; set; } = new Dictionary<string, Elements.Texture>();
+    public static Dictionary<string, Elements.Texture> Textures { get; set; } = new Dictionary<string, Elements.Texture>();
 
-    private ContentManager Content;
+    private static ContentManager Content;
 
-    public TextureManager(ContentManager content)
+    public static void LoadTextureManager(ContentManager content)
     {
         content.RootDirectory = GameConstants.Constants.Config.Content;
         Content = content;
     }
 
-    public void AddTexture(string textureKey, int rows, int columns)
+    public static void AddTexture(string textureKey, int rows, int columns)
     {
         Textures.Add(textureKey, new Elements.Texture()
         {

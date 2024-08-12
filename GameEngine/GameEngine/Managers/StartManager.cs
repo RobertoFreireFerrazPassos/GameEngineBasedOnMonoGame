@@ -11,7 +11,6 @@ namespace GameEngine.Managers;
 internal class StartManager : ISceneManager
 {
     private SpriteManager _spriteManager;
-    private TextureManager _textureManager;
     private SceneManager _sceneManager;
     private ContentManager _content;
     private SoundEffect _introSfx;
@@ -25,10 +24,9 @@ internal class StartManager : ISceneManager
     private int _screenWidth = 0;
     private int _screenHeight = 0;
 
-    public StartManager(GraphicsDeviceManager graphicsDeviceManager, ContentManager content, SpriteManager spriteManager, TextureManager textureManager, SceneManager sceneManager)
+    public StartManager(GraphicsDeviceManager graphicsDeviceManager, ContentManager content, SpriteManager spriteManager, SceneManager sceneManager)
     {
         _spriteManager = spriteManager;
-        _textureManager = textureManager;
         _sceneManager = sceneManager;
         _screenWidth = graphicsDeviceManager.PreferredBackBufferWidth;
         _screenHeight = graphicsDeviceManager.PreferredBackBufferHeight;
@@ -125,7 +123,7 @@ internal class StartManager : ISceneManager
     private void DrawFirstImage(SpriteBatch batch, Color color)
     {
         var pixels = Constants.Sprite.Pixels;
-        var texture = _textureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites);
+        var texture = TextureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites);
         (int x, int y) = SpriteManager.ConvertNumberToXY(40, texture.Rows, texture.Columns);
 
         batch.Draw(

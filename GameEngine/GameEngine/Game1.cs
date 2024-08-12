@@ -12,19 +12,18 @@ namespace GameEngine
         private SceneManager _sceneManager;
         private MenuManager _menuManager;
         private StartManager _startManager;
-        private SpriteManager _spriteManager; 
-        private TextureManager _textureManager;
+        private SpriteManager _spriteManager;
 
         public Game1()
         {
             var graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = true;
             _spriteManager = new SpriteManager(graphics);
-            _textureManager = new TextureManager(Content);
+            TextureManager.LoadTextureManager(Content);
             _sceneManager = new SceneManager();
-            _gameManager = new GameManager(graphics, _spriteManager, _textureManager, _sceneManager);
-            _menuManager = new MenuManager(_spriteManager, _textureManager, _sceneManager);
-            _startManager = new StartManager(graphics, Content, _spriteManager, _textureManager, _sceneManager);
+            _gameManager = new GameManager(graphics, _spriteManager, _sceneManager);
+            _menuManager = new MenuManager(_spriteManager, _sceneManager);
+            _startManager = new StartManager(graphics, Content, _spriteManager, _sceneManager);
             IsMouseVisible = false;
         }
 

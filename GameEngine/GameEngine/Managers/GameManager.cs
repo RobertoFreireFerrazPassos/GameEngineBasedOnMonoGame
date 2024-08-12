@@ -8,7 +8,6 @@ namespace GameEngine.Managers;
 internal class GameManager : ISceneManager
 {
     private SpriteManager _spriteManager;
-    private TextureManager _textureManager;
     private SceneManager _sceneManager;
     private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();
@@ -17,23 +16,22 @@ internal class GameManager : ISceneManager
     private GraphicsDeviceManager _graphicsDeviceManager;
     private bool _firstTime = true;
 
-    public GameManager(GraphicsDeviceManager graphicsDeviceManager, SpriteManager spriteManager, TextureManager textureManager, SceneManager sceneManager)
+    public GameManager(GraphicsDeviceManager graphicsDeviceManager, SpriteManager spriteManager, SceneManager sceneManager)
     {
         _graphicsDeviceManager = graphicsDeviceManager;
         _spriteManager = spriteManager;
-        _textureManager = textureManager;
         _sceneManager = sceneManager;
     }
 
     public void LoadContent()
     {
-        _textureManager.AddTexture(GameConstants.Constants.Sprite.Sprites, 26, 13);
+        TextureManager.AddTexture(GameConstants.Constants.Sprite.Sprites, 26, 13);
         LoadGame();
     }
 
     private void LoadGame()
     {
-        var spriteTexture = _textureManager.Textures.GetValueOrDefault(GameConstants.Constants.Sprite.Sprites);
+        var spriteTexture = TextureManager.Textures.GetValueOrDefault(GameConstants.Constants.Sprite.Sprites);
         _player = new Player(0, 0, spriteTexture);
         _followCamera = new FollowCamera(Vector2.Zero);
         _enemies.Add(new Enemy(50, 50, spriteTexture));
