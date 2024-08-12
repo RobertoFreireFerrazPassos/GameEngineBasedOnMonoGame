@@ -10,7 +10,6 @@ namespace GameEngine.Managers;
 
 internal class StartManager : ISceneManager
 {
-    private SceneManager _sceneManager;
     private ContentManager _content;
     private SoundEffect _introSfx;
     private bool _isIntroSfxPlaying = false;
@@ -23,9 +22,8 @@ internal class StartManager : ISceneManager
     private int _screenWidth = 0;
     private int _screenHeight = 0;
 
-    public StartManager(GraphicsDeviceManager graphicsDeviceManager, ContentManager content, SceneManager sceneManager)
+    public StartManager(GraphicsDeviceManager graphicsDeviceManager, ContentManager content)
     {
-        _sceneManager = sceneManager;
         _screenWidth = graphicsDeviceManager.PreferredBackBufferWidth;
         _screenHeight = graphicsDeviceManager.PreferredBackBufferHeight;
         _content = content;
@@ -90,7 +88,7 @@ internal class StartManager : ISceneManager
 
     private void NextScreen()
     {
-        _sceneManager.Scene = SceneEnum.MENU;
+        SceneManager.Scene = SceneEnum.MENU;
         _timer = 0f;
         _opaque = 1f;
     }

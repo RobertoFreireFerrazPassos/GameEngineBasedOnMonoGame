@@ -7,17 +7,15 @@ namespace GameEngine.Managers;
 
 internal class GameManager : ISceneManager
 {
-    private SceneManager _sceneManager;
     private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();
     private TileMap _tileMap = new TileMap();
     private GraphicsDeviceManager _graphicsDeviceManager;
     private bool _firstTime = true;
 
-    public GameManager(GraphicsDeviceManager graphicsDeviceManager, SceneManager sceneManager)
+    public GameManager(GraphicsDeviceManager graphicsDeviceManager)
     {
         _graphicsDeviceManager = graphicsDeviceManager;
-        _sceneManager = sceneManager;
     }
 
     public void LoadContent()

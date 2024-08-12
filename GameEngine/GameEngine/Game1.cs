@@ -9,7 +9,6 @@ namespace GameEngine
     public class Game1 : Game
     {
         private GameManager _gameManager;
-        private SceneManager _sceneManager;
         private MenuManager _menuManager;
         private StartManager _startManager;
 
@@ -19,10 +18,9 @@ namespace GameEngine
             graphics.IsFullScreen = true;
             SpriteManager.LoadSpriteManager(graphics);
             TextureManager.LoadTextureManager(Content);
-            _sceneManager = new SceneManager();
-            _gameManager = new GameManager(graphics, _sceneManager);
-            _menuManager = new MenuManager(_sceneManager);
-            _startManager = new StartManager(graphics, Content, _sceneManager);
+            _gameManager = new GameManager(graphics);
+            _menuManager = new MenuManager();
+            _startManager = new StartManager(graphics, Content);
             IsMouseVisible = false;
         }
 
@@ -44,7 +42,7 @@ namespace GameEngine
             if (InputUtils.IsKeyEscape())
                 Exit();
 
-            switch(_sceneManager.Scene)
+            switch(SceneManager.Scene)
             {
                 case SceneEnum.START:
                     _startManager.Update(gameTime);
@@ -64,7 +62,7 @@ namespace GameEngine
         {
             GraphicsDevice.Clear(Color.Black);
 
-            switch (_sceneManager.Scene)
+            switch (SceneManager.Scene)
             {
                 case SceneEnum.START:
                     _startManager.Draw(gameTime);

@@ -2,7 +2,7 @@
 
 namespace GameEngine.Managers;
 
-internal class SceneManager
+internal static class SceneManager
 {
-    public SceneEnum Scene { get; set; }
+    public static SceneEnum Scene { get; set; }
 }

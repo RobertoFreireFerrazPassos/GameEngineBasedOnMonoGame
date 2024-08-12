@@ -7,11 +7,8 @@ namespace GameEngine.Managers;
 
 internal class MenuManager : ISceneManager
 {
-    private SceneManager _sceneManager;
-
-    public MenuManager(SceneManager sceneManager)
+    public MenuManager()
     {
-        _sceneManager = sceneManager;
     }
 
     public void LoadContent()
@@ -22,7 +19,7 @@ internal class MenuManager : ISceneManager
     {
         if (InputUtils.IsKeyEnter())
         {
-            _sceneManager.Scene = SceneEnum.GAME;
+            SceneManager.Scene = SceneEnum.GAME;
         }            
     }
 
