@@ -10,7 +10,6 @@ namespace GameEngine.Managers;
 
 internal class StartManager : ISceneManager
 {
-    private SpriteManager _spriteManager;
     private SceneManager _sceneManager;
     private ContentManager _content;
     private SoundEffect _introSfx;
@@ -24,9 +23,8 @@ internal class StartManager : ISceneManager
     private int _screenWidth = 0;
     private int _screenHeight = 0;
 
-    public StartManager(GraphicsDeviceManager graphicsDeviceManager, ContentManager content, SpriteManager spriteManager, SceneManager sceneManager)
+    public StartManager(GraphicsDeviceManager graphicsDeviceManager, ContentManager content, SceneManager sceneManager)
     {
-        _spriteManager = spriteManager;
         _sceneManager = sceneManager;
         _screenWidth = graphicsDeviceManager.PreferredBackBufferWidth;
         _screenHeight = graphicsDeviceManager.PreferredBackBufferHeight;
@@ -105,7 +103,7 @@ internal class StartManager : ISceneManager
     public void Draw(GameTime gameTime)
     {
         var color = new Color(255, 0, 0, 255) * _opaque;
-        var batch = _spriteManager.SpriteBatch;
+        var batch = SpriteManager.SpriteBatch;
         batch.Begin(samplerState: SamplerState.PointClamp);
 
         if (_imageNumber == 1)
@@ -141,7 +139,7 @@ internal class StartManager : ISceneManager
 
     private void DrawLastImage(SpriteBatch batch, Color color)
     {
-        batch.DrawString(_spriteManager.Font, "PRIEST VS DEMONS", new Vector2(_screenWidth / 2 - 50, _screenHeight / 2 - 50), color);
-        batch.DrawString(_spriteManager.Font, "BY ROBERTO FREIRE", new Vector2(_screenWidth / 2 - 50, _screenHeight / 2), color);
+        batch.DrawString(SpriteManager.Font, "PRIEST VS DEMONS", new Vector2(_screenWidth / 2 - 50, _screenHeight / 2 - 50), color);
+        batch.DrawString(SpriteManager.Font, "BY ROBERTO FREIRE", new Vector2(_screenWidth / 2 - 50, _screenHeight / 2), color);
     }
 }

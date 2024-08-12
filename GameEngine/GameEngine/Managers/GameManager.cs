@@ -7,7 +7,6 @@ namespace GameEngine.Managers;
 
 internal class GameManager : ISceneManager
 {
-    private SpriteManager _spriteManager;
     private SceneManager _sceneManager;
     private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();
@@ -15,10 +14,9 @@ internal class GameManager : ISceneManager
     private GraphicsDeviceManager _graphicsDeviceManager;
     private bool _firstTime = true;
 
-    public GameManager(GraphicsDeviceManager graphicsDeviceManager, SpriteManager spriteManager, SceneManager sceneManager)
+    public GameManager(GraphicsDeviceManager graphicsDeviceManager, SceneManager sceneManager)
     {
         _graphicsDeviceManager = graphicsDeviceManager;
-        _spriteManager = spriteManager;
         _sceneManager = sceneManager;
     }
 
@@ -47,7 +45,7 @@ internal class GameManager : ISceneManager
 
     public void Draw(GameTime gameTime)
     {
-        var batch = _spriteManager.SpriteBatch;
+        var batch = SpriteManager.SpriteBatch;
         batch.Begin(samplerState: SamplerState.PointClamp);
 
         FollowCamera.Follow(_player.GetBox(), new Vector2(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight));
@@ -55,7 +53,7 @@ internal class GameManager : ISceneManager
 
         if (!_player.Alive)
         {
-            batch.DrawString(_spriteManager.Font, "You Died", new Vector2(350, 200), Color.Red);
+            batch.DrawString(SpriteManager.Font, "You Died", new Vector2(350, 200), Color.Red);
         }
 
         foreach (var eny in _enemies)

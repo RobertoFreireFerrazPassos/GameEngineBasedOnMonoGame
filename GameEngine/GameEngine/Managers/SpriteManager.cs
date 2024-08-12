@@ -1,24 +1,23 @@
-﻿using GameEngine.Elements.Sprites;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace GameEngine.Managers;
 
-internal class SpriteManager
+internal static class SpriteManager
 {
-    private GraphicsDeviceManager _graphics;
+    private static GraphicsDeviceManager _graphics;
 
-    public SpriteFont Font;
+    public static SpriteFont Font;
 
-    public SpriteBatch SpriteBatch;
+    public static SpriteBatch SpriteBatch;
 
-    public SpriteManager(GraphicsDeviceManager graphics)
+    public static void LoadSpriteManager(GraphicsDeviceManager graphics)
     {
         _graphics = graphics;
     }
 
-    public void LoadSpriteBatch(GraphicsDevice graphicsDevice, SpriteFont font)
+    public static void LoadSpriteBatch(GraphicsDevice graphicsDevice, SpriteFont font)
     {
         Font = font;
         SpriteBatch = new SpriteBatch(graphicsDevice);

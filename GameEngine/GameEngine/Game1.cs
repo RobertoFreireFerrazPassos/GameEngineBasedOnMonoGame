@@ -12,18 +12,17 @@ namespace GameEngine
         private SceneManager _sceneManager;
         private MenuManager _menuManager;
         private StartManager _startManager;
-        private SpriteManager _spriteManager;
 
         public Game1()
         {
             var graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = true;
-            _spriteManager = new SpriteManager(graphics);
+            SpriteManager.LoadSpriteManager(graphics);
             TextureManager.LoadTextureManager(Content);
             _sceneManager = new SceneManager();
-            _gameManager = new GameManager(graphics, _spriteManager, _sceneManager);
-            _menuManager = new MenuManager(_spriteManager, _sceneManager);
-            _startManager = new StartManager(graphics, Content, _spriteManager, _sceneManager);
+            _gameManager = new GameManager(graphics, _sceneManager);
+            _menuManager = new MenuManager(_sceneManager);
+            _startManager = new StartManager(graphics, Content, _sceneManager);
             IsMouseVisible = false;
         }
 
@@ -34,7 +33,7 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            _spriteManager.LoadSpriteBatch(GraphicsDevice, Content.Load<SpriteFont>("Fonts/8bitOperatorPlus-Bold"));
+            SpriteManager.LoadSpriteBatch(GraphicsDevice, Content.Load<SpriteFont>("Fonts/8bitOperatorPlus-Bold"));
             _startManager.LoadContent();
             _menuManager.LoadContent();
             _gameManager.LoadContent();
