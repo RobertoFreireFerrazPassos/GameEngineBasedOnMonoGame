@@ -2,16 +2,16 @@
 
 namespace GameEngine.Elements;
 
-internal class FollowCamera
+internal static class FollowCamera
 {
-    public Vector2 Position;
+    public static Vector2 Position;
 
-    public FollowCamera(Vector2 position)
+    public static void LoadFollowCamera(Vector2 position)
     {
         position = position;
     }
 
-    public void Follow(Rectangle target, Vector2 screenSize)
+    public static void Follow(Rectangle target, Vector2 screenSize)
     {
         Position = new Vector2(
             -target.X + (screenSize.X / 2 - target.Width / 2),

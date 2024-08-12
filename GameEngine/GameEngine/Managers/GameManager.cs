@@ -12,7 +12,6 @@ internal class GameManager : ISceneManager
     private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();
     private TileMap _tileMap = new TileMap();
-    private FollowCamera _followCamera;
     private GraphicsDeviceManager _graphicsDeviceManager;
     private bool _firstTime = true;
 
@@ -33,7 +32,7 @@ internal class GameManager : ISceneManager
     {
         var spriteTexture = TextureManager.Textures.GetValueOrDefault(GameConstants.Constants.Sprite.Sprites);
         _player = new Player(0, 0, spriteTexture);
-        _followCamera = new FollowCamera(Vector2.Zero);
+        FollowCamera.LoadFollowCamera(Vector2.Zero);
         _enemies.Add(new Enemy(50, 50, spriteTexture));
     }
 
@@ -51,8 +50,8 @@ internal class GameManager : ISceneManager
         var batch = _spriteManager.SpriteBatch;
         batch.Begin(samplerState: SamplerState.PointClamp);
 
-        _followCamera.Follow(_player.GetBox(), new Vector2(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight));
-        _player.Draw(batch, gameTime, _followCamera.Position);
+        FollowCamera.Follow(_player.GetBox(), new Vector2(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight));
+        _player.Draw(batch, gameTime, FollowCamera.Position);
 
         if (!_player.Alive)
         {
@@ -61,7 +60,7 @@ internal class GameManager : ISceneManager
 
         foreach (var eny in _enemies)
         {
-            eny.Draw(batch, gameTime, _followCamera.Position);
+            eny.Draw(batch, gameTime, FollowCamera.Position);
         }
         
         batch.End();
