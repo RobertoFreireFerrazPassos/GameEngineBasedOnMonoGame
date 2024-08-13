@@ -75,22 +75,22 @@ public class Player : Object
 
         void SetDirection()
         {
-            if (InputUtils.IsKeyUp())
+            if (InputUtils.IsKeyDown(InputEnum.UP))
             {
                 direction.Y -= 1;
             }
 
-            if (InputUtils.IsKeyDown())
+            if (InputUtils.IsKeyDown(InputEnum.DOWN))
             {
                 direction.Y += 1;
             }
 
-            if (InputUtils.IsKeyRight())
+            if (InputUtils.IsKeyDown(InputEnum.RIGHT))
             {
                 direction.X += 1;
             }
 
-            if (InputUtils.IsKeyLeft())
+            if (InputUtils.IsKeyDown(InputEnum.LEFT))
             {
                 direction.X -= 1;
             }

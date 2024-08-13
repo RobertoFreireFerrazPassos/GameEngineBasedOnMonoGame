@@ -41,10 +41,10 @@ namespace GameEngine
 
         protected override void Update(GameTime gameTime)
         {
-            if (InputUtils.IsKeyEscape())
+            if (InputUtils.IsKeyDown(InputEnum.ESCAPE))
                 Exit();
 
-            switch(SceneManager.Scene)
+            switch (SceneManager.Scene)
             {
                 case SceneEnum.START:
                     _startManager.Update(gameTime);

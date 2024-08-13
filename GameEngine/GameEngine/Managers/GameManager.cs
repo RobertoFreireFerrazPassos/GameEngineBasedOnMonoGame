@@ -1,4 +1,6 @@
 ﻿using GameEngine.Elements;
+using GameEngine.Enums;
+using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -11,7 +13,6 @@ public class GameManager : ISceneManager
     private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();
     private GraphicsDeviceManager _graphicsDeviceManager;
-    private bool _firstTime = true;
 
     public GameManager(GraphicsDeviceManager graphicsDeviceManager)
     {
@@ -37,6 +38,11 @@ public class GameManager : ISceneManager
 
     public void Update(GameTime gameTime)
     {
+        if (InputUtils.IsKeyDown(InputEnum.ENTER))
+        {
+            SceneManager.Scene = SceneEnum.MENU;
+        }
+
         _player.Update(gameTime, _enemies); 
         foreach (var eny in _enemies)
         {

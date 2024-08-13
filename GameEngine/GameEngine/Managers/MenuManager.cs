@@ -17,7 +17,7 @@ public class MenuManager : ISceneManager
 
     public void Update(GameTime gameTime)
     {
-        if (InputUtils.IsKeyEnter())
+        if (InputUtils.IsKeyDown(InputEnum.ENTER))
         {
             SceneManager.Scene = SceneEnum.GAME;
         }            

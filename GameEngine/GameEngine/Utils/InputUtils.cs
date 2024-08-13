@@ -1,50 +1,46 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Enums;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace GameEngine.Utils;
 
 public class InputUtils
 {
+    private static KeyboardState _previousKeyboardState;
+    private static GamePadState _previousGamePadState;
     private static float _sensibility = GameConstants.Constants.Config.InputSensibility;
 
-    public static bool IsKeyLeft()
+    public static bool IsKeyDown(InputEnum inputkey)
     {
-        var (keyboard, gamepadPly1) = GetStates();
-        return keyboard.IsKeyDown(Keys.Left) || gamepadPly1.ThumbSticks.Left.X < -_sensibility || gamepadPly1.DPad.Left == ButtonState.Pressed;
-    }
+        var keyboard = Keyboard.GetState();
+        var gamepadPly1 = GamePad.GetState(PlayerIndex.One);
+        var result = false;
 
-    public static bool IsKeyRight()
-    {
-        var (keyboard, gamepadPly1) = GetStates();
-        return keyboard.IsKeyDown(Keys.Right) || gamepadPly1.ThumbSticks.Left.X > _sensibility || gamepadPly1.DPad.Right == ButtonState.Pressed;
-    }
+        switch (inputkey)
+        {
+            case InputEnum.LEFT:
+                result = keyboard.IsKeyDown(Keys.Left) || gamepadPly1.ThumbSticks.Left.X < -_sensibility || gamepadPly1.DPad.Left == ButtonState.Pressed;
+                break;
+            case InputEnum.RIGHT:
+                result = keyboard.IsKeyDown(Keys.Right) || gamepadPly1.ThumbSticks.Left.X > _sensibility || gamepadPly1.DPad.Right == ButtonState.Pressed;
+                break;
+            case InputEnum.UP:
+                result = keyboard.IsKeyDown(Keys.Up) || gamepadPly1.ThumbSticks.Left.Y > _sensibility || gamepadPly1.DPad.Up == ButtonState.Pressed;
+                break;
+            case InputEnum.DOWN:
+                result = keyboard.IsKeyDown(Keys.Down) || gamepadPly1.ThumbSticks.Left.Y < -_sensibility || gamepadPly1.DPad.Down == ButtonState.Pressed;
+                break;
+            case InputEnum.ESCAPE:
+                result = keyboard.IsKeyDown(Keys.Escape) || gamepadPly1.Buttons.Back == ButtonState.Pressed; ;
+                break;
+            case InputEnum.ENTER:
+                result = keyboard.IsKeyDown(Keys.Enter) || gamepadPly1.Buttons.Start == ButtonState.Pressed;
+                break;
+        }
 
-    public static bool IsKeyUp()
-    {
-        var (keyboard, gamepadPly1) = GetStates();
-        return keyboard.IsKeyDown(Keys.Up) || gamepadPly1.ThumbSticks.Left.Y > _sensibility || gamepadPly1.DPad.Up == ButtonState.Pressed;
-    }
+        _previousKeyboardState = keyboard;
+        _previousGamePadState = gamepadPly1;
 
-    public static bool IsKeyDown()
-    {
-        var (keyboard, gamepadPly1) = GetStates();
-        return keyboard.IsKeyDown(Keys.Down) || gamepadPly1.ThumbSticks.Left.Y < -_sensibility || gamepadPly1.DPad.Down == ButtonState.Pressed;
-    }
-
-    public static bool IsKeyEscape()
-    {
-        var (keyboard, gamepadPly1) = GetStates();
-        return keyboard.IsKeyDown(Keys.Escape) || gamepadPly1.Buttons.Back == ButtonState.Pressed;
-    }
-
-    public static bool IsKeyEnter()
-    {
-        var (keyboard, gamepadPly1) = GetStates();
-        return keyboard.IsKeyDown(Keys.Enter) || gamepadPly1.Buttons.Start == ButtonState.Pressed;
-    }
-
-    private static (KeyboardState keyboard, GamePadState gamepadPly1) GetStates()
-    {
-        return (Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
+        return result;
     }
 }
