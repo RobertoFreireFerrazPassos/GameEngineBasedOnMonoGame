@@ -28,9 +28,9 @@ internal class GameManager : ISceneManager
             new Rectangle(0 * pixels, 1 * pixels, pixels, pixels)
         };
         Camera.LoadCamera(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight);
-        _player = new Player(pixels, pixels);
-        _enemies.Add(new Enemy(pixels, 3 * pixels));
-        _enemies.Add(new Enemy(2 *pixels, 3 * pixels));
+        _player = new Player(8 * pixels, 3 * pixels);
+        _enemies.Add(new Enemy(8 * pixels, 8 * pixels));
+        _enemies.Add(new Enemy(9 * pixels, 8 * pixels));
     }
 
     public void Update(GameTime gameTime)
