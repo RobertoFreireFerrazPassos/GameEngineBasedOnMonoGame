@@ -30,7 +30,6 @@ public class GameManager : ISceneManager
         Camera.LoadCamera(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight);
         _player = new Player(8 * pixels, 3 * pixels);
         _enemies.Add(new Enemy(8 * pixels, 8 * pixels));
-        _enemies.Add(new Enemy(9 * pixels, 8 * pixels));
     }
 
     public void Update(GameTime gameTime)
@@ -38,7 +37,7 @@ public class GameManager : ISceneManager
         _player.Update(gameTime, _enemies); 
         foreach (var eny in _enemies)
         {
-            eny.Update(gameTime);
+            eny.Update(gameTime, _player);
         }
     }
 

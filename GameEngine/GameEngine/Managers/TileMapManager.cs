@@ -74,7 +74,27 @@ public static class TileMapManager
                 Sprite.Pixels
             );
 
-            if (playerRect.Intersects(tileRect))
+            if (tileRect.Intersects(playerRect))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static bool IsCollidingWithTiles(Vector2 position)
+    {
+        foreach (var tileItem in TileMap)
+        {
+            var tileRect = new Rectangle(
+                (int)tileItem.Key.X * Sprite.Pixels,
+                (int)tileItem.Key.Y * Sprite.Pixels,
+                Sprite.Pixels,
+                Sprite.Pixels
+            );
+
+            if (tileRect.Contains(position))
             {
                 return true;
             }
