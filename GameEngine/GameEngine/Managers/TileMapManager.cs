@@ -44,7 +44,7 @@ internal static class TileMapManager
     {
         foreach (var tileItem in TileMap)
         {
-            var offset = FollowCamera.Position;
+            var offset = Camera.Position;
             var dest = new Rectangle(
                     (int)tileItem.Key.X * Sprite.Pixels + (int)offset.X,
                     (int)tileItem.Key.Y * Sprite.Pixels + (int)offset.Y,

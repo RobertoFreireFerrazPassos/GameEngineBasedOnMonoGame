@@ -16,7 +16,7 @@ internal class Player : Object
     {
         Speed = 2;
 
-        var animations = new Dictionary<AnimationEnum, Sprites.Animation>
+        var animations = new Dictionary<AnimationEnum, Animation>
             {
                 {
                     AnimationEnum.IDLE,
@@ -70,6 +70,8 @@ internal class Player : Object
                 Alive = false;
             }
         }
+
+        Camera.Update(X, Y);
 
         void SetDirection()
         {

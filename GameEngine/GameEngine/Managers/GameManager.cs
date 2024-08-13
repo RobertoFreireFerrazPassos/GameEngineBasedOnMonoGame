@@ -27,10 +27,10 @@ internal class GameManager : ISceneManager
         {
             new Rectangle(0 * pixels, 1 * pixels, pixels, pixels)
         };
-        
-        _player = new Player(0, 0);
-        FollowCamera.LoadFollowCamera(Vector2.Zero);
-        _enemies.Add(new Enemy(50, 50));
+        Camera.LoadCamera(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight);
+        _player = new Player(pixels, pixels);
+        _enemies.Add(new Enemy(pixels, 3 * pixels));
+        _enemies.Add(new Enemy(2 *pixels, 3 * pixels));
     }
 
     public void Update(GameTime gameTime)
@@ -46,8 +46,6 @@ internal class GameManager : ISceneManager
     {
         var batch = SpriteManager.SpriteBatch;
         batch.Begin(samplerState: SamplerState.PointClamp);
-
-        FollowCamera.Follow(_player.GetBox(), new Vector2(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight));
 
         TileMapManager.Draw(batch, gameTime);
 
