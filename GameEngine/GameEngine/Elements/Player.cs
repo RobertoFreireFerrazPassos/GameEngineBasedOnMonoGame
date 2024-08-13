@@ -1,5 +1,6 @@
 ﻿using GameEngine.Elements.Sprites;
 using GameEngine.Enums;
+using GameEngine.Managers;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -52,7 +53,7 @@ internal class Player : Object
                     , animations
                     , AnimationEnum.IDLE
                 );
-        CollisionBox = new CollisionBox(2, 2, 36, 36);        
+        CollisionBox = new CollisionBox(2, 2, 38, 36);        
     }
 
     public void Update(GameTime gameTime, List<Enemy> enemies)
@@ -100,9 +101,23 @@ internal class Player : Object
             {
                 direction.Normalize();
             }
-            
+
+            var tempX = X;
+            var tempY = Y;
+
             X += direction.X * Speed * elapsedTime;
+
+            if (TileMapManager.IsCollidingWithTiles(GetBox()))
+            {
+                X = tempX;
+            }
+
             Y += direction.Y * Speed * elapsedTime;
+
+            if (TileMapManager.IsCollidingWithTiles(GetBox()))
+            {
+                Y = tempY;
+            }
         }
 
         void UpdateAnimation()

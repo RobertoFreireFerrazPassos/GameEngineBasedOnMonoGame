@@ -2,7 +2,6 @@
 using GameEngine.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Elements;
@@ -54,7 +53,7 @@ internal abstract class Object
         );
     }
 
-    public Rectangle GetBox()
+    public virtual Rectangle GetBox()
     {
         return new Rectangle((int)X + CollisionBox.X, (int)Y + CollisionBox.Y, CollisionBox.Width, CollisionBox.Height);
     }

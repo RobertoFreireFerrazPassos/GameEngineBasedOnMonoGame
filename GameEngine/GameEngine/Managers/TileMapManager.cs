@@ -62,4 +62,24 @@ internal static class TileMapManager
             );
         }
     }
+
+    public static bool IsCollidingWithTiles(Rectangle playerRect)
+    {
+        foreach (var tileItem in TileMap)
+        {
+            var tileRect = new Rectangle(
+                (int)tileItem.Key.X * Sprite.Pixels,
+                (int)tileItem.Key.Y * Sprite.Pixels,
+                Sprite.Pixels,
+                Sprite.Pixels
+            );
+
+            if (playerRect.Intersects(tileRect))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
