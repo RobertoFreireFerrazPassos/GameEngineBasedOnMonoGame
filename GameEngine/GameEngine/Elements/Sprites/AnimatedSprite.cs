@@ -8,8 +8,6 @@ namespace GameEngine.Elements.Sprites;
 
 internal class AnimatedSprite
 {
-    public Texture Texture;
-
     public Dictionary<AnimationEnum, Animation> Animations = new Dictionary<AnimationEnum, Animation>();
 
     public SpriteEffects FlipHorizontally; 
@@ -49,12 +47,10 @@ internal class AnimatedSprite
     public Order Ordering = new Order();
 
     public AnimatedSprite(
-        Texture texture, 
         Color color,
         Dictionary<AnimationEnum, Animation> animations,
         AnimationEnum state)
     {
-        Texture = texture;
         Color = color;
         Animations = animations;
         State = state;

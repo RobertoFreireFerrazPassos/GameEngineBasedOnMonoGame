@@ -119,7 +119,7 @@ internal class StartManager : ISceneManager
     private void DrawFirstImage(SpriteBatch batch, Color color)
     {
         var pixels = Constants.Sprite.Pixels;
-        var texture = TextureManager.Textures.GetValueOrDefault(Constants.Sprite.Sprites);
+        var texture = TextureManager.Texture;
         (int x, int y) = SpriteManager.ConvertNumberToXY(40, texture.Rows, texture.Columns);
 
         batch.Draw(

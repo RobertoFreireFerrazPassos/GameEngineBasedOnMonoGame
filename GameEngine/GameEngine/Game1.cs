@@ -15,7 +15,7 @@ namespace GameEngine
         public Game1()
         {
             var graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             SpriteManager.LoadSpriteManager(graphics);
             TextureManager.LoadTextureManager(Content);
             _gameManager = new GameManager(graphics);

@@ -9,15 +9,15 @@ namespace GameEngine.Elements;
 
 internal class Enemy : Object
 {
-    public Enemy(int x, int y, Texture texture) : base(x, y)
+    public Enemy(int x, int y) : base(x, y)
     {
         Speed = 2;
 
-        var animations = new Dictionary<AnimationEnum, Sprites.Animation>
+        var animations = new Dictionary<AnimationEnum, Animation>
             {
                 {
                     AnimationEnum.IDLE,
-                    new Sprites.Animation()
+                    new Animation()
                     {
                         Frames = new int[] { 6 },
                         FrameDuration = TimeSpan.FromMilliseconds(300),
@@ -27,8 +27,7 @@ internal class Enemy : Object
             };
 
         AnimatedSprite = new AnimatedSprite(
-                    texture
-                    , Color.White
+                    Color.White
                     , animations
                     , AnimationEnum.IDLE
                 );

@@ -1,8 +1,8 @@
 ﻿using GameEngine.Elements.Sprites;
-using GameEngine.GameConstants;
 using GameEngine.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Elements;
@@ -27,13 +27,13 @@ internal abstract class Object
 
     public virtual void Draw(SpriteBatch batch, GameTime gameTime, Vector2 offset)
     {
-        var pixels = Constants.Sprite.Pixels;
+        var spriteTexture = TextureManager.Texture;
+        var pixels = Sprite.Pixels;
         AnimatedSprite.Update(gameTime);
-        int number = AnimatedSprite.Sprite;
-        int rows = AnimatedSprite.Texture.Rows;
-        int columns = AnimatedSprite.Texture.Columns;
-        (int x, int y) = SpriteManager.ConvertNumberToXY(number, rows, columns);
-
+        (int x, int y) = SpriteManager.ConvertNumberToXY(
+            AnimatedSprite.Sprite,
+            spriteTexture.Rows,
+            spriteTexture.Columns);
         var box = GetBox();
         var position = new Vector2(
             X + (int)offset.X,
@@ -41,7 +41,7 @@ internal abstract class Object
         );
 
         batch.Draw(
-            AnimatedSprite.Texture.Texture2D,
+            spriteTexture.Texture2D,
             position, 
             new Rectangle(x * pixels, y * pixels, pixels, pixels), 
             AnimatedSprite.Color, 

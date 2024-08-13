@@ -12,7 +12,7 @@ internal class Player : Object
 {
     public bool Alive = true;
 
-    public Player(int x, int y, Texture texture) : base(x, y)
+    public Player(int x, int y) : base(x, y)
     {
         Speed = 2;
 
@@ -48,8 +48,7 @@ internal class Player : Object
             };
 
         AnimatedSprite = new AnimatedSprite(
-                    texture
-                    , Color.White
+                    Color.White
                     , animations
                     , AnimationEnum.IDLE
                 );

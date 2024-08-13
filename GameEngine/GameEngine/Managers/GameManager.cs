@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Managers;
 
@@ -9,7 +10,6 @@ internal class GameManager : ISceneManager
 {
     private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();
-    private TileMap _tileMap = new TileMap();
     private GraphicsDeviceManager _graphicsDeviceManager;
     private bool _firstTime = true;
 
@@ -20,16 +20,17 @@ internal class GameManager : ISceneManager
 
     public void LoadContent()
     {
-        TextureManager.AddTexture(GameConstants.Constants.Sprite.Sprites, 26, 13);
-        LoadGame();
-    }
-
-    private void LoadGame()
-    {
-        var spriteTexture = TextureManager.Textures.GetValueOrDefault(GameConstants.Constants.Sprite.Sprites);
-        _player = new Player(0, 0, spriteTexture);
+        TextureManager.AddTexture(Sprite.Sprites, 26, 13);
+        TileMapManager.LoadTileMap("../../../Data/tilemap.csv");
+        var pixels = Sprite.Pixels;
+        TileMapManager.TextureStore = new()
+        {
+            new Rectangle(0 * pixels, 1 * pixels, pixels, pixels)
+        };
+        
+        _player = new Player(0, 0);
         FollowCamera.LoadFollowCamera(Vector2.Zero);
-        _enemies.Add(new Enemy(50, 50, spriteTexture));
+        _enemies.Add(new Enemy(50, 50));
     }
 
     public void Update(GameTime gameTime)
@@ -47,6 +48,9 @@ internal class GameManager : ISceneManager
         batch.Begin(samplerState: SamplerState.PointClamp);
 
         FollowCamera.Follow(_player.GetBox(), new Vector2(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight));
+
+        TileMapManager.Draw(batch, gameTime, FollowCamera.Position);
+
         _player.Draw(batch, gameTime, FollowCamera.Position);
 
         if (!_player.Alive)
