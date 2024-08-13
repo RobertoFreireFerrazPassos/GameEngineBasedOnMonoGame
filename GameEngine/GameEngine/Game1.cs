@@ -58,6 +58,8 @@ namespace GameEngine
             };
 
             base.Update(gameTime);
+
+            InputUtils.UpdatePreviousState();
         }
 
         protected override void Draw(GameTime gameTime)
