@@ -25,8 +25,9 @@ internal abstract class Object
         Y = y;
     }
 
-    public virtual void Draw(SpriteBatch batch, GameTime gameTime, Vector2 offset)
+    public virtual void Draw(SpriteBatch batch, GameTime gameTime)
     {
+        var offset = FollowCamera.Position;
         var spriteTexture = TextureManager.Texture;
         var pixels = Sprite.Pixels;
         AnimatedSprite.Update(gameTime);

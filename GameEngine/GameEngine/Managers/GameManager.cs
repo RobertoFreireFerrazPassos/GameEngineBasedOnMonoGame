@@ -49,9 +49,9 @@ internal class GameManager : ISceneManager
 
         FollowCamera.Follow(_player.GetBox(), new Vector2(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight));
 
-        TileMapManager.Draw(batch, gameTime, FollowCamera.Position);
+        TileMapManager.Draw(batch, gameTime);
 
-        _player.Draw(batch, gameTime, FollowCamera.Position);
+        _player.Draw(batch, gameTime);
 
         if (!_player.Alive)
         {
@@ -60,7 +60,7 @@ internal class GameManager : ISceneManager
 
         foreach (var eny in _enemies)
         {
-            eny.Draw(batch, gameTime, FollowCamera.Position);
+            eny.Draw(batch, gameTime);
         }
         
         batch.End();

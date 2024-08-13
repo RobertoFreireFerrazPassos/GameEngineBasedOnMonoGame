@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Elements;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -39,11 +40,11 @@ internal static class TileMapManager
         }
     }
 
-    public static void Draw(SpriteBatch batch, GameTime gameTime, Vector2 offset)
+    public static void Draw(SpriteBatch batch, GameTime gameTime)
     {
-        foreach (var tileItem in TileMapManager.TileMap)
+        foreach (var tileItem in TileMap)
         {
-
+            var offset = FollowCamera.Position;
             var dest = new Rectangle(
                     (int)tileItem.Key.X * Sprite.Pixels + (int)offset.X,
                     (int)tileItem.Key.Y * Sprite.Pixels + (int)offset.Y,
@@ -51,7 +52,7 @@ internal static class TileMapManager
                     Sprite.Pixels
                 );
 
-            var src = TileMapManager.TextureStore[tileItem.Value - 1];
+            var src = TextureStore[tileItem.Value - 1];
 
             batch.Draw(
                 TextureManager.Texture.Texture2D,

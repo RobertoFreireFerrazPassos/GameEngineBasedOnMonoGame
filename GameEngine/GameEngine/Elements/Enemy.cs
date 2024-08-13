@@ -38,8 +38,8 @@ internal class Enemy : Object
     {
     }
 
-    public override void Draw(SpriteBatch batch, GameTime gameTime, Vector2 offset)
+    public override void Draw(SpriteBatch batch, GameTime gameTime)
     {
-        base.Draw(batch, gameTime, offset);
+        base.Draw(batch, gameTime);
     }
 }
