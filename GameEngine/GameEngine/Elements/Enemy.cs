@@ -41,7 +41,7 @@ public class Enemy : Object
         CollisionBox = new CollisionBox(6, 17, 28, 18);
     }
 
-    public void Update(GameTime gameTime, Player player)
+    public void Update(GameTime gameTime, Player player, List<Enemy> enemies)
     {
         if (_state == 0 || _state == 1)
         {
@@ -49,7 +49,7 @@ public class Enemy : Object
         }
         else if (_state == 2)
         {
-            Move(gameTime);
+            Move(gameTime, enemies);
         }
     }
 
@@ -108,7 +108,7 @@ public class Enemy : Object
         return false; // No obstacle was found along the line
     }
     
-    private void Move(GameTime gameTime)
+    private void Move(GameTime gameTime, List<Enemy> enemies)
     {
         var seconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
         _movingTime -= seconds;
@@ -125,7 +125,7 @@ public class Enemy : Object
             CreateNewDirection();
         }
         
-        UpdatePosition(gameTime);
+        UpdatePosition(gameTime, enemies);
     }
 
     private void CreateNewDirection()
@@ -143,7 +143,7 @@ public class Enemy : Object
         }
     }
 
-    private void UpdatePosition(GameTime gameTime)
+    private void UpdatePosition(GameTime gameTime, List<Enemy> enemies)
     {
         var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / GameConstants.Constants.Config.SixtyFramesASecond);
 
@@ -152,17 +152,30 @@ public class Enemy : Object
 
         Position.X += _direction.X * Speed * elapsedTime;
 
-        if (TileMapManager.IsCollidingWithTiles(GetBox()))
+        if (TileMapManager.IsCollidingWithTiles(GetBox()) || DetectCollisionWithEnemies(enemies))
         {
             Position.X = tempX;
         }
 
         Position.Y += _direction.Y * Speed * elapsedTime;
 
-        if (TileMapManager.IsCollidingWithTiles(GetBox()))
+        if (TileMapManager.IsCollidingWithTiles(GetBox()) || DetectCollisionWithEnemies(enemies))
         {
             Position.Y = tempY;
         }
+    }
+
+    private bool DetectCollisionWithEnemies(List<Enemy> enemies)
+    {
+        foreach (var enemy in enemies)
+        { 
+            if (enemy != this && GetBox().Intersects(enemy.GetBox()))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public override void Draw(SpriteBatch batch, GameTime gameTime)

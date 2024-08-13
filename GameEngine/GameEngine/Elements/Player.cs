@@ -11,8 +11,6 @@ namespace GameEngine.Elements;
 
 public class Player : Object
 {
-    public bool Alive = true;
-
     public Player(int x, int y) : base(x, y)
     {
         Speed = 2;
@@ -64,11 +62,12 @@ public class Player : Object
         SetDirection();
         UpdateAnimation();
 
+        Speed = 2;
         foreach (var enemy in enemies)
         {
             if (GetBox().Intersects(enemy.GetBox()))
             {
-                Alive = false;
+                Speed = 1;
             }
         }
 
@@ -95,7 +94,6 @@ public class Player : Object
             {
                 direction.X -= 1;
             }
-            
 
             if (direction != Vector2.Zero)
             {

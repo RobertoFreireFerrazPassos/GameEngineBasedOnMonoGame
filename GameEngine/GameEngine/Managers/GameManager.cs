@@ -30,6 +30,9 @@ public class GameManager : ISceneManager
         Camera.LoadCamera(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight);
         _player = new Player(8 * pixels, 3 * pixels);
         _enemies.Add(new Enemy(8 * pixels, 8 * pixels));
+        _enemies.Add(new Enemy(9 * pixels, 8 * pixels));
+        _enemies.Add(new Enemy(3 * pixels, 8 * pixels));
+        _enemies.Add(new Enemy(4 * pixels, 8 * pixels));
     }
 
     public void Update(GameTime gameTime)
@@ -37,7 +40,7 @@ public class GameManager : ISceneManager
         _player.Update(gameTime, _enemies); 
         foreach (var eny in _enemies)
         {
-            eny.Update(gameTime, _player);
+            eny.Update(gameTime, _player, _enemies);
         }
     }
 
@@ -49,11 +52,6 @@ public class GameManager : ISceneManager
         TileMapManager.Draw(batch, gameTime);
 
         _player.Draw(batch, gameTime);
-
-        if (!_player.Alive)
-        {
-            batch.DrawString(SpriteManager.Font, "You Died", new Vector2(350, 200), Color.Red);
-        }
 
         foreach (var eny in _enemies)
         {
