@@ -31,6 +31,8 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
+            // Remove after finish game
+            SceneManager.Scene = SceneEnum.GAME;
             SpriteManager.LoadSpriteBatch(GraphicsDevice, Content.Load<SpriteFont>("Fonts/8bitOperatorPlus-Bold"));
             _startManager.LoadContent();
             _menuManager.LoadContent();
