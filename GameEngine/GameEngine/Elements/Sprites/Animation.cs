@@ -2,7 +2,7 @@
 
 namespace GameEngine.Elements.Sprites;
 
-internal class Animation
+public class Animation
 {
     public int[] Frames;
 

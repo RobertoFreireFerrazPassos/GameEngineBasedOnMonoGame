@@ -7,7 +7,7 @@ using GameEngine.Enums;
 
 namespace GameEngine.Elements;
 
-internal class Enemy : Object
+public class Enemy : Object
 {
     public Enemy(int x, int y) : base(x, y)
     {

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Managers;
 
-internal static class TextureManager
+public static class TextureManager
 {
     public static Elements.Texture Texture { get; set; }
 

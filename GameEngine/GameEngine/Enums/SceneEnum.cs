@@ -1,6 +1,6 @@
 ﻿namespace GameEngine.Enums;
 
-internal enum SceneEnum
+public enum SceneEnum
 {
     START,
     MENU,

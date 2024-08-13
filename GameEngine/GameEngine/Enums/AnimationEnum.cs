@@ -1,6 +1,6 @@
 ﻿namespace GameEngine.Enums;
 
-internal enum AnimationEnum
+public enum AnimationEnum
 {
     IDLE,
     MOVING,

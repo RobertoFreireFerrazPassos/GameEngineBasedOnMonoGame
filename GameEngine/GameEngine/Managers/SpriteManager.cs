@@ -4,7 +4,7 @@ using System;
 
 namespace GameEngine.Managers;
 
-internal static class SpriteManager
+public static class SpriteManager
 {
     private static GraphicsDeviceManager _graphics;
 

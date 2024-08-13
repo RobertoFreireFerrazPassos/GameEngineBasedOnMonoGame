@@ -2,7 +2,7 @@
 
 namespace GameEngine.Elements;
 
-internal static class Camera
+public static class Camera
 {
     public static Vector2 Position = new Vector2(0, 0);
 

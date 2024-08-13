@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace GameEngine.Elements;
 
-internal class Player : Object
+public class Player : Object
 {
     public bool Alive = true;
 
@@ -72,7 +72,7 @@ internal class Player : Object
             }
         }
 
-        Camera.Update(X, Y);
+        Camera.Update(Position.X, Position.Y);
 
         void SetDirection()
         {
@@ -102,21 +102,21 @@ internal class Player : Object
                 direction.Normalize();
             }
 
-            var tempX = X;
-            var tempY = Y;
+            var tempX = Position.X;
+            var tempY = Position.Y;
 
-            X += direction.X * Speed * elapsedTime;
+            Position.X += direction.X * Speed * elapsedTime;
 
             if (TileMapManager.IsCollidingWithTiles(GetBox()))
             {
-                X = tempX;
+                Position.X = tempX;
             }
 
-            Y += direction.Y * Speed * elapsedTime;
+            Position.Y += direction.Y * Speed * elapsedTime;
 
             if (TileMapManager.IsCollidingWithTiles(GetBox()))
             {
-                Y = tempY;
+                Position.Y = tempY;
             }
         }
 

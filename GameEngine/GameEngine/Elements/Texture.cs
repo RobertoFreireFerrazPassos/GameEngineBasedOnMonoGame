@@ -2,7 +2,7 @@
 
 namespace GameEngine.Elements;
 
-internal class Texture
+public class Texture
 {
     public Texture2D Texture2D { get; set; }
 

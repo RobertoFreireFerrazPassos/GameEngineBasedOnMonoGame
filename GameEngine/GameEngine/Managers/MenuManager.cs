@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Managers;
 
-internal class MenuManager : ISceneManager
+public class MenuManager : ISceneManager
 {
     public MenuManager()
     {

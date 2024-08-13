@@ -6,7 +6,7 @@ using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Managers;
 
-internal class GameManager : ISceneManager
+public class GameManager : ISceneManager
 {
     private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();

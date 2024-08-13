@@ -7,7 +7,7 @@ using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Managers;
 
-internal static class TileMapManager
+public static class TileMapManager
 {
     public static Dictionary<Vector2, int> TileMap {  get; set; }
 

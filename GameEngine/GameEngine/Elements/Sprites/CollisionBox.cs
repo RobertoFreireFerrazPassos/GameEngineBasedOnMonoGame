@@ -1,6 +1,6 @@
 ﻿namespace GameEngine.Elements.Sprites;
 
-internal class CollisionBox
+public class CollisionBox
 {
     public int X { get; private set; }
     public int Y { get; private set; }

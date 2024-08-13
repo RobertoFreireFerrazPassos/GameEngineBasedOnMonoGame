@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GameEngine.Utils;
 
-internal class InputUtils
+public class InputUtils
 {
     private static float _sensibility = GameConstants.Constants.Config.InputSensibility;
 

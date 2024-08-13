@@ -2,7 +2,7 @@
 
 namespace GameEngine.Managers;
 
-internal interface ISceneManager
+public interface ISceneManager
 {
     public void LoadContent();
 

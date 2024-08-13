@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace GameEngine.Elements.Sprites;
 
-internal class AnimatedSprite
+public class AnimatedSprite
 {
     public Dictionary<AnimationEnum, Animation> Animations = new Dictionary<AnimationEnum, Animation>();
 

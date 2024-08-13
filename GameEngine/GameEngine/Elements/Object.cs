@@ -6,11 +6,9 @@ using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Elements;
 
-internal abstract class Object
+public abstract class Object
 {
-    public float X;
-
-    public float Y;
+    public Vector2 Position;
 
     public int Speed;
 
@@ -20,8 +18,7 @@ internal abstract class Object
 
     public Object(int x, int y)
     {
-        X = x;
-        Y = y;
+        Position = new Vector2(x, y);
     }
 
     public virtual void Draw(SpriteBatch batch, GameTime gameTime)
@@ -36,8 +33,8 @@ internal abstract class Object
             spriteTexture.Columns);
         var box = GetBox();
         var position = new Vector2(
-            X + (int)offset.X,
-            Y + (int)offset.Y
+            Position.X + (int)offset.X,
+            Position.Y + (int)offset.Y
         );
 
         batch.Draw(
@@ -55,6 +52,6 @@ internal abstract class Object
 
     public virtual Rectangle GetBox()
     {
-        return new Rectangle((int)X + CollisionBox.X, (int)Y + CollisionBox.Y, CollisionBox.Width, CollisionBox.Height);
+        return new Rectangle((int)Position.X + CollisionBox.X, (int)Position.Y + CollisionBox.Y, CollisionBox.Width, CollisionBox.Height);
     }
 }
