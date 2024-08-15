@@ -30,7 +30,7 @@ public abstract class Object
 
         var offset = Camera.Position;
         var spriteTexture = TextureManager.Texture;
-        var pixels = Sprite.Pixels;
+        var pixels = AnimatedSprite.Pixels;
         AnimatedSprite.Update(gameTime);
         (int x, int y) = SpriteManager.ConvertNumberToXY(
             AnimatedSprite.Sprite,

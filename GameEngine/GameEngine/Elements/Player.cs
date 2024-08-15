@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Elements;
 
@@ -19,7 +20,7 @@ public class Player : Object
             {
                 {
                     AnimationEnum.IDLE,
-                    new Sprites.Animation()
+                    new Animation()
                     {
                         Frames = new int[] { 2 },
                         FrameDuration = TimeSpan.FromMilliseconds(300),
@@ -28,7 +29,7 @@ public class Player : Object
                 },
                 {
                     AnimationEnum.UP,
-                    new Sprites.Animation()
+                    new Animation()
                     {
                         Frames = new int[] { 4, 5 },
                         FrameDuration = TimeSpan.FromMilliseconds(300),
@@ -37,7 +38,7 @@ public class Player : Object
                 },
                 {
                     AnimationEnum.MOVING,
-                    new Sprites.Animation()
+                    new Animation()
                     {
                         Frames = new int[] { 2, 3 },
                         FrameDuration = TimeSpan.FromMilliseconds(300),
@@ -50,6 +51,7 @@ public class Player : Object
                     Color.White
                     , animations
                     , AnimationEnum.IDLE
+                    , Sprite.Pixels
                 );
         CollisionBox = new CollisionBox(2, 2, 38, 36);        
     }

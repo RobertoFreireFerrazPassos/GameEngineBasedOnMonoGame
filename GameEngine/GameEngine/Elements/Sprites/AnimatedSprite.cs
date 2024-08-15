@@ -42,6 +42,8 @@ public class AnimatedSprite
 
     public Color Color;
 
+    public int Pixels;
+
     public Visibility Visibility  = new Visibility();
 
     public Order Ordering = new Order();
@@ -49,12 +51,14 @@ public class AnimatedSprite
     public AnimatedSprite(
         Color color,
         Dictionary<AnimationEnum, Animation> animations,
-        AnimationEnum state)
+        AnimationEnum state,
+        int pixels)
     {
         Color = color;
         Animations = animations;
         State = state;
         ElapsedTime = TimeSpan.Zero;
+        Pixels = pixels;
     }
 
     public void Update(GameTime gameTime)

@@ -6,6 +6,7 @@ using System;
 using GameEngine.Enums;
 using GameEngine.GameConstants;
 using GameEngine.Managers;
+using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Elements;
 
@@ -37,6 +38,7 @@ public class Enemy : Object
                     Color.White
                     , animations
                     , AnimationEnum.IDLE
+                    , Sprite.Pixels
                 );
         CollisionBox = new CollisionBox(6, 17, 28, 18);
     }
