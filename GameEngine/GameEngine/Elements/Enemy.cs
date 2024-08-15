@@ -14,7 +14,7 @@ public class Enemy : Object
     private int _state; // 0- far 1- wall  2-find
     private Vector2 _playerPosition;
     private Vector2 _direction = Vector2.Zero;
-    private float _movingTime = 1f;
+    private float _movingTime = 0.5f;
 
     public Enemy(int x, int y) : base(x, y)
     {
@@ -58,6 +58,11 @@ public class Enemy : Object
         var plyCenter = player.GetBox().Center.ToVector2();
         var enemyCenter = GetBox().Center.ToVector2();
         var distance = Vector2.Distance(plyCenter, enemyCenter);
+
+        if (distance < 0.4f * Constants.Sprite.Pixels)
+        {
+            return;
+        }
 
         if (distance > 4 * Constants.Sprite.Pixels)
         {
@@ -115,7 +120,7 @@ public class Enemy : Object
 
         if (_movingTime <= 0)
         {
-            _movingTime = 1f;
+            _movingTime = 0.5f;
             _direction = Vector2.Zero;
             _state = 0;
         }
