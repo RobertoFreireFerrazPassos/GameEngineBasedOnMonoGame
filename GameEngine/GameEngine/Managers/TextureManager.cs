@@ -15,13 +15,14 @@ public static class TextureManager
         Content = content;
     }
 
-    public static void AddTexture(string textureKey, int rows, int columns)
+    public static void AddTexture(string textureKey, int rows, int columns, int pixels)
     {
         Texture = new Elements.Texture()
         {
             Texture2D = Content.Load<Texture2D>(textureKey),
             Rows = rows,
-            Columns = columns
+            Columns = columns,
+            Pixels = pixels
         };
     }
 }

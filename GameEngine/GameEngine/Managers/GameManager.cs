@@ -21,13 +21,16 @@ public class GameManager : ISceneManager
 
     public void LoadContent()
     {
-        TextureManager.AddTexture(Sprite.Sprites, 26, 13);
-        TileMapManager.LoadTileMap("../../../Data/tilemap.csv");
         var pixels = Sprite.Pixels;
-        TileMapManager.TextureStore = new()
-        {
-            new Rectangle(0 * pixels, 1 * pixels, pixels, pixels)
-        };
+        TextureManager.AddTexture(Sprite.Sprites, 26, 13, pixels);
+        TileMapManager.LoadTileMap(
+            "../../../Data/tilemap.csv",
+            new()
+            {
+                new Rectangle(0 * pixels, 1 * pixels, pixels, pixels)
+            },
+            pixels
+        );
         Camera.LoadCamera(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight);
         _player = new Player(8 * pixels, 3 * pixels);
         _enemies.Add(new Enemy(8 * pixels, 8 * pixels));

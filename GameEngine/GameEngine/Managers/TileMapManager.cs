@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
-using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Managers;
 
@@ -12,9 +11,13 @@ public static class TileMapManager
     public static Dictionary<Vector2, int> TileMap {  get; set; }
 
     public static List<Rectangle> TextureStore { get; set; }
+    
+    public static int Pixels;
 
-    public static void LoadTileMap(string filePath)
+    public static void LoadTileMap(string filePath, List<Rectangle> textureStore, int pixels)
     {
+        TextureStore = textureStore;
+        Pixels = pixels;
         TileMap = new Dictionary<Vector2, int>();
 
         var reader = new StreamReader(filePath);
@@ -42,14 +45,14 @@ public static class TileMapManager
 
     public static void Draw(SpriteBatch batch, GameTime gameTime)
     {
+        var offset = Camera.Position;
         foreach (var tileItem in TileMap)
         {
-            var offset = Camera.Position;
             var dest = new Rectangle(
-                    (int)tileItem.Key.X * Sprite.Pixels + (int)offset.X,
-                    (int)tileItem.Key.Y * Sprite.Pixels + (int)offset.Y,
-                    Sprite.Pixels,
-                    Sprite.Pixels
+                    (int)tileItem.Key.X * Pixels + (int)offset.X,
+                    (int)tileItem.Key.Y * Pixels + (int)offset.Y,
+                    Pixels,
+                    Pixels
                 );
 
             var src = TextureStore[tileItem.Value - 1];
@@ -68,10 +71,10 @@ public static class TileMapManager
         foreach (var tileItem in TileMap)
         {
             var tileRect = new Rectangle(
-                (int)tileItem.Key.X * Sprite.Pixels,
-                (int)tileItem.Key.Y * Sprite.Pixels,
-                Sprite.Pixels,
-                Sprite.Pixels
+                (int)tileItem.Key.X * Pixels,
+                (int)tileItem.Key.Y * Pixels,
+                Pixels,
+                Pixels
             );
 
             if (tileRect.Intersects(playerRect))
@@ -88,10 +91,10 @@ public static class TileMapManager
         foreach (var tileItem in TileMap)
         {
             var tileRect = new Rectangle(
-                (int)tileItem.Key.X * Sprite.Pixels,
-                (int)tileItem.Key.Y * Sprite.Pixels,
-                Sprite.Pixels,
-                Sprite.Pixels
+                (int)tileItem.Key.X * Pixels,
+                (int)tileItem.Key.Y * Pixels,
+                Pixels,
+                Pixels
             );
 
             if (tileRect.Contains(position))

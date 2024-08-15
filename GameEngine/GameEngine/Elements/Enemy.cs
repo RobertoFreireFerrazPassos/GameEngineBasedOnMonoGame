@@ -61,12 +61,12 @@ public class Enemy : Object
         var enemyCenter = GetBox().Center.ToVector2();
         var distance = Vector2.Distance(plyCenter, enemyCenter);
 
-        if (distance < 0.4f * Constants.Sprite.Pixels)
+        if (distance < 0.4f * AnimatedSprite.Pixels)
         {
             return;
         }
 
-        if (distance > 4 * Constants.Sprite.Pixels)
+        if (distance > 4 * AnimatedSprite.Pixels)
         {
             _state = 0;
             return;
