@@ -2,5 +2,5 @@
 
 public class Visibility
 {
-    public bool Visible { get; set; } = false;
+    public bool Visible { get; set; } = true;
 }

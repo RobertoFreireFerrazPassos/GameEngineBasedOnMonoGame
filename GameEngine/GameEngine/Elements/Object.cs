@@ -23,6 +23,11 @@ public abstract class Object
 
     public virtual void Draw(SpriteBatch batch, GameTime gameTime)
     {
+        if (!AnimatedSprite.Visibility.Visible)
+        {
+            return;
+        }
+
         var offset = Camera.Position;
         var spriteTexture = TextureManager.Texture;
         var pixels = Sprite.Pixels;
