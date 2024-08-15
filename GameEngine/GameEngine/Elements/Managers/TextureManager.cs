@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine.Managers;
+namespace GameEngine.Elements.Managers;
 
 public static class TextureManager
 {
-    public static Elements.Texture Texture { get; set; }
+    public static Texture Texture { get; set; }
 
     private static ContentManager Content;
 
@@ -17,7 +17,7 @@ public static class TextureManager
 
     public static void AddTexture(string textureKey, int rows, int columns, int pixels)
     {
-        Texture = new Elements.Texture()
+        Texture = new Texture()
         {
             Texture2D = Content.Load<Texture2D>(textureKey),
             Rows = rows,

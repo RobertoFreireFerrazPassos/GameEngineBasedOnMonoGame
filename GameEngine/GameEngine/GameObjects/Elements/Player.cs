@@ -1,6 +1,7 @@
-﻿using GameEngine.Elements.Sprites;
+﻿using GameEngine.Elements;
+using GameEngine.Elements.Managers;
+using GameEngine.Elements.Sprites;
 using GameEngine.Enums;
-using GameEngine.Managers;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,9 +9,9 @@ using System;
 using System.Collections.Generic;
 using static GameEngine.GameConstants.Constants;
 
-namespace GameEngine.Elements;
+namespace GameEngine.GameObjects.Elements;
 
-public class Player : Object
+public class Player : SpriteObject
 {
     public Player(int x, int y) : base(x, y)
     {
@@ -51,15 +52,15 @@ public class Player : Object
                     Color.White
                     , animations
                     , AnimationEnum.IDLE
-                    , Sprite.Pixels
+                    , 40
                 );
-        CollisionBox = new CollisionBox(2, 2, 38, 36);        
+        CollisionBox = new CollisionBox(2, 2, 38, 36);
     }
 
     public void Update(GameTime gameTime, List<Enemy> enemies)
     {
         var direction = Vector2.Zero;
-        var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / GameConstants.Constants.Config.SixtyFramesASecond);
+        var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / Config.SixtyFramesASecond);
 
         SetDirection();
         UpdateAnimation();
@@ -143,7 +144,7 @@ public class Player : Object
     }
 
     public override void Draw(SpriteBatch batch, GameTime gameTime)
-    {        
+    {
         base.Draw(batch, gameTime);
     }
 }

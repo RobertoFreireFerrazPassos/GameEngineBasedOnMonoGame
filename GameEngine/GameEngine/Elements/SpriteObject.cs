@@ -1,12 +1,11 @@
-﻿using GameEngine.Elements.Sprites;
-using GameEngine.Managers;
+﻿using GameEngine.Elements.Managers;
+using GameEngine.Elements.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.Elements;
 
-public abstract class Object
+public abstract class SpriteObject
 {
     public Vector2 Position;
 
@@ -16,7 +15,7 @@ public abstract class Object
 
     public CollisionBox CollisionBox;
 
-    public Object(int x, int y)
+    public SpriteObject(int x, int y)
     {
         Position = new Vector2(x, y);
     }

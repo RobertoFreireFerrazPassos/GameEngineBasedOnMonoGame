@@ -1,12 +1,13 @@
 ﻿using GameEngine.Elements;
+using GameEngine.Elements.Managers;
 using GameEngine.Enums;
+using GameEngine.GameObjects.Elements;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using static GameEngine.GameConstants.Constants;
 
-namespace GameEngine.Managers;
+namespace GameEngine.GameObjects.Managers;
 
 public class GameManager : ISceneManager
 {
@@ -21,10 +22,10 @@ public class GameManager : ISceneManager
 
     public void LoadContent()
     {
-        var pixels = Sprite.Pixels;
-        TextureManager.AddTexture(Sprite.Sprites, 26, 13, pixels);
+        var pixels = 40;
+        TextureManager.AddTexture("Sprite-0001", 26, 13, pixels);
         TileMapManager.LoadTileMap(
-            "../../../Data/tilemap.csv",
+            "../../../Tilemaps/tilemap.csv",
             new()
             {
                 new Rectangle(0 * pixels, 1 * pixels, pixels, pixels)
@@ -43,10 +44,10 @@ public class GameManager : ISceneManager
     {
         if (InputUtils.IsKeyJustPressed(InputEnum.ENTER))
         {
-            SceneManager.Scene = SceneEnum.MENU;
+            GlobalManager.Scene = SceneEnum.MENU;
         }
 
-        _player.Update(gameTime, _enemies); 
+        _player.Update(gameTime, _enemies);
         foreach (var eny in _enemies)
         {
             eny.Update(gameTime, _player, _enemies);
@@ -66,7 +67,7 @@ public class GameManager : ISceneManager
         {
             eny.Draw(batch, gameTime);
         }
-        
+
         batch.End();
     }
 }

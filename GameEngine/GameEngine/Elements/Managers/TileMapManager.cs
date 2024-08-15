@@ -4,14 +4,14 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
 
-namespace GameEngine.Managers;
+namespace GameEngine.Elements.Managers;
 
 public static class TileMapManager
 {
-    public static Dictionary<Vector2, int> TileMap {  get; set; }
+    public static Dictionary<Vector2, int> TileMap { get; set; }
 
     public static List<Rectangle> TextureStore { get; set; }
-    
+
     public static int Pixels;
 
     public static void LoadTileMap(string filePath, List<Rectangle> textureStore, int pixels)
@@ -28,7 +28,7 @@ public static class TileMapManager
         {
             string[] items = line.Split(',');
 
-            for (int x = 0;  x < items.Length; x++)
+            for (int x = 0; x < items.Length; x++)
             {
                 if (int.TryParse(items[x], out int value))
                 {

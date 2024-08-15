@@ -1,5 +1,6 @@
-﻿using GameEngine.Enums;
-using GameEngine.Managers;
+﻿using GameEngine.Elements.Managers;
+using GameEngine.Enums;
+using GameEngine.GameObjects.Managers;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -32,7 +33,7 @@ namespace GameEngine
         protected override void LoadContent()
         {
             // Remove after finish game
-            SceneManager.Scene = SceneEnum.GAME;
+            GlobalManager.Scene = SceneEnum.START;
             SpriteManager.LoadSpriteBatch(GraphicsDevice, Content.Load<SpriteFont>("Fonts/8bitOperatorPlus-Bold"));
             _startManager.LoadContent();
             _menuManager.LoadContent();
@@ -44,7 +45,7 @@ namespace GameEngine
             if (InputUtils.IsKeyDown(InputEnum.ESCAPE))
                 Exit();
 
-            switch (SceneManager.Scene)
+            switch (GlobalManager.Scene)
             {
                 case SceneEnum.START:
                     _startManager.Update(gameTime);
@@ -66,7 +67,7 @@ namespace GameEngine
         {
             GraphicsDevice.Clear(Color.Black);
 
-            switch (SceneManager.Scene)
+            switch (GlobalManager.Scene)
             {
                 case SceneEnum.START:
                     _startManager.Draw(gameTime);

@@ -1,9 +1,10 @@
-﻿using GameEngine.Enums;
+﻿using GameEngine.Elements.Managers;
+using GameEngine.Enums;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine.Managers;
+namespace GameEngine.GameObjects.Managers;
 
 public class MenuManager : ISceneManager
 {
@@ -19,8 +20,8 @@ public class MenuManager : ISceneManager
     {
         if (InputUtils.IsKeyJustPressed(InputEnum.ENTER))
         {
-            SceneManager.Scene = SceneEnum.GAME;
-        }            
+            GlobalManager.Scene = SceneEnum.GAME;
+        }
     }
 
     public void Draw(GameTime gameTime)

@@ -1,8 +1,8 @@
 ﻿using GameEngine.Enums;
 
-namespace GameEngine.Managers;
+namespace GameEngine.Elements.Managers;
 
-public static class SceneManager
+public static class GlobalManager
 {
     public static SceneEnum Scene { get; set; }
 }

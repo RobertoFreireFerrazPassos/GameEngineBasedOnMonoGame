@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace GameEngine.Managers;
+namespace GameEngine.Elements.Managers;
 
 public static class SpriteManager
 {

@@ -1,11 +1,12 @@
-﻿using GameEngine.Enums;
+﻿using GameEngine.Elements.Managers;
+using GameEngine.Enums;
 using GameEngine.GameConstants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine.Managers;
+namespace GameEngine.GameObjects.Managers;
 
 public class StartManager : ISceneManager
 {
@@ -30,7 +31,7 @@ public class StartManager : ISceneManager
 
     public void LoadContent()
     {
-        _introSfx = _content.Load<SoundEffect>(Constants.Audio.Intro);
+        _introSfx = _content.Load<SoundEffect>("Audio/intro");
     }
 
     public void Update(GameTime gameTime)
@@ -87,14 +88,14 @@ public class StartManager : ISceneManager
 
     private void NextScreen()
     {
-        SceneManager.Scene = SceneEnum.MENU;
+        GlobalManager.Scene = SceneEnum.MENU;
         _timer = 0f;
         _opaque = 1f;
     }
 
     private void ApplyFadeOutEffect(float seconds)
     {
-        _opaque -= seconds / (_fadeoutTime);
+        _opaque -= seconds / _fadeoutTime;
     }
 
     public void Draw(GameTime gameTime)
@@ -124,7 +125,7 @@ public class StartManager : ISceneManager
         batch.Draw(
             texture.Texture2D,
             new Vector2(_screenWidth / 2 - 160, _screenHeight / 2 - 80),
-            new Rectangle(x * pixels, y * pixels, 4*pixels, 2*pixels),
+            new Rectangle(x * pixels, y * pixels, 4 * pixels, 2 * pixels),
             color,
             0,
             new Vector2(1, 1),

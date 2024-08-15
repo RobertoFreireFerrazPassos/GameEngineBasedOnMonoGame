@@ -4,13 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 using GameEngine.Enums;
-using GameEngine.GameConstants;
-using GameEngine.Managers;
 using static GameEngine.GameConstants.Constants;
+using GameEngine.Elements.Managers;
+using GameEngine.Elements;
 
-namespace GameEngine.Elements;
+namespace GameEngine.GameObjects.Elements;
 
-public class Enemy : Object
+public class Enemy : SpriteObject
 {
     private int _state; // 0- far 1- wall  2-find
     private Vector2 _playerPosition;
@@ -38,7 +38,7 @@ public class Enemy : Object
                     Color.White
                     , animations
                     , AnimationEnum.IDLE
-                    , Sprite.Pixels
+                    , 40
                 );
         CollisionBox = new CollisionBox(6, 17, 28, 18);
     }
@@ -114,7 +114,7 @@ public class Enemy : Object
 
         return false; // No obstacle was found along the line
     }
-    
+
     private void Move(GameTime gameTime, List<Enemy> enemies)
     {
         var seconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -131,7 +131,7 @@ public class Enemy : Object
         {
             CreateNewDirection();
         }
-        
+
         UpdatePosition(gameTime, enemies);
     }
 
@@ -152,7 +152,7 @@ public class Enemy : Object
 
     private void UpdatePosition(GameTime gameTime, List<Enemy> enemies)
     {
-        var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / GameConstants.Constants.Config.SixtyFramesASecond);
+        var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / Config.SixtyFramesASecond);
 
         var tempX = Position.X;
         var tempY = Position.Y;
@@ -175,7 +175,7 @@ public class Enemy : Object
     private bool DetectCollisionWithEnemies(List<Enemy> enemies)
     {
         foreach (var enemy in enemies)
-        { 
+        {
             if (enemy != this && GetBox().Intersects(enemy.GetBox()))
             {
                 return true;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace GameEngine.Managers;
+namespace GameEngine.Elements.Managers;
 
 public interface ISceneManager
 {
