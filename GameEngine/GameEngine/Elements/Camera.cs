@@ -20,10 +20,10 @@ public static class Camera
         GridSizeHeight = gridSizeHeight;
     }
 
-    public static void Update(float x, float y)
+    public static void Update(Vector2 position)
     {
-        Column = (int)x / GridSizeWidth;
-        Row = (int)y / GridSizeHeight;
+        Column = (int) position.X / GridSizeWidth;
+        Row = (int)position.Y / GridSizeHeight;
         Position = new Vector2(- Column * GridSizeWidth,- Row * GridSizeHeight);
     }
 }

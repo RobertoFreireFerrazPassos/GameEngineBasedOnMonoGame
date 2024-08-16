@@ -74,8 +74,6 @@ public class Player : SpriteObject
             }
         }
 
-        Camera.Update(Position.X, Position.Y);
-
         void SetDirection()
         {
             if (InputUtils.IsKeyDown(InputEnum.UP))

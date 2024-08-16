@@ -53,6 +53,7 @@ public class GameManager : ISceneManager
         {
             eny.Update(gameTime, _player, _enemies);
         }
+        Camera.Update(_player.Position);
     }
 
     public void Draw(GameTime gameTime)
