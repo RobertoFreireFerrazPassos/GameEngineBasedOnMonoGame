@@ -6,6 +6,7 @@ using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GameEngine.GameObjects.Managers;
 
@@ -61,11 +62,14 @@ public class GameManager : ISceneManager
 
         TileMapManager.Draw(batch, gameTime);
 
-        _player.Draw(batch, gameTime);
+        var objSrites = new List<SpriteObject>();
+        objSrites.Add(_player);
+        objSrites.AddRange(_enemies);
+        objSrites = objSrites.OrderBy(obj => obj.AnimatedSprite.Ordering.Z).ToList();
 
-        foreach (var eny in _enemies)
+        foreach (var obj in objSrites)
         {
-            eny.Draw(batch, gameTime);
+            obj.Draw(batch, gameTime);
         }
 
         batch.End();

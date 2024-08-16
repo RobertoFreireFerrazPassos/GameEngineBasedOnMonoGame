@@ -16,7 +16,6 @@ public class Player : SpriteObject
     public Player(int x, int y) : base(x, y)
     {
         Speed = 2;
-
         var animations = new Dictionary<AnimationEnum, Animation>
             {
                 {
@@ -54,6 +53,7 @@ public class Player : SpriteObject
                     , AnimationEnum.IDLE
                     , 40
                 );
+        AnimatedSprite.Ordering.Z = 1;
         CollisionBox = new CollisionBox(2, 2, 38, 36);
     }
 

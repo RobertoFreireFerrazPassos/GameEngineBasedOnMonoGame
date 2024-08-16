@@ -40,6 +40,7 @@ public class Enemy : SpriteObject
                     , AnimationEnum.IDLE
                     , 40
                 );
+        AnimatedSprite.Ordering.Z = 2;
         CollisionBox = new CollisionBox(6, 17, 28, 18);
     }
 
