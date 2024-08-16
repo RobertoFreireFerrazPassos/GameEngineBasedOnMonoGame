@@ -12,6 +12,14 @@ public static class GlobalManager
 
     public static Dictionary<SceneEnum, ISceneManager> Scenes { get; set; } = new Dictionary<SceneEnum, ISceneManager>();
 
+    public static void LoadContent()
+    {
+        foreach (var scene in Scenes)
+        {
+            scene.Value.LoadContent();
+        }
+    }
+
     public static void Update(GameTime gameTime)
     {
         Scenes[Scene].Update(gameTime);

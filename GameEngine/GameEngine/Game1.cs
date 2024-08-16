@@ -32,11 +32,7 @@ namespace GameEngine
         protected override void LoadContent()
         {
             SpriteManager.LoadSpriteBatch(GraphicsDevice, Content.Load<SpriteFont>("Fonts/8bitOperatorPlus-Bold"));
-            
-            foreach (var scene in GlobalManager.Scenes)
-            {
-                scene.Value.LoadContent();
-            }
+            GlobalManager.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
