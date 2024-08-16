@@ -9,19 +9,18 @@ namespace GameEngine
 {
     public class Game1 : Game
     {
-        private GameManager _gameManager;
-        private MenuManager _menuManager;
-        private StartManager _startManager;
-
         public Game1()
         {
             var graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = false;
             SpriteManager.LoadSpriteManager(graphics);
             TextureManager.LoadTextureManager(Content);
-            _gameManager = new GameManager(graphics);
-            _menuManager = new MenuManager();
-            _startManager = new StartManager(graphics, Content);
+
+            GlobalManager.Scene = SceneEnum.START;
+            GlobalManager.Scenes.Add(SceneEnum.START, new StartManager(graphics, Content));
+            GlobalManager.Scenes.Add(SceneEnum.MENU, new MenuManager());
+            GlobalManager.Scenes.Add(SceneEnum.GAME, new GameManager(graphics));            
+
             IsMouseVisible = false;
         }
 
@@ -32,12 +31,12 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            // Remove after finish game
-            GlobalManager.Scene = SceneEnum.START;
             SpriteManager.LoadSpriteBatch(GraphicsDevice, Content.Load<SpriteFont>("Fonts/8bitOperatorPlus-Bold"));
-            _startManager.LoadContent();
-            _menuManager.LoadContent();
-            _gameManager.LoadContent();
+            
+            foreach (var scene in GlobalManager.Scenes)
+            {
+                scene.Value.LoadContent();
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -45,41 +44,14 @@ namespace GameEngine
             if (InputUtils.IsKeyDown(InputEnum.ESCAPE))
                 Exit();
 
-            switch (GlobalManager.Scene)
-            {
-                case SceneEnum.START:
-                    _startManager.Update(gameTime);
-                    break;
-                case SceneEnum.MENU:
-                    _menuManager.Update(gameTime);
-                    break;
-                case SceneEnum.GAME:
-                    _gameManager.Update(gameTime);
-                    break;
-            };
-
+            GlobalManager.Update(gameTime);
             base.Update(gameTime);
-
-            InputUtils.UpdatePreviousState();
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            switch (GlobalManager.Scene)
-            {
-                case SceneEnum.START:
-                    _startManager.Draw(gameTime);
-                    break;
-                case SceneEnum.MENU:
-                    _menuManager.Draw(gameTime);
-                    break;
-                case SceneEnum.GAME:
-                    _gameManager.Draw(gameTime);
-                    break;
-            };
-
+            GlobalManager.Draw(gameTime);
             base.Draw(gameTime);
         }
     }
