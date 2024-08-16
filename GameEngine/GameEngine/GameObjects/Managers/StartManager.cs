@@ -1,6 +1,5 @@
 ﻿using GameEngine.Elements.Managers;
 using GameEngine.Enums;
-using GameEngine.GameConstants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;

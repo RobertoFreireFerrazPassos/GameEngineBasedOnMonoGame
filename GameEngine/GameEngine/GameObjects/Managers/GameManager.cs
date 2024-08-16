@@ -39,6 +39,29 @@ public class GameManager : ISceneManager
         _enemies.Add(new Enemy(9 * pixels, 8 * pixels));
         _enemies.Add(new Enemy(3 * pixels, 8 * pixels));
         _enemies.Add(new Enemy(4 * pixels, 8 * pixels));
+
+        var odeToJoyMelody = new (Note, uint)[]
+        {
+                (Note.E, 5), (Note.E, 5),
+                (Note.F, 5), (Note.G, 5),
+                (Note.G, 5), (Note.F, 5),
+                (Note.E, 5), (Note.D, 5),
+                (Note.C, 5), (Note.C, 5),
+                (Note.D, 5), (Note.E, 5),
+                (Note.E, 5), (Note.D, 5),
+                (Note.D, 10), // Longer note
+
+                (Note.E, 5), (Note.E, 5),
+                (Note.F, 5), (Note.G, 5),
+                (Note.G, 5), (Note.F, 5),
+                (Note.E, 5), (Note.D, 5),
+                (Note.C, 5), (Note.C, 5),
+                (Note.D, 5), (Note.E, 5),
+                (Note.D, 5), (Note.C, 5),
+                (Note.C, 10) // Longer note
+        };
+
+        MusicManager.AddMelody("Ode to Joy", odeToJoyMelody);
     }
 
     public void Update(GameTime gameTime)
@@ -46,6 +69,7 @@ public class GameManager : ISceneManager
         if (InputUtils.IsKeyJustPressed(InputEnum.ENTER))
         {
             GlobalManager.Scene = SceneEnum.MENU;
+            MusicManager.Play("Ode to Joy");
         }
 
         _player.Update(gameTime, _enemies);
