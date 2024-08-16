@@ -59,10 +59,10 @@ public class Melody
         const string fmtChunkID = "fmt ";
         const uint fmtChunkSize = 16;
         const ushort fmtFormatTag = 1; // PCM
-        const ushort fmtChannels = 1;  // Mono
-        const uint fmtSamplesPerSec = 44100; // CD quality sample rate
-        const ushort fmtBitsPerSample = 16;  // 16-bit audio
-        const ushort fmtBlockAlign = (ushort)(fmtChannels * (fmtBitsPerSample / 8));
+        const ushort fmtChannels = 2;  // 1 - Mono 2 - stereo
+        const uint fmtSamplesPerSec = 44100; // sample rate, e.g. CD=44100
+        const ushort fmtBitsPerSample = 16;  // bits per sample
+        const ushort fmtBlockAlign = (ushort)(fmtChannels * (fmtBitsPerSample / 8)); // sample frame size, in bytes
         const uint fmtAvgBytesPerSec = fmtSamplesPerSec * fmtBlockAlign;
         const string dataChunkID = "data";
 
@@ -85,17 +85,23 @@ public class Melody
                 throw new ArgumentException("Invalid note");
             }
 
-            // Calculate number of samples
-            uint numSamples = fmtSamplesPerSec * durationTenthSeconds / 10;
-            byte[] dataByteArray = new byte[numSamples * 2]; // 2 bytes per sample for 16-bit audio
+            // Number of samples = sample rate * channels * bytes per sample * duration in seconds
+            uint numSamples = fmtSamplesPerSec * fmtChannels * durationTenthSeconds / 10;
+            byte[] dataByteArray = new byte[numSamples];
 
             // Generate sine wave data
-            double period = (2.0 * Math.PI * freq) / fmtSamplesPerSec;
-            for (uint i = 0; i < numSamples; i++)
+            int amplitude = 127, offset = 128; // for 8-audio
+            double period = (2.0 * Math.PI * freq) / (fmtSamplesPerSec * fmtChannels);
+            double amp;
+
+            for (uint i = 0; i < numSamples - 1; i+= fmtChannels)
             {
-                short sampleValue = (short)(32767 * Math.Sin(i * period)); // 16-bit range
-                dataByteArray[i * 2] = (byte)(sampleValue & 0xFF);
-                dataByteArray[i * 2 + 1] = (byte)((sampleValue >> 8) & 0xFF);
+                amp = amplitude * (double)(numSamples - i) / numSamples;
+                // Fill with a waveform on each channel with amplitude decay
+                for (int channel = 0; channel < fmtChannels; channel++)
+                {
+                    dataByteArray[i + channel] = Convert.ToByte(amp * Math.Sin(i * period) + offset);
+                }
             }
             
             for (int i= lengthCopied; i <= lengthCopied + dataByteArray.Length - 1; i++)
@@ -106,7 +112,7 @@ public class Melody
         }
 
         // Calculate chunk sizes
-        uint dataChunkSize = (uint)completeDataByteArray.Length;
+        uint dataChunkSize = (uint)completeDataByteArray.Length * (fmtBitsPerSample / 8);
         uint headerFileLength = 4 + (8 + fmtChunkSize) + (8 + dataChunkSize);
 
         writer.Write(headerGroupID.ToCharArray());
