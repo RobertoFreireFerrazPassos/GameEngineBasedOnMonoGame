@@ -7,15 +7,23 @@ namespace GameEngine.Elements.Managers;
 
 public static class TileMapManager
 {
-    public static TileMap TileMap { get; set; }
+    public static Dictionary<string,TileMap> TileMaps = new Dictionary<string, TileMap>();
 
-    public static void LoadTileMap(string filePath, uint positionX, uint positionY, List<Rectangle> textureStore, int pixels)
+    public static List<Rectangle> TextureStore;
+
+    public static int Pixels;
+
+    public static void LoadTileMap(List<Rectangle> textureStore, int pixels)
     {
-        TileMap = new TileMap()
+        TextureStore = textureStore;
+        Pixels = pixels;
+    }
+
+    public static void AddTileMap(string name, string filePath, uint positionX, uint positionY)
+    {
+        var tileMap = new TileMap()
         {
-            Position = new Vector2(positionX, positionY),
-            TextureStore = textureStore,
-            Pixels = pixels,
+            Position = new Vector2(positionX, positionY),            
             Map = new Dictionary<Vector2, int>()
         };
 
@@ -33,52 +41,48 @@ public static class TileMapManager
                 {
                     if (value > 0)
                     {
-                        TileMap.Map[new Vector2(x, y)] = value;
+                        tileMap.Map[new Vector2(x, y)] = value;
                     }
                 }
             }
 
             y++;
         }
+
+        TileMaps.Add(name, tileMap);
     }
 
     public static void Draw(SpriteBatch batch, GameTime gameTime)
     {
         var offset = Camera.Position;
-        foreach (var tileItem in TileMap.Map)
+
+        foreach (var map in TileMaps)
         {
-            var dest = new Rectangle(
-                    (int) TileMap.Position.X + (int)tileItem.Key.X * TileMap.Pixels + (int)offset.X,
-                    (int) TileMap.Position.Y + (int)tileItem.Key.Y * TileMap.Pixels + (int)offset.Y,
-                    TileMap.Pixels,
-                    TileMap.Pixels
+            foreach (var tileItem in map.Value.Map)
+            {
+                var dest = GetTileRectangle(map.Value, tileItem.Key, (int)offset.X, (int)offset.Y);
+                var src = TextureStore[tileItem.Value - 1];
+                batch.Draw(
+                    TextureManager.Texture.Texture2D,
+                    dest,
+                    src,
+                    Color.White
                 );
-
-            var src = TileMap.TextureStore[tileItem.Value - 1];
-
-            batch.Draw(
-                TextureManager.Texture.Texture2D,
-                dest,
-                src,
-                Color.White
-            );
+            }
         }
     }
 
     public static bool IsCollidingWithTiles(Rectangle playerRect)
     {
-        foreach (var tileItem in TileMap.Map)
+        foreach (var map in TileMaps)
         {
-            var tileRect = new Rectangle(
-                (int)TileMap.Position.X + (int)tileItem.Key.X * TileMap.Pixels,
-                (int)TileMap.Position.Y + (int)tileItem.Key.Y * TileMap.Pixels,
-                TileMap.Pixels,
-                TileMap.Pixels
-            );
-
-            if (tileRect.Intersects(playerRect))
+            foreach (var tileItem in map.Value.Map)
             {
-                return true;
+                var tileRect = GetTileRectangle(map.Value, tileItem.Key);
+                if (tileRect.Intersects(playerRect))
+                {
+                    return true;
+                }
             }
         }
 
@@ -87,21 +91,28 @@ public static class TileMapManager
 
     public static bool IsCollidingWithTiles(Vector2 position)
     {
-        foreach (var tileItem in TileMap.Map)
+        foreach (var map in TileMaps)
         {
-            var tileRect = new Rectangle(
-                (int)TileMap.Position.X + (int)tileItem.Key.X * TileMap.Pixels,
-                (int)TileMap.Position.Y + (int)tileItem.Key.Y * TileMap.Pixels,
-                TileMap.Pixels,
-                TileMap.Pixels
-            );
-
-            if (tileRect.Contains(position))
+            foreach (var tileItem in map.Value.Map)
             {
-                return true;
+                var tileRect = GetTileRectangle(map.Value, tileItem.Key);
+                if (tileRect.Contains(position))
+                {
+                    return true;
+                }
             }
         }
 
         return false;
+    }
+
+    private static Rectangle GetTileRectangle(TileMap map, Vector2 tilePosition, int offSetX = 0, int offSetY = 0)
+    {
+        return new Rectangle(
+            (int)map.Position.X + (int)tilePosition.X * Pixels + offSetX,
+            (int)map.Position.Y + (int)tilePosition.Y * Pixels + offSetY,
+            Pixels,
+            Pixels
+        );
     }
 }

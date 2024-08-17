@@ -28,14 +28,18 @@ public class GameManager : ISceneManager
 
         TextureManager.AddTexture("Sprite-0001", 26, 13, pixels);
         TileMapManager.LoadTileMap(
-            "../../../Tilemaps/tilemap.csv",
-            0 * pixelsInUInt,
-            0 * pixelsInUInt,
             new()
             {
                 new Rectangle(0 * pixels, 1 * pixels, pixels, pixels)
             },
             pixels
+        );
+        TileMapManager.AddTileMap(
+            "world",
+            "../../../Tilemaps/Map.csv",
+            0 * pixelsInUInt,
+            0 * pixelsInUInt
+            
         );
         Camera.LoadCamera(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight);
         _player = new Player(22 * pixels, 20 * pixels);
