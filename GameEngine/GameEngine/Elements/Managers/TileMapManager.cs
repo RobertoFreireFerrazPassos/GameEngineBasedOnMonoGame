@@ -1,5 +1,4 @@
-﻿using GameEngine.Elements;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -8,17 +7,17 @@ namespace GameEngine.Elements.Managers;
 
 public static class TileMapManager
 {
-    public static Dictionary<Vector2, int> TileMap { get; set; }
+    public static TileMap TileMap { get; set; }
 
-    public static List<Rectangle> TextureStore { get; set; }
-
-    public static int Pixels;
-
-    public static void LoadTileMap(string filePath, List<Rectangle> textureStore, int pixels)
+    public static void LoadTileMap(string filePath, uint positionX, uint positionY, List<Rectangle> textureStore, int pixels)
     {
-        TextureStore = textureStore;
-        Pixels = pixels;
-        TileMap = new Dictionary<Vector2, int>();
+        TileMap = new TileMap()
+        {
+            Position = new Vector2(positionX, positionY),
+            TextureStore = textureStore,
+            Pixels = pixels,
+            Map = new Dictionary<Vector2, int>()
+        };
 
         var reader = new StreamReader(filePath);
 
@@ -34,7 +33,7 @@ public static class TileMapManager
                 {
                     if (value > 0)
                     {
-                        TileMap[new Vector2(x, y)] = value;
+                        TileMap.Map[new Vector2(x, y)] = value;
                     }
                 }
             }
@@ -46,16 +45,16 @@ public static class TileMapManager
     public static void Draw(SpriteBatch batch, GameTime gameTime)
     {
         var offset = Camera.Position;
-        foreach (var tileItem in TileMap)
+        foreach (var tileItem in TileMap.Map)
         {
             var dest = new Rectangle(
-                    (int)tileItem.Key.X * Pixels + (int)offset.X,
-                    (int)tileItem.Key.Y * Pixels + (int)offset.Y,
-                    Pixels,
-                    Pixels
+                    (int) TileMap.Position.X + (int)tileItem.Key.X * TileMap.Pixels + (int)offset.X,
+                    (int) TileMap.Position.Y + (int)tileItem.Key.Y * TileMap.Pixels + (int)offset.Y,
+                    TileMap.Pixels,
+                    TileMap.Pixels
                 );
 
-            var src = TextureStore[tileItem.Value - 1];
+            var src = TileMap.TextureStore[tileItem.Value - 1];
 
             batch.Draw(
                 TextureManager.Texture.Texture2D,
@@ -68,13 +67,13 @@ public static class TileMapManager
 
     public static bool IsCollidingWithTiles(Rectangle playerRect)
     {
-        foreach (var tileItem in TileMap)
+        foreach (var tileItem in TileMap.Map)
         {
             var tileRect = new Rectangle(
-                (int)tileItem.Key.X * Pixels,
-                (int)tileItem.Key.Y * Pixels,
-                Pixels,
-                Pixels
+                (int)TileMap.Position.X + (int)tileItem.Key.X * TileMap.Pixels,
+                (int)TileMap.Position.Y + (int)tileItem.Key.Y * TileMap.Pixels,
+                TileMap.Pixels,
+                TileMap.Pixels
             );
 
             if (tileRect.Intersects(playerRect))
@@ -88,13 +87,13 @@ public static class TileMapManager
 
     public static bool IsCollidingWithTiles(Vector2 position)
     {
-        foreach (var tileItem in TileMap)
+        foreach (var tileItem in TileMap.Map)
         {
             var tileRect = new Rectangle(
-                (int)tileItem.Key.X * Pixels,
-                (int)tileItem.Key.Y * Pixels,
-                Pixels,
-                Pixels
+                (int)TileMap.Position.X + (int)tileItem.Key.X * TileMap.Pixels,
+                (int)TileMap.Position.Y + (int)tileItem.Key.Y * TileMap.Pixels,
+                TileMap.Pixels,
+                TileMap.Pixels
             );
 
             if (tileRect.Contains(position))

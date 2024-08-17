@@ -23,10 +23,14 @@ public class GameManager : ISceneManager
 
     public void LoadContent()
     {
-        var pixels = 40;
+        uint pixelsInUInt = 40;
+        int pixels = (int)pixelsInUInt;
+
         TextureManager.AddTexture("Sprite-0001", 26, 13, pixels);
         TileMapManager.LoadTileMap(
             "../../../Tilemaps/tilemap.csv",
+            0 * pixelsInUInt,
+            0 * pixelsInUInt,
             new()
             {
                 new Rectangle(0 * pixels, 1 * pixels, pixels, pixels)
@@ -34,11 +38,8 @@ public class GameManager : ISceneManager
             pixels
         );
         Camera.LoadCamera(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight);
-        _player = new Player(8 * pixels, 3 * pixels);
-        _enemies.Add(new Enemy(8 * pixels, 8 * pixels));
-        _enemies.Add(new Enemy(9 * pixels, 8 * pixels));
-        _enemies.Add(new Enemy(3 * pixels, 8 * pixels));
-        _enemies.Add(new Enemy(4 * pixels, 8 * pixels));
+        _player = new Player(22 * pixels, 20 * pixels);
+        _enemies.Add(new Enemy(22 * pixels, 14 * pixels));
 
         var odeToJoyMelody = new (Note, uint)[]
         {

@@ -61,7 +61,7 @@ public class Melody
         const ushort fmtFormatTag = 1; // PCM
         const ushort fmtChannels = 2;  // 1 - Mono 2 - stereo
         const uint fmtSamplesPerSec = 44100; // sample rate, e.g. CD=44100
-        const ushort fmtBitsPerSample = 16;  // bits per sample
+        const ushort fmtBitsPerSample = 8;  // bits per sample
         const ushort fmtBlockAlign = (ushort)(fmtChannels * (fmtBitsPerSample / 8)); // sample frame size, in bytes
         const uint fmtAvgBytesPerSec = fmtSamplesPerSec * fmtBlockAlign;
         const string dataChunkID = "data";
