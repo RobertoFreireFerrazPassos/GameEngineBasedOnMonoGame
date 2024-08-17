@@ -65,36 +65,20 @@ public class GameManager : ISceneManager
 
         var melody = new (Note, uint)[]
         {
-            (Note.B, 2), (Note.A, 2),
-            (Note.G, 2), (Note.F, 2),
-            (Note.E, 2), (Note.D, 2),
-            (Note.C, 2), 
+            (Note.B, 5), (Note.G, 5),
+            (Note.G, 5), (Note.F, 5),
+            (Note.E, 5), (Note.D, 5),
+            (Note.C, 5), 
         };
 
-        MusicManager.AddMelody("Sine", melody, Waveform.Sine);
-        MusicManager.AddMelody("Triangle", melody, Waveform.Triangle);
         MusicManager.AddMelody("Square", melody, Waveform.Square);
-        MusicManager.AddMelody("Sawtooth", melody, Waveform.Sawtooth);
-        MusicManager.AddMelody("Pulse", melody, Waveform.Pulse);
-        MusicManager.AddMelody("Noise", melody, Waveform.Noise);
     }
 
     public void Update(GameTime gameTime)
     {
         if (InputUtils.IsKeyJustPressed(InputEnum.ENTER))
         {
-            GlobalManager.Scene = SceneEnum.MENU;
-            MusicManager.Play("Sine");
-            Thread.Sleep(2000);
-            MusicManager.Play("Triangle");
-            Thread.Sleep(2000);
             MusicManager.Play("Square");
-            Thread.Sleep(2000);
-            MusicManager.Play("Sawtooth");
-            Thread.Sleep(2000);
-            MusicManager.Play("Pulse");
-            Thread.Sleep(2000);
-            MusicManager.Play("Noise");
         }
 
         _player.Update(gameTime, _enemies);

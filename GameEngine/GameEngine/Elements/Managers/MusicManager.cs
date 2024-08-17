@@ -53,11 +53,6 @@ public class Melody
         { Note.B, 493.88 }
     };
 
-    /// <summary>
-    /// Generates a sound and saves it to a memory stream
-    /// </summary>
-    /// <param name="freq"></param>
-    /// <param name="durationTenthSeconds"></param>
     public Melody((Note, uint)[] melody, Waveform waveform)
     {
         // Create memory stream and write data
@@ -76,6 +71,7 @@ public class Melody
         const ushort fmtBlockAlign = (ushort)(fmtChannels * (fmtBitsPerSample / 8)); // sample frame size, in bytes
         const uint fmtAvgBytesPerSec = fmtSamplesPerSec * fmtBlockAlign;
         const string dataChunkID = "data";
+        const int minTime = 100;
 
         uint totalDuration = 0;
         foreach (var note in melody)
@@ -83,21 +79,18 @@ public class Melody
             totalDuration += note.Item2;
         }
 
-        var totalNumSamples = fmtSamplesPerSec * totalDuration / 10;
+        var totalNumSamples = fmtSamplesPerSec * totalDuration / minTime;
         var completeDataByteArray = new byte[totalNumSamples * 2];
         var lengthCopied = 0;
 
-        // Frequency in Hertz
-        // Duration in multiples of 1/10 second
-        foreach (var (note, durationTenthSeconds) in melody)
+        foreach (var (note, durationNote) in melody)
         {
             if (!NoteFrequencies.TryGetValue(note, out double freq))
             {
                 throw new ArgumentException("Invalid note");
             }
 
-            // Number of samples = sample rate * channels * bytes per sample * duration in seconds
-            uint numSamples = fmtSamplesPerSec * fmtChannels * durationTenthSeconds / 10;
+            uint numSamples = fmtSamplesPerSec * fmtChannels * durationNote / minTime;
             byte[] dataByteArray = new byte[numSamples];
 
             // Generate sine wave data
@@ -108,7 +101,6 @@ public class Melody
             for (uint i = 0; i < numSamples - 1; i+= fmtChannels)
             {
                 amp = amplitude * (double)(numSamples - i) / numSamples;
-                // Fill with a waveform on each channel with amplitude decay
                 for (int channel = 0; channel < fmtChannels; channel++)
                 {
                     byte sampleValue = waveform switch
