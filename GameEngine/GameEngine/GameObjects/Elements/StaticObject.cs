@@ -17,7 +17,7 @@ public class StaticObject : SpriteObject
                     AnimationEnum.IDLE,
                     new Animation()
                     {
-                        Frames = new int[] { 25 },
+                        Frames = new int[] { 17 },
                         FrameDuration = TimeSpan.FromMilliseconds(300),
                         Loop = false
                     }
@@ -30,7 +30,8 @@ public class StaticObject : SpriteObject
                     , AnimationEnum.IDLE
                     , 40
                 );
-        AnimatedSprite.Ordering.Z = 2;
+        AnimatedSprite.Ordering.Z = 0;
+        AnimatedSprite.Ordering.IsSortable = false;
         CollisionBox = new CollisionBox(6, 17, 28, 18);
     }
 }

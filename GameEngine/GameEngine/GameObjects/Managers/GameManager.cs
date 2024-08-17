@@ -103,8 +103,7 @@ public class GameManager : ISceneManager
         objSrites.AddRange(_enemies);
         objSrites.AddRange(_objects);
         objSrites = objSrites
-            .OrderBy(obj => obj.AnimatedSprite.Ordering.Z)
-            .OrderBy(obj => obj.AnimatedSprite.Ordering.IsSortable ? obj.Position.Y : float.MaxValue)
+            .OrderBy(obj => obj.AnimatedSprite.Ordering.IsSortable ? obj.Position.Y : obj.AnimatedSprite.Ordering.Z)
             .ToList();
 
         foreach (var obj in objSrites)
