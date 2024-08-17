@@ -4,6 +4,7 @@
 
 - Create a audio editor
 - Learn tilemap
+- Implement Z index or layers for tileMap. Maybe Make Draw a function to choose from the Dictionary list instead of using a foreach loop and draw all at the same time
 
 ## References:
 
