@@ -2,7 +2,6 @@
 
 ## TODO
 
-- Create a audio editor
 - Shader damage effect
 - Enemy not overlap, instead, to deal damage.
 
