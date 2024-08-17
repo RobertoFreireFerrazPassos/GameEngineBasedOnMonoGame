@@ -1,11 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Enums;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 namespace GameEngine.Elements.Map;
 
 public class TileMap
 {
-    public Vector2 Position { get; set; }
+    public Vector2 Position;
 
-    public Dictionary<Vector2, int> Map { get; set; }
+    public Dictionary<Vector2, int> Map;
+
+    public MapLayerEnum Layer;
 }

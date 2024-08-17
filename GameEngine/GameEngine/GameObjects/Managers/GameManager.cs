@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 
 namespace GameEngine.GameObjects.Managers;
 
@@ -28,7 +29,7 @@ public class GameManager : ISceneManager
         int pixels = (int)pixelsInUInt;
 
         TextureManager.AddTexture("Sprite-0001", 26, 13, pixels);
-        TileMapManager.LoadTileMap(
+        TileMapManager.SetTileMapConfiguration(
             new()
             {
                 new Tile()
@@ -46,12 +47,14 @@ public class GameManager : ISceneManager
         TileMapManager.AddTileMap(
             "world",
             "../../../Tilemaps/Map.csv",
+            MapLayerEnum.Foreground,
             0 * pixelsInUInt,
             0 * pixelsInUInt
         );
         TileMapManager.AddTileMap(
             "hiddenplace1",
             "../../../Tilemaps/HiddenPlace1.csv",
+            MapLayerEnum.Parallax,
             10 * pixelsInUInt,
             3 * pixelsInUInt
         );
@@ -104,7 +107,8 @@ public class GameManager : ISceneManager
         var batch = SpriteManager.SpriteBatch;
         batch.Begin(samplerState: SamplerState.PointClamp);
 
-        TileMapManager.Draw(batch, gameTime);
+        TileMapManager.Draw(MapLayerEnum.Background, batch, gameTime);
+        TileMapManager.Draw(MapLayerEnum.Foreground, batch, gameTime);
 
         var objSrites = new List<SpriteObject>();
         objSrites.Add(_player);
@@ -115,6 +119,8 @@ public class GameManager : ISceneManager
         {
             obj.Draw(batch, gameTime);
         }
+
+        TileMapManager.Draw(MapLayerEnum.Parallax, batch, gameTime);
 
         batch.End();
     }

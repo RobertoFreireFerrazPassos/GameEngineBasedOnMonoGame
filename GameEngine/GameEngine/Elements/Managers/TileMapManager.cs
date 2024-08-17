@@ -1,4 +1,5 @@
 ﻿using GameEngine.Elements.Map;
+using GameEngine.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -14,18 +15,19 @@ public static class TileMapManager
 
     public static int Pixels;
 
-    public static void LoadTileMap(List<Tile> tiles, int pixels)
+    public static void SetTileMapConfiguration(List<Tile> tiles, int pixels)
     {
         Tiles = tiles;
         Pixels = pixels;
     }
 
-    public static void AddTileMap(string name, string filePath, uint positionX, uint positionY)
+    public static void AddTileMap(string name, string filePath, MapLayerEnum layer, uint positionX, uint positionY)
     {
         var tileMap = new TileMap()
         {
             Position = new Vector2(positionX, positionY),            
-            Map = new Dictionary<Vector2, int>()
+            Map = new Dictionary<Vector2, int>(),
+            Layer = layer,
         };
 
         var reader = new StreamReader(filePath);
@@ -53,12 +55,17 @@ public static class TileMapManager
         TileMaps.Add(name, tileMap);
     }
 
-    public static void Draw(SpriteBatch batch, GameTime gameTime)
+    public static void Draw(MapLayerEnum layer, SpriteBatch batch, GameTime gameTime)
     {
         var offset = Camera.Position;
 
         foreach (var map in TileMaps)
         {
+            if (map.Value.Layer != layer)
+            {
+                continue;
+            }
+
             foreach (var tileItem in map.Value.Map)
             {
                 var dest = GetTileRectangle(map.Value, tileItem.Key, (int)offset.X, (int)offset.Y);
