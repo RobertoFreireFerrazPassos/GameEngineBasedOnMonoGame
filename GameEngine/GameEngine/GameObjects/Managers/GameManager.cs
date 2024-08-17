@@ -15,6 +15,7 @@ public class GameManager : ISceneManager
 {
     private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();
+    private List<StaticObject> _objects = new List<StaticObject>();
     private GraphicsDeviceManager _graphicsDeviceManager;
 
     public GameManager(GraphicsDeviceManager graphicsDeviceManager)
@@ -59,7 +60,8 @@ public class GameManager : ISceneManager
         );
         Camera.LoadCamera(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight);
         _player = new Player(22 * pixels, 20 * pixels);
-        _enemies.Add(new Enemy(22 * pixels, 14 * pixels));
+        _enemies.Add(new Enemy(30 * pixels, 14 * pixels));
+        _objects.Add(new StaticObject(22 * pixels, 18 * pixels));
 
         var melody = new (Note, uint)[]
         {
@@ -99,7 +101,11 @@ public class GameManager : ISceneManager
         var objSrites = new List<SpriteObject>();
         objSrites.Add(_player);
         objSrites.AddRange(_enemies);
-        objSrites = objSrites.OrderBy(obj => obj.AnimatedSprite.Ordering.Z).ToList();
+        objSrites.AddRange(_objects);
+        objSrites = objSrites
+            .OrderBy(obj => obj.AnimatedSprite.Ordering.Z)
+            .OrderBy(obj => obj.AnimatedSprite.Ordering.IsSortable ? obj.Position.Y : float.MaxValue)
+            .ToList();
 
         foreach (var obj in objSrites)
         {

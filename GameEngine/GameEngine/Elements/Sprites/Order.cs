@@ -2,5 +2,7 @@
 
 public class Order
 {
-    public int Z { get; set; } = 0;
+    public int Z = 0;
+
+    public bool IsSortable = true;
 }

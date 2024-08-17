@@ -9,8 +9,6 @@ public abstract class SpriteObject
 {
     public Vector2 Position;
 
-    public int Speed;
-
     public AnimatedSprite AnimatedSprite;
 
     public CollisionBox CollisionBox;

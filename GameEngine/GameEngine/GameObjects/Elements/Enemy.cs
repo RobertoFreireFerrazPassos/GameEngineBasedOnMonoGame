@@ -13,6 +13,7 @@ namespace GameEngine.GameObjects.Elements;
 public class Enemy : SpriteObject
 {
     private int _state; // 0- far 1- wall  2-find
+    private int Speed;
     private Vector2 _playerPosition;
     private Vector2 _direction = Vector2.Zero;
     private const float MovingTime = 0.5f;

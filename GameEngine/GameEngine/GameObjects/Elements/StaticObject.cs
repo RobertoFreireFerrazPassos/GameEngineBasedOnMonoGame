@@ -1,0 +1,36 @@
+﻿using GameEngine.Elements;
+using GameEngine.Elements.Sprites;
+using GameEngine.Enums;
+using System.Collections.Generic;
+using System;
+using Microsoft.Xna.Framework;
+
+namespace GameEngine.GameObjects.Elements;
+
+public class StaticObject : SpriteObject
+{
+    public StaticObject(int x, int y) : base(x, y)
+    {
+        var animations = new Dictionary<AnimationEnum, Animation>
+            {
+                {
+                    AnimationEnum.IDLE,
+                    new Animation()
+                    {
+                        Frames = new int[] { 25 },
+                        FrameDuration = TimeSpan.FromMilliseconds(300),
+                        Loop = false
+                    }
+                }
+            };
+
+        AnimatedSprite = new AnimatedSprite(
+                    Color.White
+                    , animations
+                    , AnimationEnum.IDLE
+                    , 40
+                );
+        AnimatedSprite.Ordering.Z = 2;
+        CollisionBox = new CollisionBox(6, 17, 28, 18);
+    }
+}
