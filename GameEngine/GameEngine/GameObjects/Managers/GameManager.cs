@@ -8,8 +8,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Threading;
 
 namespace GameEngine.GameObjects.Managers;
 
@@ -79,6 +77,7 @@ public class GameManager : ISceneManager
         if (InputUtils.IsKeyJustPressed(InputEnum.ENTER))
         {
             MusicManager.Play("Square");
+            GlobalManager.Scene = SceneEnum.MENU;
         }
 
         _player.Update(gameTime, _enemies);

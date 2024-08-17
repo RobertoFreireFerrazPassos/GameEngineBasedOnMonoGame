@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GameEngine.Utils;
 
-public class InputUtils
+public static class InputUtils
 {
     private static KeyboardState _currentKeyboardState;
     private static GamePadState _currentGamePadState;

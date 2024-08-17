@@ -15,7 +15,10 @@ public class Enemy : SpriteObject
     private int _state; // 0- far 1- wall  2-find
     private Vector2 _playerPosition;
     private Vector2 _direction = Vector2.Zero;
-    private float _movingTime = 0.5f;
+    private const float MovingTime = 0.5f;
+    private float _movingTime = MovingTime;
+    private float minDist = 1f;
+    private float maxDist = 6f;
 
     public Enemy(int x, int y) : base(x, y)
     {
@@ -58,39 +61,34 @@ public class Enemy : SpriteObject
 
     private void FindPlayer(Player player)
     {
-        var plyCenter = player.GetBox().Center.ToVector2();
+        var playerCenter = player.GetBox().Center.ToVector2();
         var enemyCenter = GetBox().Center.ToVector2();
-        var distance = Vector2.Distance(plyCenter, enemyCenter);
+        var distance = Vector2.Distance(playerCenter, enemyCenter);
 
-        if (distance < 0.4f * AnimatedSprite.Pixels)
+        if (distance < minDist * AnimatedSprite.Pixels)
         {
             return;
         }
 
-        if (distance > 4 * AnimatedSprite.Pixels)
+        if (distance > maxDist * AnimatedSprite.Pixels)
         {
             _state = 0;
             return;
         }
 
-        if (IsObstacleBetween(enemyCenter, plyCenter, 4, CheckForObstacle))
+        if (IsObstacleBetween(enemyCenter, playerCenter, 4, CheckForObstacle))
         {
             _state = 1;
             return;
         }
 
-        _playerPosition = new Vector2(player.Position.X, player.Position.Y);
+        _playerPosition = playerCenter;
         _state = 2;
     }
 
     private bool CheckForObstacle(Vector2 position)
     {
-        if (TileMapManager.IsCollidingWith(position))
-        {
-            return true;
-        }
-
-        return false;
+        return TileMapManager.IsCollidingWith(position);
     }
 
     private bool IsObstacleBetween(Vector2 start, Vector2 end, int stepSize, Func<Vector2, bool> obstacleCheck)
@@ -123,7 +121,7 @@ public class Enemy : SpriteObject
 
         if (_movingTime <= 0)
         {
-            _movingTime = 0.5f;
+            _movingTime = MovingTime;
             _direction = Vector2.Zero;
             _state = 0;
         }
@@ -188,6 +186,27 @@ public class Enemy : SpriteObject
 
     public override void Draw(SpriteBatch batch, GameTime gameTime)
     {
+        if (_state == 2)
+        {
+            DrawLineToPlayer();
+        }
         base.Draw(batch, gameTime);
+    }
+
+    private void DrawLineToPlayer()
+    {
+        var offset = Camera.Position;
+        var enemyCenter = GetBox().Center.ToVector2();
+        SpriteManager.DrawLine(
+            new Vector2(
+                enemyCenter.X + (int)offset.X,
+                enemyCenter.Y + (int)offset.Y
+            ),
+            new Vector2(
+                _playerPosition.X + (int)offset.X,
+                _playerPosition.Y + (int)offset.Y
+            ),
+            Color.Red,
+            2);
     }
 }
