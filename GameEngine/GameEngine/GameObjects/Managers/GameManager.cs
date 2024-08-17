@@ -1,5 +1,6 @@
 ﻿using GameEngine.Elements;
 using GameEngine.Elements.Managers;
+using GameEngine.Elements.Map;
 using GameEngine.Enums;
 using GameEngine.GameObjects.Elements;
 using GameEngine.Utils;
@@ -30,7 +31,15 @@ public class GameManager : ISceneManager
         TileMapManager.LoadTileMap(
             new()
             {
-                new Rectangle(0 * pixels, 1 * pixels, pixels, pixels)
+                new Tile()
+                {
+                    Texture = new Rectangle(0 * pixels, 1 * pixels, pixels, pixels)
+                },
+                new Tile()
+                {
+                    Texture = new Rectangle(0 * pixels, 1 * pixels, pixels, pixels),
+                    Collidable = false
+                }
             },
             pixels
         );
@@ -39,7 +48,12 @@ public class GameManager : ISceneManager
             "../../../Tilemaps/Map.csv",
             0 * pixelsInUInt,
             0 * pixelsInUInt
-            
+        );
+        TileMapManager.AddTileMap(
+            "hiddenplace1",
+            "../../../Tilemaps/HiddenPlace1.csv",
+            10 * pixelsInUInt,
+            3 * pixelsInUInt
         );
         Camera.LoadCamera(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight);
         _player = new Player(22 * pixels, 20 * pixels);

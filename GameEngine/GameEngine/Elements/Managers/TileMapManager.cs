@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Elements.Map;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -9,13 +10,13 @@ public static class TileMapManager
 {
     public static Dictionary<string,TileMap> TileMaps = new Dictionary<string, TileMap>();
 
-    public static List<Rectangle> TextureStore;
+    public static List<Tile> Tiles;
 
     public static int Pixels;
 
-    public static void LoadTileMap(List<Rectangle> textureStore, int pixels)
+    public static void LoadTileMap(List<Tile> tiles, int pixels)
     {
-        TextureStore = textureStore;
+        Tiles = tiles;
         Pixels = pixels;
     }
 
@@ -61,7 +62,7 @@ public static class TileMapManager
             foreach (var tileItem in map.Value.Map)
             {
                 var dest = GetTileRectangle(map.Value, tileItem.Key, (int)offset.X, (int)offset.Y);
-                var src = TextureStore[tileItem.Value - 1];
+                var src = Tiles[tileItem.Value - 1].Texture;
                 batch.Draw(
                     TextureManager.Texture.Texture2D,
                     dest,
@@ -81,6 +82,10 @@ public static class TileMapManager
                 var tileRect = GetTileRectangle(map.Value, tileItem.Key);
                 if (tileRect.Intersects(playerRect))
                 {
+                    if (!Tiles[tileItem.Value - 1].Collidable)
+                    {
+                        continue;
+                    }
                     return true;
                 }
             }
@@ -98,6 +103,10 @@ public static class TileMapManager
                 var tileRect = GetTileRectangle(map.Value, tileItem.Key);
                 if (tileRect.Contains(position))
                 {
+                    if (!Tiles[tileItem.Value - 1].Collidable)
+                    {
+                        continue;
+                    }
                     return true;
                 }
             }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace GameEngine.Elements;
+namespace GameEngine.Elements.Map;
 
 public class TileMap
 {
