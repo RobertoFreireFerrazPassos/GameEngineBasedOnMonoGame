@@ -106,14 +106,14 @@ public class Player : SpriteObject
 
             Position.X += direction.X * Speed * elapsedTime;
 
-            if (TileMapManager.IsCollidingWithTiles(GetBox()))
+            if (TileMapManager.IsCollidingWith(GetBox()))
             {
                 Position.X = tempX;
             }
 
             Position.Y += direction.Y * Speed * elapsedTime;
 
-            if (TileMapManager.IsCollidingWithTiles(GetBox()))
+            if (TileMapManager.IsCollidingWith(GetBox()))
             {
                 Position.Y = tempY;
             }

@@ -2,6 +2,7 @@
 using GameEngine.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -80,14 +81,14 @@ public static class TileMapManager
         }
     }
 
-    public static bool IsCollidingWithTiles(Rectangle playerRect)
+    public static bool IsColliding(Func<Rectangle, bool> collisionCheck)
     {
         foreach (var map in TileMaps)
         {
             foreach (var tileItem in map.Value.Map)
             {
                 var tileRect = GetTileRectangle(map.Value, tileItem.Key);
-                if (tileRect.Intersects(playerRect))
+                if (collisionCheck(tileRect))
                 {
                     if (!Tiles[tileItem.Value - 1].Collidable)
                     {
@@ -101,25 +102,14 @@ public static class TileMapManager
         return false;
     }
 
-    public static bool IsCollidingWithTiles(Vector2 position)
+    public static bool IsCollidingWith(Rectangle rect)
     {
-        foreach (var map in TileMaps)
-        {
-            foreach (var tileItem in map.Value.Map)
-            {
-                var tileRect = GetTileRectangle(map.Value, tileItem.Key);
-                if (tileRect.Contains(position))
-                {
-                    if (!Tiles[tileItem.Value - 1].Collidable)
-                    {
-                        continue;
-                    }
-                    return true;
-                }
-            }
-        }
+        return IsColliding(tileRect => tileRect.Intersects(rect));
+    }
 
-        return false;
+    public static bool IsCollidingWith(Vector2 position)
+    {
+        return IsColliding(tileRect => tileRect.Contains(position));
     }
 
     private static Rectangle GetTileRectangle(TileMap map, Vector2 tilePosition, int offSetX = 0, int offSetY = 0)

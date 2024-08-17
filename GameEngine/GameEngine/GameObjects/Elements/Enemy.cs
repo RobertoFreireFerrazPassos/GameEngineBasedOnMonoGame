@@ -85,7 +85,7 @@ public class Enemy : SpriteObject
 
     private bool CheckForObstacle(Vector2 position)
     {
-        if (TileMapManager.IsCollidingWithTiles(position))
+        if (TileMapManager.IsCollidingWith(position))
         {
             return true;
         }
@@ -160,14 +160,14 @@ public class Enemy : SpriteObject
 
         Position.X += _direction.X * Speed * elapsedTime;
 
-        if (TileMapManager.IsCollidingWithTiles(GetBox()) || DetectCollisionWithEnemies(enemies))
+        if (TileMapManager.IsCollidingWith(GetBox()) || DetectCollisionWithEnemies(enemies))
         {
             Position.X = tempX;
         }
 
         Position.Y += _direction.Y * Speed * elapsedTime;
 
-        if (TileMapManager.IsCollidingWithTiles(GetBox()) || DetectCollisionWithEnemies(enemies))
+        if (TileMapManager.IsCollidingWith(GetBox()) || DetectCollisionWithEnemies(enemies))
         {
             Position.Y = tempY;
         }
