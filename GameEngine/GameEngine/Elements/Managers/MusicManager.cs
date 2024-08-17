@@ -10,13 +10,23 @@ public enum Note
     C, D, E, F, G, A, B
 }
 
+public enum Waveform
+{
+    Sine,
+    Square,
+    Triangle,
+    Sawtooth,
+    Pulse,
+    Noise
+}
+
 public static class MusicManager
 {
     public static Dictionary<string,Melody> Melodies = new Dictionary<string, Melody>();
 
-    public static void AddMelody(string melodyKey, (Note, uint)[] melody)
+    public static void AddMelody(string melodyKey, (Note, uint)[] melody, Waveform waveform)
     {
-        Melodies.Add(melodyKey, new Melody(melody));
+        Melodies.Add(melodyKey, new Melody(melody, waveform));
     }
 
     public static void Play(string melodyKey)
@@ -29,6 +39,7 @@ public class Melody
 {
     private SoundEffect sound;
     private MemoryStream audioStream;
+    private Waveform waveform;
 
     // Frequencies for musical notes
     private static readonly Dictionary<Note, double> NoteFrequencies = new Dictionary<Note, double>
@@ -47,7 +58,7 @@ public class Melody
     /// </summary>
     /// <param name="freq"></param>
     /// <param name="durationTenthSeconds"></param>
-    public Melody((Note, uint)[] melody)
+    public Melody((Note, uint)[] melody, Waveform waveform)
     {
         // Create memory stream and write data
         audioStream = new MemoryStream();
@@ -100,7 +111,18 @@ public class Melody
                 // Fill with a waveform on each channel with amplitude decay
                 for (int channel = 0; channel < fmtChannels; channel++)
                 {
-                    dataByteArray[i + channel] = Convert.ToByte(amp * Math.Sin(i * period) + offset);
+                    byte sampleValue = waveform switch
+                    {
+                        Waveform.Sine => Convert.ToByte(Math.Min(255, Math.Max(0, amp * Math.Sin(i * period) + offset))),
+                        Waveform.Square => Convert.ToByte(Math.Min(255, Math.Max(0, amp * (Math.Sin(i * period) >= 0 ? 1 : -1) + offset))),
+                        Waveform.Triangle => Convert.ToByte(Math.Min(255, Math.Max(0, amp * (1 - Math.Abs(((i * period) / Math.PI) % 2 - 1)) + offset))),
+                        Waveform.Sawtooth => Convert.ToByte(Math.Min(255, Math.Max(0, amp * ((i * period / Math.PI) % 2 - 1) + offset))),
+                        Waveform.Pulse => Convert.ToByte(Math.Min(255, Math.Max(0, amp * ((i * period / Math.PI) % 1 < 0.2 ? 1 : -1) + offset))), // 20% duty cycle
+                        Waveform.Noise => Convert.ToByte(Math.Min(255, Math.Max(0, amp * (new Random().NextDouble() * 2 - 1) + offset))),
+                        _ => throw new ArgumentException("Invalid waveform")
+                    };
+
+                    dataByteArray[i + channel] = sampleValue;
                 }
             }
             

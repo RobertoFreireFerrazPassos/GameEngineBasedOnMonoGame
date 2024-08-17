@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Threading;
 
 namespace GameEngine.GameObjects.Managers;
 
@@ -62,28 +63,20 @@ public class GameManager : ISceneManager
         _player = new Player(22 * pixels, 20 * pixels);
         _enemies.Add(new Enemy(22 * pixels, 14 * pixels));
 
-        var odeToJoyMelody = new (Note, uint)[]
+        var melody = new (Note, uint)[]
         {
-                (Note.E, 5), (Note.E, 5),
-                (Note.F, 5), (Note.G, 5),
-                (Note.G, 5), (Note.F, 5),
-                (Note.E, 5), (Note.D, 5),
-                (Note.C, 5), (Note.C, 5),
-                (Note.D, 5), (Note.E, 5),
-                (Note.E, 5), (Note.D, 5),
-                (Note.D, 10), // Longer note
-
-                (Note.E, 5), (Note.E, 5),
-                (Note.F, 5), (Note.G, 5),
-                (Note.G, 5), (Note.F, 5),
-                (Note.E, 5), (Note.D, 5),
-                (Note.C, 5), (Note.C, 5),
-                (Note.D, 5), (Note.E, 5),
-                (Note.D, 5), (Note.C, 5),
-                (Note.C, 10) // Longer note
+            (Note.B, 2), (Note.A, 2),
+            (Note.G, 2), (Note.F, 2),
+            (Note.E, 2), (Note.D, 2),
+            (Note.C, 2), 
         };
 
-        MusicManager.AddMelody("Ode to Joy", odeToJoyMelody);
+        MusicManager.AddMelody("Sine", melody, Waveform.Sine);
+        MusicManager.AddMelody("Triangle", melody, Waveform.Triangle);
+        MusicManager.AddMelody("Square", melody, Waveform.Square);
+        MusicManager.AddMelody("Sawtooth", melody, Waveform.Sawtooth);
+        MusicManager.AddMelody("Pulse", melody, Waveform.Pulse);
+        MusicManager.AddMelody("Noise", melody, Waveform.Noise);
     }
 
     public void Update(GameTime gameTime)
@@ -91,7 +84,17 @@ public class GameManager : ISceneManager
         if (InputUtils.IsKeyJustPressed(InputEnum.ENTER))
         {
             GlobalManager.Scene = SceneEnum.MENU;
-            MusicManager.Play("Ode to Joy");
+            MusicManager.Play("Sine");
+            Thread.Sleep(2000);
+            MusicManager.Play("Triangle");
+            Thread.Sleep(2000);
+            MusicManager.Play("Square");
+            Thread.Sleep(2000);
+            MusicManager.Play("Sawtooth");
+            Thread.Sleep(2000);
+            MusicManager.Play("Pulse");
+            Thread.Sleep(2000);
+            MusicManager.Play("Noise");
         }
 
         _player.Update(gameTime, _enemies);
