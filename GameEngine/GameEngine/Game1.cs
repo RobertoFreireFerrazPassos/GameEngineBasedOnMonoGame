@@ -15,7 +15,6 @@ namespace GameEngine
             graphics.IsFullScreen = false;
             SpriteManager.LoadSpriteManager(graphics);
             TextureManager.LoadTextureManager(Content);
-
             GlobalManager.Scene = SceneEnum.START;
             GlobalManager.Scenes.Add(SceneEnum.START, new StartManager(graphics, Content));
             GlobalManager.Scenes.Add(SceneEnum.MENU, new MenuManager());
@@ -31,6 +30,7 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
+            TextureManager.AddTexture("Sprite-0001", 26, 13, 40);
             SpriteManager.LoadSpriteBatch(GraphicsDevice, Content.Load<SpriteFont>("Fonts/8bitOperatorPlus-Bold"));
             GlobalManager.LoadContent();
         }

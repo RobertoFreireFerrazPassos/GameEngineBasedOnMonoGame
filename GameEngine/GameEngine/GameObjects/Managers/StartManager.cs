@@ -1,4 +1,5 @@
-﻿using GameEngine.Elements.Managers;
+﻿using GameEngine.Elements;
+using GameEngine.Elements.Managers;
 using GameEngine.Enums;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
@@ -23,6 +24,9 @@ public class StartManager : ISceneManager
     private int _imageNumber = 1;
     private int _screenWidth = 0;
     private int _screenHeight = 0;
+    private Texture2D _texture;
+    private Vector2 _screenPosition;
+    private Rectangle _sourceRectangle;
 
     public StartManager(GraphicsDeviceManager graphicsDeviceManager, ContentManager content)
     {
@@ -34,7 +38,13 @@ public class StartManager : ISceneManager
 
     public void LoadContent()
     {
-        _introSfx = _content.Load<SoundEffect>("Audio/intro");
+        _introSfx = _content.Load<SoundEffect>("Audio/intro"); 
+        var texture = TextureManager.Texture;
+        var pixels = texture.Pixels;
+        (int x, int y) = SpriteManager.ConvertNumberToXY(40, texture.Rows, texture.Columns);
+        _texture = texture.Texture2D;
+        _screenPosition = new Vector2(_screenWidth / 2 - 160, _screenHeight / 2 - 80);
+        _sourceRectangle = new Rectangle(x * pixels, y * pixels, 4 * pixels, 2 * pixels);
     }
 
     public void Update(GameTime gameTime)
@@ -120,14 +130,10 @@ public class StartManager : ISceneManager
 
     private void DrawFirstImage(SpriteBatch batch, Color color)
     {
-        var texture = TextureManager.Texture;
-        var pixels = texture.Pixels;
-        (int x, int y) = SpriteManager.ConvertNumberToXY(40, texture.Rows, texture.Columns);
-
         batch.Draw(
-            texture.Texture2D,
-            new Vector2(_screenWidth / 2 - 160, _screenHeight / 2 - 80),
-            new Rectangle(x * pixels, y * pixels, 4 * pixels, 2 * pixels),
+            _texture,
+            _screenPosition,
+            _sourceRectangle,
             color,
             0,
             new Vector2(1, 1),

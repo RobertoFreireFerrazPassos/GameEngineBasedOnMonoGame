@@ -27,8 +27,6 @@ public class GameManager : ISceneManager
     {
         uint pixelsInUInt = 40;
         int pixels = (int)pixelsInUInt;
-
-        TextureManager.AddTexture("Sprite-0001", 26, 13, pixels);
         TileMapManager.SetTileMapConfiguration(
             new()
             {
