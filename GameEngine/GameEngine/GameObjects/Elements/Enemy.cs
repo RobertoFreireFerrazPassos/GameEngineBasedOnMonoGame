@@ -31,8 +31,6 @@ public class Enemy : SpriteObject
     private Vector2 _playerPosition;
     private List<Vector2> _positionsToPlayer = new List<Vector2>();
     private List<Vector2> _lastPositionsToPlayer = new List<Vector2>();
-    private int _currentPositionToPlayerIndex = 0;
-    private float _tolerancePositionToPlayer = 5f;
     private Timer _movingTimer = new Timer(1f);
     private float minDist = 40f;
     private float maxDist = 250f;
@@ -96,7 +94,6 @@ public class Enemy : SpriteObject
             return;
         }
 
-        _currentPositionToPlayerIndex = 0;
         if (IsObstacleBetween(enemyCenter, playerCenter, 4, CheckForObstacle))
         {
             if (_previousState == 2)
@@ -150,12 +147,6 @@ public class Enemy : SpriteObject
         var targetPosition = _positionsToPlayer[_positionsToPlayer.Count-1];
         var direction = targetPosition - GetBox().Center.ToVector2();
         var distance = direction.Length();
-
-        if (distance < _tolerancePositionToPlayer)
-        {
-            _currentPositionToPlayerIndex = (_currentPositionToPlayerIndex + 1) % _positionsToPlayer.Count;
-            return;
-        }
 
         direction = direction * Speed * elapsedTime;
         direction.Normalize();
