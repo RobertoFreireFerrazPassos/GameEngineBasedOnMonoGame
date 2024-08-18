@@ -4,7 +4,6 @@
 
 ### Game Engine
 
-- Right now, there is only one TextureManager.Texture2D. Make it multiple and store in each class; TileMapManager, Player, Enemy, etc;
 - Add light effect https://www.youtube.com/shorts/fAiDf8KXGXw
 - Test this https://www.youtube.com/shorts/EBZt_2NQwp0
 - SpriteObject stores AnimatedSprite.Pixels to Draw using this logic: new Rectangle(x * pixels, y * pixels, pixels, pixels). Instead store this Rectangle. 
