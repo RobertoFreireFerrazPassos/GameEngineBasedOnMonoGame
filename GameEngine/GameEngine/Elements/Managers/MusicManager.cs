@@ -24,14 +24,65 @@ public static class MusicManager
 {
     public static Dictionary<string,Melody> Melodies = new Dictionary<string, Melody>();
 
-    public static void AddMelody(string melodyKey, (Note, uint)[] melody, Waveform waveform)
+    public static void AddMelody(string melodyKey, string melody, Waveform waveform)
     {
-        Melodies.Add(melodyKey, new Melody(melody, waveform));
+        Melodies.Add(melodyKey, new Melody(
+            ConvertToMelody(melody), 
+            waveform)
+        );
     }
 
     public static void Play(string melodyKey)
     {
         Melodies[melodyKey].Play();
+    }
+
+    private static (Note, uint)[] ConvertToMelody(string input)
+    {
+        var noteMap = new Dictionary<char, Note>
+        {
+            {'C', Note.C},
+            {'D', Note.D},
+            {'E', Note.E},
+            {'F', Note.F},
+            {'G', Note.G},
+            {'A', Note.A},
+            {'B', Note.B}
+        };
+
+        var result = new List<(Note, uint)>();
+        int i = 0;
+        int length = input.Length;
+
+        while (i < length)
+        {
+            char noteChar = input[i];
+            if (!noteMap.TryGetValue(noteChar, out Note note))
+            {
+                throw new ArgumentException($"Invalid note character: {noteChar}");
+            }
+
+            i++;
+            if (i >= length || !char.IsDigit(input[i]))
+            {
+                throw new ArgumentException("Duration must follow note character.");
+            }
+
+            int start = i;
+            while (i < length && char.IsDigit(input[i]))
+            {
+                i++;
+            }
+            string durationStr = input.Substring(start, i - start);
+            if (!uint.TryParse(durationStr, out uint duration))
+            {
+                throw new ArgumentException($"Invalid duration value: {durationStr}");
+            }
+
+            result.Add((note, duration));
+        }
+
+        return result.ToArray();
     }
 }
 
@@ -55,7 +106,7 @@ public class Melody
     {
         // Create memory stream and write data
         var audioStream = new MemoryStream();
-        BinaryWriter writer = new BinaryWriter(audioStream);
+        var writer = new BinaryWriter(audioStream);
 
         // Constants for WAV file format
         const string headerGroupID = "RIFF";

@@ -55,14 +55,7 @@ public class GameManager : ISceneManager
         _enemies.Add(new Enemy(30 * pixels, 14 * pixels));
         _objects.Add(new StaticObject(22 * pixels, 18 * pixels));
 
-        var melody = new (Note, uint)[]
-        {
-            (Note.B, 5), (Note.G, 5),
-            (Note.G, 5), (Note.F, 5),
-            (Note.E, 5), (Note.D, 5),
-            (Note.C, 5), 
-        };
-
+        var melody = "B15G30G5F5E5D10C20";
         MusicManager.AddMelody("Square", melody, Waveform.Square);
     }
 
