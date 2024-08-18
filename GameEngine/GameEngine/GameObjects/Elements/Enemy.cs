@@ -18,7 +18,7 @@ public class Enemy : SpriteObject
     private List<Vector2> _positionsToPlayer = new List<Vector2>();
     private int _currentPositionToPlayerIndex = 0;
     private float _tolerancePositionToPlayer = 5f;
-    private const float MovingTime = 0.5f;
+    private const float MovingTime = 1f;
     private float _movingTime = MovingTime;
     private float minDist = 40f;
     private float maxDist = 250f;
