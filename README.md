@@ -2,6 +2,7 @@
 
 ## TODO
 
+- Right now, there is only one TextureManager.Texture2D. Make it multiple and store in each class; TileMapManager, Player, Enemy, etc;
 - Shader damage effect
 - Enemy not overlap, instead, to deal damage.
 - Add light effect https://www.youtube.com/shorts/fAiDf8KXGXw
