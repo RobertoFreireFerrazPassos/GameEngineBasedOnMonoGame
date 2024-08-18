@@ -12,14 +12,28 @@ namespace GameEngine.GameObjects.Elements;
 
 public class Enemy : SpriteObject
 {
-    private int _state; // 0- far 1- wall  2-find
+    private int _previousState;
+    private int _currentState; // 0- far 1- wall  2-find
+
+    public int State 
+    {
+        get {  
+            return _currentState; 
+        }
+        set 
+        {
+            _previousState = _currentState;
+            _currentState = value;
+        }
+    }
+
     private int Speed;
     private Vector2 _playerPosition;
     private List<Vector2> _positionsToPlayer = new List<Vector2>();
+    private List<Vector2> _lastPositionsToPlayer = new List<Vector2>();
     private int _currentPositionToPlayerIndex = 0;
     private float _tolerancePositionToPlayer = 5f;
-    private const float MovingTime = 1f;
-    private float _movingTime = MovingTime;
+    private Timer _movingTimer = new Timer(1f);
     private float minDist = 40f;
     private float maxDist = 250f;
 
@@ -48,17 +62,18 @@ public class Enemy : SpriteObject
                 );
         AnimatedSprite.Ordering.Z = 2;
         CollisionBox = new CollisionBox(6, 17, 28, 18);
+        _movingTimer.OnTimerElapsed += OnMovementTimerElapsed;
     }
 
     public void Update(GameTime gameTime, Player player, List<Enemy> enemies)
     {
         var elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-        if (_state == 0 || _state == 1)
+        if (State == 0 || State == 1)
         {
             FindPlayer(player);
         }
-        else if (_state == 2)
+        else if (State == 2)
         {
             Move(elapsedTime, enemies);
         }
@@ -77,19 +92,25 @@ public class Enemy : SpriteObject
 
         if (distance > maxDist)
         {
-            _state = 0;
+            State = 0;
             return;
         }
 
         _currentPositionToPlayerIndex = 0;
         if (IsObstacleBetween(enemyCenter, playerCenter, 4, CheckForObstacle))
         {
-            _state = 1;
+            if (_previousState == 2)
+            {
+                _positionsToPlayer = _lastPositionsToPlayer;
+                State = 2;
+                return;
+            }
+            State = 1;
             return;
         }
 
         _playerPosition = playerCenter;
-        _state = 2;
+        State = 2;
     }
 
     private bool CheckForObstacle(Vector2 position)
@@ -113,15 +134,15 @@ public class Enemy : SpriteObject
 
     private void Move(float elapsedTime, List<Enemy> enemies)
     {
-        _movingTime -= elapsedTime;
-
-        if (_movingTime <= 0)
-        {
-            _movingTime = MovingTime;
-            _state = 0;
-        }
-
+        _movingTimer.StartIfInactive();
+        _movingTimer.Update(elapsedTime);
         UpdatePosition(elapsedTime, enemies);
+    }
+
+    private void OnMovementTimerElapsed()
+    {
+        _lastPositionsToPlayer = _positionsToPlayer;
+        State = 0;
     }
 
     private void UpdatePosition(float elapsedTime, List<Enemy> enemies)
@@ -172,7 +193,7 @@ public class Enemy : SpriteObject
 
     public override void Draw(SpriteBatch batch, GameTime gameTime)
     {
-        if (_state == 2)
+        if (State == 2)
         {
             DrawLineToPlayer();
         }
