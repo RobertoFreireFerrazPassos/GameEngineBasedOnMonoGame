@@ -26,6 +26,10 @@
 - Grass https://youtube.com/shorts/s10kVff7rCE?si=1pZn-A-FGa_70jJx
 - Shader damage effect
 
+### Issues/Reviews
+
+- Validate the need to unsubscribe from action events for the Timer objects. Maybe use IDipose
+
 ## References:
 
 ### monogame
