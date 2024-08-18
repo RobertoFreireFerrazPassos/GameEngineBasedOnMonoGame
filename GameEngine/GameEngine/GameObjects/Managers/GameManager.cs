@@ -39,6 +39,7 @@ public class GameManager : ISceneManager
         TileMapManager.AddTileMap(
             "world",
             "../../../Tilemaps/Map.csv",
+            "world",
             MapLayerEnum.Foreground,
             0 * pixelsInUInt,
             0 * pixelsInUInt
@@ -46,6 +47,7 @@ public class GameManager : ISceneManager
         TileMapManager.AddTileMap(
             "hiddenplace1",
             "../../../Tilemaps/HiddenPlace1.csv",
+            "world",
             MapLayerEnum.Parallax,
             10 * pixelsInUInt,
             3 * pixelsInUInt

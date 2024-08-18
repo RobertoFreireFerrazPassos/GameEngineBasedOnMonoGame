@@ -5,6 +5,8 @@ namespace GameEngine.Elements;
 
 public class Texture
 {
+    public string TextureKey;
+
     public int Pixels;
 
     public int Rows;
@@ -15,8 +17,9 @@ public class Texture
 
     public int Height;
 
-    public Texture(int pixels, int rows, int columns, int width, int height)
+    public Texture(string textureKey, int pixels, int rows, int columns, int width, int height)
     {
+        TextureKey = textureKey;
         Pixels = pixels;
         Rows = rows;
         Columns = columns;

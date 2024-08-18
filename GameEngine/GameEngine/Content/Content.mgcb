@@ -26,6 +26,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/8bitOperatorPlus-Bold.spritefont
 
+#begin intro_sprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:intro_sprite.png
+
 #begin Sprite-0001.png
 /importer:TextureImporter
 /processor:TextureProcessor

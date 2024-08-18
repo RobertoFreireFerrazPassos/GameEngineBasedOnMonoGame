@@ -33,7 +33,7 @@ public abstract class SpriteObject
         );
 
         batch.Draw(
-            TextureManager.Texture2D,
+            TextureManager.Texture2D[AnimatedSprite.Texture.TextureKey],
             position,
             AnimatedSprite.GetSourceRectangle(),
             AnimatedSprite.Color,

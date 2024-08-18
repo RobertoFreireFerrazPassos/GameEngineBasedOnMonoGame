@@ -22,10 +22,11 @@ public static class TileMapManager
         Pixels = pixels;
     }
 
-    public static void AddTileMap(string name, string filePath, MapLayerEnum layer, uint positionX, uint positionY)
+    public static void AddTileMap(string name, string filePath, string textureKey, MapLayerEnum layer, uint positionX, uint positionY)
     {
         var tileMap = new TileMap()
         {
+            TextureKey = textureKey,
             Position = new Vector2(positionX, positionY),            
             Map = new Dictionary<Vector2, int>(),
             Layer = layer,
@@ -72,7 +73,7 @@ public static class TileMapManager
                 var dest = GetTileRectangle(map.Value, tileItem.Key, (int)offset.X, (int)offset.Y);
                 var src = Tiles[tileItem.Value - 1].Texture;
                 batch.Draw(
-                    TextureManager.Texture2D,
+                    TextureManager.Texture2D[map.Value.TextureKey],
                     dest,
                     src,
                     Color.White

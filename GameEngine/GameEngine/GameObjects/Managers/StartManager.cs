@@ -31,10 +31,10 @@ public class StartManager : ISceneManager
     public void LoadContent()
     {
         _introSfx = GlobalManager.Content.Load<SoundEffect>("Audio/intro");
-        _textureSource = TextureManager.Texture2D;
-        var texture = new GameEngine.Elements.Texture(40, 26, 13, 160, 80);      
+        var texture = new GameEngine.Elements.Texture("intro", 40, 10, 10, 160, 80);
+        _sourceRectangle = texture.GetRectangle(1);
+        _textureSource = TextureManager.Texture2D[texture.TextureKey];    
         _screenPosition = new Vector2(GlobalManager.GraphicsDeviceManager.PreferredBackBufferWidth / 2 - 160, GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight / 2 - 80);
-        _sourceRectangle = texture.GetRectangle(40);
     }
 
     public void Update(GameTime gameTime)

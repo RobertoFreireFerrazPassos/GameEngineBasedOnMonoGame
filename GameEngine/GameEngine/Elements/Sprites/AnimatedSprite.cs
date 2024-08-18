@@ -1,5 +1,4 @@
-﻿using GameEngine.Elements.Managers;
-using GameEngine.Enums;
+﻿using GameEngine.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,7 +10,7 @@ public class AnimatedSprite
 {
     public Dictionary<AnimationEnum, Animation> Animations = new Dictionary<AnimationEnum, Animation>();
 
-    public static Texture Texture { get; set; }
+    public Texture Texture { get; set; }
 
     public SpriteEffects FlipHorizontally; 
 

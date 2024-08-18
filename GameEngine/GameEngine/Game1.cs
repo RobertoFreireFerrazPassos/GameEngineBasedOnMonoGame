@@ -32,7 +32,8 @@ namespace GameEngine
         protected override void LoadContent()
         {
             GlobalManager.GraphicsDevice = GraphicsDevice;
-            TextureManager.AddTexture("Sprite-0001");
+            TextureManager.AddTexture("world","Sprite-0001");
+            TextureManager.AddTexture("intro", "intro_sprite");
             SpriteManager.LoadSpriteBatch("Fonts/8bitOperatorPlus-Bold");
             GlobalManager.LoadContent();
         }

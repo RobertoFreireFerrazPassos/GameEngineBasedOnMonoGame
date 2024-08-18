@@ -28,7 +28,7 @@ public class StaticObject : SpriteObject
                     Color.White
                     , animations
                     , AnimationEnum.IDLE
-                    , new GameEngine.Elements.Texture(40, 26, 13, 40, 40)
+                    , new GameEngine.Elements.Texture("world", 40, 26, 13, 40, 40)
                 );
         AnimatedSprite.Ordering.Z = 0;
         AnimatedSprite.Ordering.IsSortable = false;
