@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 using GameEngine.Enums;
-using static GameEngine.GameConstants.Constants;
 using GameEngine.Elements.Managers;
 using GameEngine.Elements;
+using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.GameObjects.Elements;
 
@@ -16,7 +16,8 @@ public class Enemy : SpriteObject
     private int Speed;
     private Vector2 _playerPosition;
     private List<Vector2> _positionsToPlayer = new List<Vector2>();
-    private Vector2 _direction = Vector2.Zero;
+    private int _currentPositionToPlayerIndex = 0;
+    private float _tolerancePositionToPlayer = 5f;
     private const float MovingTime = 0.5f;
     private float _movingTime = MovingTime;
     private float minDist = 40f;
@@ -51,13 +52,15 @@ public class Enemy : SpriteObject
 
     public void Update(GameTime gameTime, Player player, List<Enemy> enemies)
     {
+        var elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
         if (_state == 0 || _state == 1)
         {
             FindPlayer(player);
         }
         else if (_state == 2)
         {
-            Move(gameTime, enemies);
+            Move(elapsedTime, enemies);
         }
     }
 
@@ -113,7 +116,7 @@ public class Enemy : SpriteObject
     private bool IsObstacleBetween(Vector2 start, Vector2 end, int stepSize, Func<Vector2, bool> obstacleCheck)
     {
         _positionsToPlayer = GetPointsAlongLine(start, end, stepSize);
-
+        _currentPositionToPlayerIndex = 0;
         foreach (var point in _positionsToPlayer)
         {
             if (obstacleCheck(point))
@@ -125,56 +128,45 @@ public class Enemy : SpriteObject
         return false;
     }
 
-    private void Move(GameTime gameTime, List<Enemy> enemies)
+    private void Move(float elapsedTime, List<Enemy> enemies)
     {
-        var seconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        _movingTime -= seconds;
+        _movingTime -= elapsedTime;
 
         if (_movingTime <= 0)
         {
             _movingTime = MovingTime;
-            _direction = Vector2.Zero;
             _state = 0;
         }
 
-        if (_direction == Vector2.Zero)
-        {
-            CreateNewDirection();
-        }
-
-        UpdatePosition(gameTime, enemies);
+        UpdatePosition(elapsedTime, enemies);
     }
 
-    private void CreateNewDirection()
+    private void UpdatePosition(float elapsedTime, List<Enemy> enemies)
     {
-        var diffX = _playerPosition.X - Position.X;
-        var diffY = _playerPosition.Y - Position.Y;
+        var targetPosition = _positionsToPlayer[_currentPositionToPlayerIndex];
+        var direction = targetPosition - GetBox().Center.ToVector2();
+        var distance = direction.Length();
 
-        if (Math.Abs(diffX) > Math.Abs(diffY))
+        if (distance < _tolerancePositionToPlayer)
         {
-            _direction = new Vector2(Math.Sign(diffX), 0);
+            _currentPositionToPlayerIndex = (_currentPositionToPlayerIndex + 1) % _positionsToPlayer.Count;
+            return;
         }
-        else
-        {
-            _direction = new Vector2(0, Math.Sign(diffY));
-        }
-    }
 
-    private void UpdatePosition(GameTime gameTime, List<Enemy> enemies)
-    {
-        var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / Config.SixtyFramesASecond);
+        direction = direction * Speed * elapsedTime;
+        direction.Normalize();
 
         var tempX = Position.X;
         var tempY = Position.Y;
 
-        Position.X += _direction.X * Speed * elapsedTime;
+        Position.X += direction.X;
 
         if (TileMapManager.IsCollidingWith(GetBox()) || DetectCollisionWithEnemies(enemies))
         {
             Position.X = tempX;
         }
 
-        Position.Y += _direction.Y * Speed * elapsedTime;
+        Position.Y += direction.Y;
 
         if (TileMapManager.IsCollidingWith(GetBox()) || DetectCollisionWithEnemies(enemies))
         {
