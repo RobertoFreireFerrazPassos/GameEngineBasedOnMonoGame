@@ -16,7 +16,7 @@ namespace GameEngine
             SpriteManager.LoadSpriteManager(graphics);
             TextureManager.LoadTextureManager(Content);
 
-            GlobalManager.Scene = SceneEnum.GAME;
+            GlobalManager.Scene = SceneEnum.START;
             GlobalManager.Scenes.Add(SceneEnum.START, new StartManager(graphics, Content));
             GlobalManager.Scenes.Add(SceneEnum.MENU, new MenuManager());
             GlobalManager.Scenes.Add(SceneEnum.GAME, new GameManager(graphics));            

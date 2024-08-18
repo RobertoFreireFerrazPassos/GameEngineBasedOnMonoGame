@@ -1,5 +1,6 @@
 ﻿using GameEngine.Elements.Managers;
 using GameEngine.Enums;
+using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -14,7 +15,9 @@ public class StartManager : ISceneManager
     private bool _isIntroSfxPlaying = false;
     private float _introSfxtimer = 2f;
     private float _timer;
-    private float _opaque = 1f;
+    private TweenUtils _fadeOutTween;
+    private const float _opaqueDefault = 1f;
+    private float _opaque = _opaqueDefault;
     private float _freezeTime = 3f;
     private float _fadeoutTime = 3f;
     private int _imageNumber = 1;
@@ -26,6 +29,7 @@ public class StartManager : ISceneManager
         _screenWidth = graphicsDeviceManager.PreferredBackBufferWidth;
         _screenHeight = graphicsDeviceManager.PreferredBackBufferHeight;
         _content = content;
+        _fadeOutTween = new TweenUtils(_opaqueDefault, 0f, _fadeoutTime, EasingFunctions.EaseInQuad);
     }
 
     public void LoadContent()
@@ -35,21 +39,21 @@ public class StartManager : ISceneManager
 
     public void Update(GameTime gameTime)
     {
+        var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        _timer += deltaTime;
+
         if (_imageNumber == 1)
         {
-            firstImage(gameTime);
+            firstImage(deltaTime);
         }
         else if (_imageNumber == 2)
         {
-            LastImage(gameTime);
+            LastImage(deltaTime);
         }
     }
 
-    private void firstImage(GameTime gameTime)
+    private void firstImage(float deltaTime)
     {
-        var seconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        _timer += seconds;
-
         if (_timer > _introSfxtimer && !_isIntroSfxPlaying)
         {
             _introSfx.Play();
@@ -58,28 +62,32 @@ public class StartManager : ISceneManager
 
         if (_timer > _freezeTime)
         {
-            ApplyFadeOutEffect(seconds);
+            if (_fadeOutTween.Active)
+            {
+                _opaque = _fadeOutTween.Update(deltaTime);
+            }
         }
 
         if (_timer > _freezeTime + _fadeoutTime)
         {
             _timer = 0f;
-            _opaque = 1f;
-            _imageNumber = 2;
+            _imageNumber = 2; 
+            _opaque = _opaqueDefault;
+            _fadeOutTween.Reset();
         }
     }
 
-    private void LastImage(GameTime gameTime)
+    private void LastImage(float deltaTime)
     {
-        var seconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        _timer += seconds;
-
         if (_timer > _freezeTime)
         {
-            ApplyFadeOutEffect(seconds);
+            if (_fadeOutTween.Active)
+            {
+                _opaque = _fadeOutTween.Update(deltaTime);
+            }
         }
 
-        if (_timer > _freezeTime + _fadeoutTime)
+        if (_fadeOutTween.IsComplete())
         {
             NextScreen();
         }
@@ -89,12 +97,7 @@ public class StartManager : ISceneManager
     {
         GlobalManager.Scene = SceneEnum.MENU;
         _timer = 0f;
-        _opaque = 1f;
-    }
-
-    private void ApplyFadeOutEffect(float seconds)
-    {
-        _opaque -= seconds / _fadeoutTime;
+        _opaque = _opaqueDefault;
     }
 
     public void Draw(GameTime gameTime)
