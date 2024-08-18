@@ -81,6 +81,7 @@ public class Enemy : SpriteObject
             return;
         }
 
+        _currentPositionToPlayerIndex = 0;
         if (IsObstacleBetween(enemyCenter, playerCenter, 4, CheckForObstacle))
         {
             _state = 1;
@@ -99,7 +100,6 @@ public class Enemy : SpriteObject
     private bool IsObstacleBetween(Vector2 start, Vector2 end, int stepSize, Func<Vector2, bool> obstacleCheck)
     {
         _positionsToPlayer = PositionUtils.GetPointsAlongLine(start, end, stepSize);
-        _currentPositionToPlayerIndex = 0;
         foreach (var point in _positionsToPlayer)
         {
             if (obstacleCheck(point))
