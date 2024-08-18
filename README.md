@@ -2,9 +2,9 @@
 
 ## TODO
 
+### Game Engine
+
 - Right now, there is only one TextureManager.Texture2D. Make it multiple and store in each class; TileMapManager, Player, Enemy, etc;
-- Shader damage effect
-- Enemy not overlap, instead, to deal damage.
 - Add light effect https://www.youtube.com/shorts/fAiDf8KXGXw
 - Test this https://www.youtube.com/shorts/EBZt_2NQwp0
 - SpriteObject stores AnimatedSprite.Pixels to Draw using this logic: new Rectangle(x * pixels, y * pixels, pixels, pixels). Instead store this Rectangle. 
@@ -13,9 +13,14 @@
 - Player customization https://youtube.com/shorts/1X4Oq2X41ZU?si=taPF-d4oxcUTP4Vc
 - Shaders https://youtube.com/shorts/GC2VG7ksizk?si=0iPMm9yR7mdUTDZG
 - Tweens https://youtube.com/shorts/rOezOa39GLU?si=q4TzLH6qbC188odi
-- Grass https://youtube.com/shorts/s10kVff7rCE?si=1pZn-A-FGa_70jJx
 - Break the animations into pieces to draw each part in a order. Add extra animation which it can be enabled/disabled like a weapon.
 - Create Interactions class; PlayerEnemyInteraction, PlayerWaterInteraction, PlayerSunInteraction for shadow,...
+
+### Game
+
+- Enemy not overlap, instead, to deal damage.
+- Grass https://youtube.com/shorts/s10kVff7rCE?si=1pZn-A-FGa_70jJx
+- Shader damage effect
 
 ## References:
 
