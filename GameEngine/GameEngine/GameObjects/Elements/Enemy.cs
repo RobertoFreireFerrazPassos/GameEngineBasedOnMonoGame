@@ -15,7 +15,7 @@ public class Enemy : SpriteObject
     private int _state; // 0- far 1- wall  2-find
     private int Speed;
     private Vector2 _playerPosition;
-    private List<Vector2> _positionToPlayer = new List<Vector2>();
+    private List<Vector2> _positionsToPlayer = new List<Vector2>();
     private Vector2 _direction = Vector2.Zero;
     private const float MovingTime = 0.5f;
     private float _movingTime = MovingTime;
@@ -112,9 +112,9 @@ public class Enemy : SpriteObject
 
     private bool IsObstacleBetween(Vector2 start, Vector2 end, int stepSize, Func<Vector2, bool> obstacleCheck)
     {
-        var points = GetPointsAlongLine(start, end, stepSize);
+        _positionsToPlayer = GetPointsAlongLine(start, end, stepSize);
 
-        foreach (var point in points)
+        foreach (var point in _positionsToPlayer)
         {
             if (obstacleCheck(point))
             {
@@ -207,17 +207,14 @@ public class Enemy : SpriteObject
     private void DrawLineToPlayer()
     {
         var offset = Camera.Position;
-        var enemyCenter = GetBox().Center.ToVector2();
-        SpriteManager.DrawLine(
-            new Vector2(
-                enemyCenter.X + (int)offset.X,
-                enemyCenter.Y + (int)offset.Y
-            ),
-            new Vector2(
-                _playerPosition.X + (int)offset.X,
-                _playerPosition.Y + (int)offset.Y
-            ),
-            Color.Red,
-            2);
+        foreach (var position in _positionsToPlayer)
+        {
+            SpriteManager.DrawPixel(
+                new Vector2(
+                    position.X + (int)offset.X,
+                    position.Y + (int)offset.Y
+                ),Color.OrangeRed
+            );
+        }
     }
 }
