@@ -2,8 +2,14 @@
 
 ## TODO
 
+### learn
+
+- Tiled editor
+- Aseprite
+
 ### Game Engine
 
+- Add Parallax camera https://youtu.be/ws-YJNBbEz0?si=STw217EvpAIF3y0G
 - Add light effect https://www.youtube.com/shorts/fAiDf8KXGXw
 - Test this https://www.youtube.com/shorts/EBZt_2NQwp0
 - Create a new class or use composition for basic AI movement https://www.youtube.com/watch?v=-1FkHPdCp_E&t=38s
