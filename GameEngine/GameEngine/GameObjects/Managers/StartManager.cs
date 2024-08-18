@@ -41,11 +41,9 @@ public class StartManager : ISceneManager
     {
         _introSfx = _content.Load<SoundEffect>("Audio/intro");
         _textureSource = TextureManager.Texture2D;
-        var texture = new GameEngine.Elements.Texture(40, 26, 13);
-        var pixels = texture.Pixels;
-        (int x, int y) = texture.ConvertNumberToXY(40);        
+        var texture = new GameEngine.Elements.Texture(40, 26, 13, 160, 80);      
         _screenPosition = new Vector2(_screenWidth / 2 - 160, _screenHeight / 2 - 80);
-        _sourceRectangle = new Rectangle(x * pixels, y * pixels, 4 * pixels, 2 * pixels);
+        _sourceRectangle = texture.GetRectangle(40);
     }
 
     public void Update(GameTime gameTime)

@@ -82,8 +82,6 @@ public class AnimatedSprite
     {
         var animation = Animations.GetValueOrDefault(State);
         var spriteNumber = animation.Frames[CurrentFrameIndex];
-        var pixels = Texture.Pixels;
-        (int x, int y) = Texture.ConvertNumberToXY(spriteNumber);
-        return new Rectangle(x * pixels, y * pixels, pixels, pixels);
+        return Texture.GetRectangle(spriteNumber);
     }
 }

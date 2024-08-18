@@ -1,5 +1,4 @@
-﻿using GameEngine.Elements.Sprites;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 
 namespace GameEngine.Elements;
@@ -12,14 +11,26 @@ public class Texture
 
     public int Columns;
 
-    public Texture(int pixels, int rows, int columns)
+    public int Width;
+
+    public int Height;
+
+    public Texture(int pixels, int rows, int columns, int width, int height)
     {
         Pixels = pixels;
         Rows = rows;
         Columns = columns;
+        Width = width;
+        Height = height;
     }
 
-    public (int x, int y) ConvertNumberToXY(int number)
+    public Rectangle GetRectangle(int number)
+    {
+        (int x, int y) = ConvertNumberToXY(number);
+        return new Rectangle(x * Pixels, y * Pixels, Width, Height);
+    }
+
+    private (int x, int y) ConvertNumberToXY(int number)
     {
         var max = Rows * Columns;
         if (number < 1 || number > max)
