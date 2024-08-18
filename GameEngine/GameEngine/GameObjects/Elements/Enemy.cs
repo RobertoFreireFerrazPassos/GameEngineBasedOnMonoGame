@@ -6,7 +6,7 @@ using System;
 using GameEngine.Enums;
 using GameEngine.Elements.Managers;
 using GameEngine.Elements;
-using static GameEngine.GameConstants.Constants;
+using GameEngine.Utils;
 
 namespace GameEngine.GameObjects.Elements;
 
@@ -96,26 +96,9 @@ public class Enemy : SpriteObject
         return TileMapManager.IsCollidingWith(position);
     }
 
-    private List<Vector2> GetPointsAlongLine(Vector2 start, Vector2 end, int stepSize)
-    {
-        var points = new List<Vector2>();
-
-        var direction = end - start;
-        float length = direction.Length();
-        direction.Normalize();
-
-        for (float distance = 0; distance <= length; distance += stepSize)
-        {
-            Vector2 currentPoint = start + direction * distance;
-            points.Add(currentPoint);
-        }
-
-        return points;
-    }
-
     private bool IsObstacleBetween(Vector2 start, Vector2 end, int stepSize, Func<Vector2, bool> obstacleCheck)
     {
-        _positionsToPlayer = GetPointsAlongLine(start, end, stepSize);
+        _positionsToPlayer = PositionUtils.GetPointsAlongLine(start, end, stepSize);
         _currentPositionToPlayerIndex = 0;
         foreach (var point in _positionsToPlayer)
         {
