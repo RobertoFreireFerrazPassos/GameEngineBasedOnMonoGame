@@ -16,7 +16,7 @@ namespace GameEngine
             GlobalManager.GraphicsDeviceManager = graphics;
             Content.RootDirectory = GameConstants.Constants.Config.Content;
             GlobalManager.Content = Content;
-            GlobalManager.Scene = SceneEnum.START;
+            GlobalManager.Scene = SceneEnum.GAME;
             GlobalManager.Scenes.Add(SceneEnum.START, new StartManager());
             GlobalManager.Scenes.Add(SceneEnum.MENU, new MenuManager());
             GlobalManager.Scenes.Add(SceneEnum.GAME, new GameManager());            

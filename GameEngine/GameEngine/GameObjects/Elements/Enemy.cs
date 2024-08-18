@@ -15,6 +15,7 @@ public class Enemy : SpriteObject
     private int _state; // 0- far 1- wall  2-find
     private int Speed;
     private Vector2 _playerPosition;
+    private List<Vector2> _positionToPlayer = new List<Vector2>();
     private Vector2 _direction = Vector2.Zero;
     private const float MovingTime = 0.5f;
     private float _movingTime = MovingTime;
@@ -92,27 +93,36 @@ public class Enemy : SpriteObject
         return TileMapManager.IsCollidingWith(position);
     }
 
-    private bool IsObstacleBetween(Vector2 start, Vector2 end, int stepSize, Func<Vector2, bool> obstacleCheck)
+    private List<Vector2> GetPointsAlongLine(Vector2 start, Vector2 end, int stepSize)
     {
-        // Calculate the direction and length of the line
+        var points = new List<Vector2>();
+
         var direction = end - start;
         float length = direction.Length();
-        direction.Normalize(); // Normalize to get a direction vector
+        direction.Normalize();
 
-        // Check points along the line every 'stepSize' pixels
         for (float distance = 0; distance <= length; distance += stepSize)
         {
-            // Calculate the current point on the line
             Vector2 currentPoint = start + direction * distance;
+            points.Add(currentPoint);
+        }
 
-            // Check if there is an obstacle at the current point
-            if (obstacleCheck(currentPoint))
+        return points;
+    }
+
+    private bool IsObstacleBetween(Vector2 start, Vector2 end, int stepSize, Func<Vector2, bool> obstacleCheck)
+    {
+        var points = GetPointsAlongLine(start, end, stepSize);
+
+        foreach (var point in points)
+        {
+            if (obstacleCheck(point))
             {
-                return true; // An obstacle was found
+                return true; 
             }
         }
 
-        return false; // No obstacle was found along the line
+        return false;
     }
 
     private void Move(GameTime gameTime, List<Enemy> enemies)
