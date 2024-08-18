@@ -37,7 +37,7 @@ public abstract class SpriteObject
         );
 
         batch.Draw(
-            spriteTexture.Texture2D,
+            TextureManager.Texture2D,
             position, 
             new Rectangle(x * pixels, y * pixels, pixels, pixels), 
             AnimatedSprite.Color, 

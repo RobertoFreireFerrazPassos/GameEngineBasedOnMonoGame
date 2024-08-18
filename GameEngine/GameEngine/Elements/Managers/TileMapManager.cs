@@ -72,7 +72,7 @@ public static class TileMapManager
                 var dest = GetTileRectangle(map.Value, tileItem.Key, (int)offset.X, (int)offset.Y);
                 var src = Tiles[tileItem.Value - 1].Texture;
                 batch.Draw(
-                    TextureManager.Texture.Texture2D,
+                    TextureManager.Texture2D,
                     dest,
                     src,
                     Color.White

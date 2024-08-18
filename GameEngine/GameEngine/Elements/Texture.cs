@@ -1,12 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 
 namespace GameEngine.Elements;
 
 public class Texture
 {
-    public Texture2D Texture2D;
-
     public int Pixels;
 
     public int Rows;

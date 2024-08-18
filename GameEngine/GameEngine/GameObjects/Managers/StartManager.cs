@@ -41,9 +41,9 @@ public class StartManager : ISceneManager
     {
         _introSfx = _content.Load<SoundEffect>("Audio/intro"); 
         var texture = TextureManager.Texture;
+        _texture = TextureManager.Texture2D;
         var pixels = texture.Pixels;
-        (int x, int y) = texture.ConvertNumberToXY(40);
-        _texture = texture.Texture2D;
+        (int x, int y) = texture.ConvertNumberToXY(40);        
         _screenPosition = new Vector2(_screenWidth / 2 - 160, _screenHeight / 2 - 80);
         _sourceRectangle = new Rectangle(x * pixels, y * pixels, 4 * pixels, 2 * pixels);
     }
