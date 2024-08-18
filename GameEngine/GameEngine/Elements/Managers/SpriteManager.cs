@@ -6,22 +6,16 @@ namespace GameEngine.Elements.Managers;
 
 public static class SpriteManager
 {
-    private static GraphicsDeviceManager _graphics;
-
     public static SpriteFont Font;
 
     public static SpriteBatch SpriteBatch;
 
     private static Texture2D _pixelTexture;
 
-    public static void LoadSpriteManager(GraphicsDeviceManager graphics)
+    public static void LoadSpriteBatch(string font)
     {
-        _graphics = graphics;
-    }
-
-    public static void LoadSpriteBatch(GraphicsDevice graphicsDevice, SpriteFont font)
-    {
-        Font = font;
+        var graphicsDevice = GlobalManager.GraphicsDevice;
+        Font = GlobalManager.Content.Load<SpriteFont>(font);
         SpriteBatch = new SpriteBatch(graphicsDevice);
         _pixelTexture = new Texture2D(graphicsDevice, 1, 1);
         _pixelTexture.SetData(new Color[] { Color.White });

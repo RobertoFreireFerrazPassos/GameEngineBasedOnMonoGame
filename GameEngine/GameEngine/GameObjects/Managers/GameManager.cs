@@ -16,12 +16,6 @@ public class GameManager : ISceneManager
     private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();
     private List<StaticObject> _objects = new List<StaticObject>();
-    private GraphicsDeviceManager _graphicsDeviceManager;
-
-    public GameManager(GraphicsDeviceManager graphicsDeviceManager)
-    {
-        _graphicsDeviceManager = graphicsDeviceManager;
-    }
 
     public void LoadContent()
     {
@@ -56,7 +50,7 @@ public class GameManager : ISceneManager
             10 * pixelsInUInt,
             3 * pixelsInUInt
         );
-        Camera.LoadCamera(_graphicsDeviceManager.PreferredBackBufferWidth, _graphicsDeviceManager.PreferredBackBufferHeight);
+        Camera.LoadCamera(GlobalManager.GraphicsDeviceManager.PreferredBackBufferWidth,GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight);
         _player = new Player(22 * pixels, 20 * pixels);
         _enemies.Add(new Enemy(30 * pixels, 14 * pixels));
         _objects.Add(new StaticObject(22 * pixels, 18 * pixels));

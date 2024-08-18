@@ -10,7 +10,6 @@ namespace GameEngine.GameObjects.Managers;
 
 public class StartManager : ISceneManager
 {
-    private ContentManager _content;
     private SoundEffect _introSfx;
     private bool _isIntroSfxPlaying = false;
     private float _introSfxtimer = 2f;
@@ -27,17 +26,16 @@ public class StartManager : ISceneManager
     private Vector2 _screenPosition;
     private Rectangle _sourceRectangle;
 
-    public StartManager(GraphicsDeviceManager graphicsDeviceManager, ContentManager content)
+    public StartManager()
     {
-        _screenWidth = graphicsDeviceManager.PreferredBackBufferWidth;
-        _screenHeight = graphicsDeviceManager.PreferredBackBufferHeight;
-        _content = content;
+        _screenWidth = GlobalManager.GraphicsDeviceManager.PreferredBackBufferWidth;
+        _screenHeight = GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight;
         _fadeOutTween = new TweenUtils(_opaqueDefault, 0f, _fadeoutTime, EasingFunctions.EaseInQuad);
     }
 
     public void LoadContent()
     {
-        _introSfx = _content.Load<SoundEffect>("Audio/intro");
+        _introSfx = GlobalManager.Content.Load<SoundEffect>("Audio/intro");
         _textureSource = TextureManager.Texture2D;
         var texture = new GameEngine.Elements.Texture(40, 26, 13, 160, 80);      
         _screenPosition = new Vector2(_screenWidth / 2 - 160, _screenHeight / 2 - 80);

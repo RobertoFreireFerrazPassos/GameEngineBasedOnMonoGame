@@ -8,10 +8,6 @@ namespace GameEngine.GameObjects.Managers;
 
 public class MenuManager : ISceneManager
 {
-    public MenuManager()
-    {
-    }
-
     public void LoadContent()
     {
     }
