@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Elements.Managers;
+using Microsoft.Xna.Framework;
 
 namespace GameEngine.Elements;
 
@@ -18,6 +19,12 @@ public static class Camera
     {
         GridSizeWidth = gridSizeWidth;
         GridSizeHeight = gridSizeHeight;
+    }
+
+    public static void LoadCamera()
+    {
+        GridSizeWidth = GlobalManager.GraphicsDeviceManager.PreferredBackBufferWidth;
+        GridSizeHeight = GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight;
     }
 
     public static void Update(Vector2 position)

@@ -14,10 +14,9 @@ public static class SpriteManager
 
     public static void LoadSpriteBatch(string font)
     {
-        var graphicsDevice = GlobalManager.GraphicsDevice;
         Font = GlobalManager.Content.Load<SpriteFont>(font);
-        SpriteBatch = new SpriteBatch(graphicsDevice);
-        _pixelTexture = new Texture2D(graphicsDevice, 1, 1);
+        SpriteBatch = new SpriteBatch(GlobalManager.GraphicsDevice);
+        _pixelTexture = new Texture2D(GlobalManager.GraphicsDevice, 1, 1);
         _pixelTexture.SetData(new Color[] { Color.White });
     }
 

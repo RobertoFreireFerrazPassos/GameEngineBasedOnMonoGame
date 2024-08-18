@@ -3,7 +3,6 @@ using GameEngine.Enums;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.GameObjects.Managers;
@@ -20,16 +19,12 @@ public class StartManager : ISceneManager
     private float _freezeTime = 3f;
     private float _fadeoutTime = 3f;
     private int _imageNumber = 1;
-    private int _screenWidth = 0;
-    private int _screenHeight = 0;
     private Texture2D _textureSource;
     private Vector2 _screenPosition;
     private Rectangle _sourceRectangle;
 
     public StartManager()
     {
-        _screenWidth = GlobalManager.GraphicsDeviceManager.PreferredBackBufferWidth;
-        _screenHeight = GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight;
         _fadeOutTween = new TweenUtils(_opaqueDefault, 0f, _fadeoutTime, EasingFunctions.EaseInQuad);
     }
 
@@ -38,7 +33,7 @@ public class StartManager : ISceneManager
         _introSfx = GlobalManager.Content.Load<SoundEffect>("Audio/intro");
         _textureSource = TextureManager.Texture2D;
         var texture = new GameEngine.Elements.Texture(40, 26, 13, 160, 80);      
-        _screenPosition = new Vector2(_screenWidth / 2 - 160, _screenHeight / 2 - 80);
+        _screenPosition = new Vector2(GlobalManager.GraphicsDeviceManager.PreferredBackBufferWidth / 2 - 160, GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight / 2 - 80);
         _sourceRectangle = texture.GetRectangle(40);
     }
 
@@ -140,7 +135,7 @@ public class StartManager : ISceneManager
 
     private void DrawLastImage(SpriteBatch batch, Color color)
     {
-        batch.DrawString(SpriteManager.Font, "PRIEST VS DEMONS", new Vector2(_screenWidth / 2 - 50, _screenHeight / 2 - 50), color);
-        batch.DrawString(SpriteManager.Font, "BY ROBERTO FREIRE", new Vector2(_screenWidth / 2 - 50, _screenHeight / 2), color);
+        batch.DrawString(SpriteManager.Font, "PRIEST VS DEMONS", new Vector2(GlobalManager.GraphicsDeviceManager.PreferredBackBufferWidth / 2 - 50, GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight / 2 - 50), color);
+        batch.DrawString(SpriteManager.Font, "BY ROBERTO FREIRE", new Vector2(GlobalManager.GraphicsDeviceManager.PreferredBackBufferWidth / 2 - 50, GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight / 2), color);
     }
 }

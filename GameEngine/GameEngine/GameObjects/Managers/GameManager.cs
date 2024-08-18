@@ -50,7 +50,7 @@ public class GameManager : ISceneManager
             10 * pixelsInUInt,
             3 * pixelsInUInt
         );
-        Camera.LoadCamera(GlobalManager.GraphicsDeviceManager.PreferredBackBufferWidth,GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight);
+        Camera.LoadCamera();
         _player = new Player(22 * pixels, 20 * pixels);
         _enemies.Add(new Enemy(30 * pixels, 14 * pixels));
         _objects.Add(new StaticObject(22 * pixels, 18 * pixels));
