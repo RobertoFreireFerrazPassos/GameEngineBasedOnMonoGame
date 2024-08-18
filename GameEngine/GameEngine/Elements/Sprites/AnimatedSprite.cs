@@ -24,18 +24,19 @@ public class AnimatedSprite
         }
 
         State = state;
-        CurrentFrameIndex = 0;
+        _currentFrameIndex = 0;
     }
-
-    public int CurrentFrameIndex;
-
-    public TimeSpan ElapsedTime;
 
     public Color Color;
 
     public Visibility Visibility  = new Visibility();
 
     public Order Ordering = new Order();
+
+
+    private int _currentFrameIndex;
+
+    public TimeSpan _elapsedTime;
 
     public AnimatedSprite(
         Color color,
@@ -46,7 +47,7 @@ public class AnimatedSprite
         Color = color;
         Animations = animations;
         State = state;
-        ElapsedTime = TimeSpan.Zero;
+        _elapsedTime = TimeSpan.Zero;
         Texture = texture;
     }
 
@@ -56,22 +57,22 @@ public class AnimatedSprite
 
         if (animation is null) return;
 
-        ElapsedTime += gameTime.ElapsedGameTime;
+        _elapsedTime += gameTime.ElapsedGameTime;
 
-        if (ElapsedTime >= animation.FrameDuration)
+        if (_elapsedTime >= animation.FrameDuration)
         {
-            ElapsedTime -= animation.FrameDuration;
-            CurrentFrameIndex++;
+            _elapsedTime -= animation.FrameDuration;
+            _currentFrameIndex++;
 
-            if (CurrentFrameIndex >= animation.Frames.Length)
+            if (_currentFrameIndex >= animation.Frames.Length)
             {
                 if (animation.Loop)
                 {
-                    CurrentFrameIndex = 0;
+                    _currentFrameIndex = 0;
                 }
                 else
                 {
-                    CurrentFrameIndex = animation.Frames.Length - 1;
+                    _currentFrameIndex = animation.Frames.Length - 1;
                 }
             }
         }
@@ -80,7 +81,7 @@ public class AnimatedSprite
     public Rectangle GetSourceRectangle()
     {
         var animation = Animations.GetValueOrDefault(State);
-        var spriteNumber = animation.Frames[CurrentFrameIndex];
+        var spriteNumber = animation.Frames[_currentFrameIndex];
         return Texture.GetRectangle(spriteNumber);
     }
 }
