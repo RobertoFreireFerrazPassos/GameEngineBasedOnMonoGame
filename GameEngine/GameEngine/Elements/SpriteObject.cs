@@ -29,10 +29,7 @@ public abstract class SpriteObject
         var spriteTexture = TextureManager.Texture;
         var pixels = AnimatedSprite.Pixels;
         AnimatedSprite.Update(gameTime);
-        (int x, int y) = SpriteManager.ConvertNumberToXY(
-            AnimatedSprite.Sprite,
-            spriteTexture.Rows,
-            spriteTexture.Columns);
+        (int x, int y) = spriteTexture.ConvertNumberToXY(AnimatedSprite.Sprite);
         var box = GetBox();
         var position = new Vector2(
             Position.X + (int)offset.X,

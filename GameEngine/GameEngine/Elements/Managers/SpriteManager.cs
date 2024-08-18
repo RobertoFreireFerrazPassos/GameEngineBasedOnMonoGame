@@ -27,18 +27,6 @@ public static class SpriteManager
         _pixelTexture.SetData(new Color[] { Color.White });
     }
 
-    public static (int x, int y) ConvertNumberToXY(int number, int rows, int columns)
-    {
-        var max = rows * columns;
-        if (number < 1 || number > max)
-            throw new ArgumentOutOfRangeException(nameof(number), $"Number must be between 1 and {max}.");
-
-        int x = (number - 1) % columns;
-        int y = (number - 1) / columns;
-
-        return (x, y);
-    }
-
     public static void DrawLine(Vector2 start, Vector2 end, Color color, float thickness)
     {
         // Calculate the distance and angle
