@@ -4,8 +4,6 @@
 
 ### Game Engine
 
-- Move GraphicsDeviceManager and GraphicsDevice out of GlobalManager
-- Remove SpriteManager.SpriteBatch of all draw functions
 - Right now, there is only one TextureManager.Texture2D. Make it multiple and store in each class; TileMapManager, Player, Enemy, etc;
 - Add light effect https://www.youtube.com/shorts/fAiDf8KXGXw
 - Test this https://www.youtube.com/shorts/EBZt_2NQwp0
