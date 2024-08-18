@@ -1,6 +1,4 @@
-﻿using GameEngine.Elements;
-using GameEngine.Elements.Managers;
-using GameEngine.Elements.Sprites;
+﻿using GameEngine.Elements.Managers;
 using GameEngine.Enums;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
