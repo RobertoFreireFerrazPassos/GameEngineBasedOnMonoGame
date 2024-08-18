@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameEngine.Elements.Sprites;
+using Microsoft.Xna.Framework;
+using System;
 
 namespace GameEngine.Elements;
 
@@ -9,6 +11,13 @@ public class Texture
     public int Rows;
 
     public int Columns;
+
+    public Texture(int pixels, int rows, int columns)
+    {
+        Pixels = pixels;
+        Rows = rows;
+        Columns = columns;
+    }
 
     public (int x, int y) ConvertNumberToXY(int number)
     {

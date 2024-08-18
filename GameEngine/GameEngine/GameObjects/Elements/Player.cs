@@ -53,7 +53,7 @@ public class Player : SpriteObject
                     Color.White
                     , animations
                     , AnimationEnum.IDLE
-                    , 40
+                    , new GameEngine.Elements.Texture(40, 26, 13)
                 );
         AnimatedSprite.Ordering.Z = 1;
         CollisionBox = new CollisionBox(2, 2, 38, 36);

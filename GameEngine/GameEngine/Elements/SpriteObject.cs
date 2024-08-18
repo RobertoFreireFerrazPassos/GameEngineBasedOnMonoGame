@@ -25,12 +25,8 @@ public abstract class SpriteObject
             return;
         }
 
-        var offset = Camera.Position;
-        var spriteTexture = TextureManager.Texture;
-        var pixels = AnimatedSprite.Pixels;
+        var offset = Camera.Position;        
         AnimatedSprite.Update(gameTime);
-        (int x, int y) = spriteTexture.ConvertNumberToXY(AnimatedSprite.Sprite);
-        var box = GetBox();
         var position = new Vector2(
             Position.X + (int)offset.X,
             Position.Y + (int)offset.Y
@@ -38,13 +34,13 @@ public abstract class SpriteObject
 
         batch.Draw(
             TextureManager.Texture2D,
-            position, 
-            new Rectangle(x * pixels, y * pixels, pixels, pixels), 
-            AnimatedSprite.Color, 
-            0, 
-            new Vector2(1, 1), 
-            new Vector2(1, 1), 
-            AnimatedSprite.FlipHorizontally, 
+            position,
+            AnimatedSprite.GetSourceRectangle(),
+            AnimatedSprite.Color,
+            0,
+            new Vector2(1, 1),
+            new Vector2(1, 1),
+            AnimatedSprite.FlipHorizontally,
             0f
         );
     }

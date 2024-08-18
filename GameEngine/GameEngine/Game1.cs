@@ -30,7 +30,7 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            TextureManager.AddTexture("Sprite-0001", 26, 13, 40);
+            TextureManager.AddTexture("Sprite-0001");
             SpriteManager.LoadSpriteBatch(GraphicsDevice, Content.Load<SpriteFont>("Fonts/8bitOperatorPlus-Bold"));
             GlobalManager.LoadContent();
         }

@@ -25,7 +25,7 @@ public class StartManager : ISceneManager
     private int _imageNumber = 1;
     private int _screenWidth = 0;
     private int _screenHeight = 0;
-    private Texture2D _texture;
+    private Texture2D _textureSource;
     private Vector2 _screenPosition;
     private Rectangle _sourceRectangle;
 
@@ -39,9 +39,9 @@ public class StartManager : ISceneManager
 
     public void LoadContent()
     {
-        _introSfx = _content.Load<SoundEffect>("Audio/intro"); 
-        var texture = TextureManager.Texture;
-        _texture = TextureManager.Texture2D;
+        _introSfx = _content.Load<SoundEffect>("Audio/intro");
+        _textureSource = TextureManager.Texture2D;
+        var texture = new GameEngine.Elements.Texture(40, 26, 13);
         var pixels = texture.Pixels;
         (int x, int y) = texture.ConvertNumberToXY(40);        
         _screenPosition = new Vector2(_screenWidth / 2 - 160, _screenHeight / 2 - 80);
@@ -132,7 +132,7 @@ public class StartManager : ISceneManager
     private void DrawFirstImage(SpriteBatch batch, Color color)
     {
         batch.Draw(
-            _texture,
+            _textureSource,
             _screenPosition,
             _sourceRectangle,
             color,

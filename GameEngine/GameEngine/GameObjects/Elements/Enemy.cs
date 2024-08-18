@@ -18,8 +18,8 @@ public class Enemy : SpriteObject
     private Vector2 _direction = Vector2.Zero;
     private const float MovingTime = 0.5f;
     private float _movingTime = MovingTime;
-    private float minDist = 1f;
-    private float maxDist = 6f;
+    private float minDist = 40f;
+    private float maxDist = 250f;
 
     public Enemy(int x, int y) : base(x, y)
     {
@@ -42,7 +42,7 @@ public class Enemy : SpriteObject
                     Color.White
                     , animations
                     , AnimationEnum.IDLE
-                    , 40
+                    , new GameEngine.Elements.Texture(40, 26, 13)
                 );
         AnimatedSprite.Ordering.Z = 2;
         CollisionBox = new CollisionBox(6, 17, 28, 18);
@@ -66,12 +66,12 @@ public class Enemy : SpriteObject
         var enemyCenter = GetBox().Center.ToVector2();
         var distance = Vector2.Distance(playerCenter, enemyCenter);
 
-        if (distance < minDist * AnimatedSprite.Pixels)
+        if (distance < minDist)
         {
             return;
         }
 
-        if (distance > maxDist * AnimatedSprite.Pixels)
+        if (distance > maxDist)
         {
             _state = 0;
             return;

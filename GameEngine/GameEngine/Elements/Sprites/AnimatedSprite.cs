@@ -1,4 +1,5 @@
-﻿using GameEngine.Enums;
+﻿using GameEngine.Elements.Managers;
+using GameEngine.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,6 +10,8 @@ namespace GameEngine.Elements.Sprites;
 public class AnimatedSprite
 {
     public Dictionary<AnimationEnum, Animation> Animations = new Dictionary<AnimationEnum, Animation>();
+
+    public static Texture Texture { get; set; }
 
     public SpriteEffects FlipHorizontally; 
 
@@ -29,20 +32,7 @@ public class AnimatedSprite
 
     public TimeSpan ElapsedTime;
 
-    public int Sprite
-    {
-        get
-        {
-            var animation = Animations.GetValueOrDefault(State);
-            if (animation is null) return 0;
-
-            return animation.Frames[CurrentFrameIndex];
-        }
-    }
-
     public Color Color;
-
-    public int Pixels;
 
     public Visibility Visibility  = new Visibility();
 
@@ -52,13 +42,13 @@ public class AnimatedSprite
         Color color,
         Dictionary<AnimationEnum, Animation> animations,
         AnimationEnum state,
-        int pixels)
+        Texture texture)
     {
         Color = color;
         Animations = animations;
         State = state;
         ElapsedTime = TimeSpan.Zero;
-        Pixels = pixels;
+        Texture = texture;
     }
 
     public void Update(GameTime gameTime)
@@ -86,5 +76,14 @@ public class AnimatedSprite
                 }
             }
         }
+    }
+
+    public Rectangle GetSourceRectangle()
+    {
+        var animation = Animations.GetValueOrDefault(State);
+        var spriteNumber = animation.Frames[CurrentFrameIndex];
+        var pixels = Texture.Pixels;
+        (int x, int y) = Texture.ConvertNumberToXY(spriteNumber);
+        return new Rectangle(x * pixels, y * pixels, pixels, pixels);
     }
 }

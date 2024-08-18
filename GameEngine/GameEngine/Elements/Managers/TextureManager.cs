@@ -7,8 +7,6 @@ public static class TextureManager
 {
     public static Texture2D Texture2D;
 
-    public static Texture Texture { get; set; }
-
     private static ContentManager Content;
 
     public static void LoadTextureManager(ContentManager content)
@@ -17,14 +15,8 @@ public static class TextureManager
         Content = content;
     }
 
-    public static void AddTexture(string textureKey, int rows, int columns, int pixels)
+    public static void AddTexture(string textureKey)
     {
         Texture2D = Content.Load<Texture2D>(textureKey);
-        Texture = new Texture()
-        {
-            Rows = rows,
-            Columns = columns,
-            Pixels = pixels
-        };
     }
 }
