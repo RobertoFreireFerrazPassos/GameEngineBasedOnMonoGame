@@ -147,7 +147,7 @@ public class Enemy : SpriteObject
 
     private void UpdatePosition(float elapsedTime, List<Enemy> enemies)
     {
-        var targetPosition = _positionsToPlayer[_currentPositionToPlayerIndex];
+        var targetPosition = _positionsToPlayer[_positionsToPlayer.Count-1];
         var direction = targetPosition - GetBox().Center.ToVector2();
         var distance = direction.Length();
 
