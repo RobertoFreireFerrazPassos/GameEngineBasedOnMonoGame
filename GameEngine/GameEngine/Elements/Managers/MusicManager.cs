@@ -38,8 +38,6 @@ public static class MusicManager
 public class Melody
 {
     private SoundEffect sound;
-    private MemoryStream audioStream;
-    private Waveform waveform;
 
     // Frequencies for musical notes
     private static readonly Dictionary<Note, double> NoteFrequencies = new Dictionary<Note, double>
@@ -56,7 +54,7 @@ public class Melody
     public Melody((Note, uint)[] melody, Waveform waveform)
     {
         // Create memory stream and write data
-        audioStream = new MemoryStream();
+        var audioStream = new MemoryStream();
         BinaryWriter writer = new BinaryWriter(audioStream);
 
         // Constants for WAV file format
