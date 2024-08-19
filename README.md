@@ -10,7 +10,7 @@
 ### Game Engine
 
 - fix movements bug. sprite sometimes disappear. or after the enemy doesn't find the player anymore, it starts to jitter
-- make movement flexible, so different enemy can have different movements for each statement
+- make movement flexible, so different enemy can have different movements for each state
 - Add circle box for detection collision
 - Add shadows
 - Add Parallax camera https://youtu.be/ws-YJNBbEz0?si=STw217EvpAIF3y0G
