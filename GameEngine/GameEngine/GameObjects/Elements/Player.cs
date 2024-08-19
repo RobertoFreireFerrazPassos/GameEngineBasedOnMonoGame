@@ -13,8 +13,6 @@ namespace GameEngine.GameObjects.Elements;
 
 public class Player : SpriteObject
 {
-    private int Speed;
-
     public Player(int x, int y) : base(x, y)
     {
         Speed = 2;
