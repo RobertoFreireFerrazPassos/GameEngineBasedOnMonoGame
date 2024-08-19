@@ -9,6 +9,8 @@
 
 ### Game Engine
 
+- Add light
+- Add shadows
 - Add Parallax camera https://youtu.be/ws-YJNBbEz0?si=STw217EvpAIF3y0G
 - Add light effect https://www.youtube.com/shorts/fAiDf8KXGXw
 - Test this https://www.youtube.com/shorts/EBZt_2NQwp0
