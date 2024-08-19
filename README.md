@@ -9,7 +9,7 @@
 
 ### Game Engine
 
-- Add light
+- Add circle box for detection collision
 - Add shadows
 - Add Parallax camera https://youtu.be/ws-YJNBbEz0?si=STw217EvpAIF3y0G
 - Add light effect https://www.youtube.com/shorts/fAiDf8KXGXw
