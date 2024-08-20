@@ -13,6 +13,9 @@ namespace GameEngine.GameObjects.Elements;
 
 public class Player : SpriteObject
 {
+    private bool _isTakingDamage;
+    private float _damageTime;
+
     public Player(int x, int y) : base(x, y)
     {
         Speed = 2;
@@ -61,6 +64,16 @@ public class Player : SpriteObject
     {
         var direction = Vector2.Zero;
         var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / Config.SixtyFramesASecond);
+
+        if (_damageTime <= 0f)
+        {
+            _damageTime = 0f;
+            _isTakingDamage = false;
+        }
+        else
+        {
+            _damageTime-= elapsedTime;
+        }
 
         SetDirection();
         UpdateAnimation();
@@ -141,8 +154,19 @@ public class Player : SpriteObject
         }
     }
 
-    public override void Draw(SpriteBatch batch, GameTime gameTime)
+    public void ReceivesDamage()
     {
-        base.Draw(batch, gameTime);
+        _isTakingDamage = true;
+        _damageTime = 1f;
+    }
+
+    public override void Draw(SpriteBatch batch, GameTime gameTime, Color? color = null)
+    {
+        if (_isTakingDamage)
+        {
+            color = new Color(220, 20, 60);
+        }
+
+        base.Draw(batch, gameTime, color);
     }
 }

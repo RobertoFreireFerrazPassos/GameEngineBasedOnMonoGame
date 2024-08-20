@@ -55,9 +55,9 @@ public class GameManager : ISceneManager
         Camera.LoadCamera();
         _player = new Player(22 * pixels, 20 * pixels);
 
-        for (int i = 27; i <= 35; i++)
+        for (int i = 27; i <= 27; i++)
         {
-            for (int j = 11; j <= 17; j++)
+            for (int j = 16; j <= 16; j++)
             {
                 _enemies.Add(new Enemy(i * pixels, j * pixels));
             }

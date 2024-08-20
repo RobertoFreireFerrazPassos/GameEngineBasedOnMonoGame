@@ -27,7 +27,7 @@ public class SimpleMovementStrategy : IMovementStrategy
         _maxDist = maxDist;
     }
 
-    public void Update(float elapsedTime, SpriteObject target, List<SpriteObject> allies)
+    public void Update(float elapsedTime, SpriteObject target, List<SpriteObject> allies, Action action)
     {
         if (_currentState == 2)
         {
@@ -39,19 +39,16 @@ public class SimpleMovementStrategy : IMovementStrategy
         if (_currentState == 3)
         {
             _timer += elapsedTime;
-            Action();
+            if (_timer > 0.2f)
+            {
+                _currentState = 0;
+            }
+            action();
+            return;
         }
 
         _timer = 0f;
         FindTarget(target);
-    }
-
-    private void Action()
-    {
-        if (_timer > 3f)
-        {
-            _currentState = 0;
-        }
     }
 
     private bool IsObstacleBetween(Vector2 start, Vector2 end, int stepSize, Func<Vector2, bool> obstacleCheck)

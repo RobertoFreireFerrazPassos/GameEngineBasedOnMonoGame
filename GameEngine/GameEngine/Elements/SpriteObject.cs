@@ -20,8 +20,10 @@ public abstract class SpriteObject
         Position = new Vector2(x, y);
     }
 
-    public virtual void Draw(SpriteBatch batch, GameTime gameTime)
+    public virtual void Draw(SpriteBatch batch, GameTime gameTime, Color? newColor = null)
     {
+        var color = newColor ?? AnimatedSprite.Color;
+
         if (!AnimatedSprite.Visibility.Visible)
         {
             return;
@@ -38,7 +40,7 @@ public abstract class SpriteObject
             TextureManager.Texture2D[AnimatedSprite.Texture.TextureKey],
             position,
             AnimatedSprite.GetSourceRectangle(),
-            AnimatedSprite.Color,
+            color,
             0,
             new Vector2(1, 1),
             new Vector2(1, 1),

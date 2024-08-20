@@ -43,10 +43,15 @@ public class Enemy : SpriteObject
     public void Update(GameTime gameTime, Player player, List<Enemy> enemies)
     {
         var elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        _movementStrategy.Update(elapsedTime, player, enemies.ConvertAll(e => (SpriteObject)e));
+        _movementStrategy.Update(elapsedTime, player, enemies.ConvertAll(e => (SpriteObject)e), AttackPlayer);
+
+        void AttackPlayer()
+        {
+            player.ReceivesDamage();
+        }
     }
 
-    public override void Draw(SpriteBatch batch, GameTime gameTime)
+    public override void Draw(SpriteBatch batch, GameTime gameTime, Color? color = null)
     {
         base.Draw(batch, gameTime);
     }
