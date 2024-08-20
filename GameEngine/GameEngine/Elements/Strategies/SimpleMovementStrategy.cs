@@ -48,7 +48,7 @@ public class SimpleMovementStrategy : IMovementStrategy
         }
 
         _timer = 0f;
-        FindTarget(target);
+        _currentState = FindTarget(target);
     }
 
     private bool IsObstacleBetween(Vector2 start, Vector2 end, int stepSize, Func<Vector2, bool> obstacleCheck)
@@ -65,7 +65,7 @@ public class SimpleMovementStrategy : IMovementStrategy
         return false;
     }
 
-    private void FindTarget(SpriteObject target)
+    private int FindTarget(SpriteObject target, Vector2? positionToCompare = null)
     {
         var targetCenter = target.GetBox().Center.ToVector2();
         var thisObjectCenter = ThisObject.GetBox().Center.ToVector2();
@@ -73,24 +73,30 @@ public class SimpleMovementStrategy : IMovementStrategy
 
         if (distance < _minDist)
         {
-            _currentState = 3;
-            return;
+            return 3;
         }
 
         if (distance > _maxDist)
         {
-            _currentState = 0;
-            return;
+            return 0;
         }
 
         if (IsObstacleBetween(thisObjectCenter, targetCenter, 4, CheckForObstacle))
         {
-            _currentState = 1;
-            return;
+            return 1;
+        }
+
+        if (positionToCompare is not null)
+        {
+            var distanceToNewPosition = Vector2.Distance(targetCenter, (Vector2)positionToCompare);
+            if (distanceToNewPosition < 40f)
+            {
+                return 2;
+            }
         }
 
         _targetPosition = targetCenter;
-        _currentState = 2;
+        return 2;
     }
 
     private bool CheckForObstacle(Vector2 position)
@@ -100,6 +106,11 @@ public class SimpleMovementStrategy : IMovementStrategy
 
     private void MoveToTarget(float elapsedTime, SpriteObject target, List<SpriteObject> allies)
     {
+        if (_timer > 0.5f)
+        {
+            _timer = 0f;
+            FindTarget(target, _targetPosition);
+        }
         UpdatePosition(elapsedTime, target, allies);
     }
 
