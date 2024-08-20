@@ -10,60 +10,54 @@ public class SimpleMovementStrategy : IMovementStrategy
 {
     public SpriteObject ThisObject;
 
-    public int PreviousState { get; set; }
-
-    private int _currentState; // 0- far 1- tilemap obstacle  2- find
-
-    public int State
-    {
-        get
-        {
-            return _currentState;
-        }
-        set
-        {
-            PreviousState = _currentState;
-            _currentState = value;
-        }
-    }
+    private int _currentState; // 0- far 1- tilemap obstacle  2- found 3 - reached
 
     public Vector2 _targetPosition;
-
-    public List<Vector2> _positionsToTarget = new List<Vector2>();
-
-    public List<Vector2> _lastPositionsToTarget = new List<Vector2>();
-
-    private Timer _movingTimer;
 
     private float _minDist;
 
     private float _maxDist;
 
-    public SimpleMovementStrategy(SpriteObject thisObject, float movingTime, float minDist, float maxDist)
+    private float _timer;
+
+    public SimpleMovementStrategy(SpriteObject thisObject, float minDist, float maxDist)
     {
         ThisObject = thisObject;
-        _movingTimer = new Timer(movingTime);
         _minDist = minDist;
         _maxDist = maxDist;
-        _movingTimer.OnTimerElapsed += OnMovementTimerElapsed;
     }
 
     public void Update(float elapsedTime, SpriteObject target, List<SpriteObject> allies)
     {
-        if (State == 0 || State == 1)
+        if (_currentState == 2)
         {
-            FindTarget(target);
+            _timer += elapsedTime;
+            MoveToTarget(elapsedTime, target, allies);
+            return;
         }
-        else if (State == 2)
+
+        if (_currentState == 3)
         {
-            MoveToTarget(elapsedTime, allies);
+            _timer += elapsedTime;
+            Action();
+        }
+
+        _timer = 0f;
+        FindTarget(target);
+    }
+
+    private void Action()
+    {
+        if (_timer > 3f)
+        {
+            _currentState = 0;
         }
     }
 
-    public bool IsObstacleBetween(Vector2 start, Vector2 end, int stepSize, Func<Vector2, bool> obstacleCheck)
+    private bool IsObstacleBetween(Vector2 start, Vector2 end, int stepSize, Func<Vector2, bool> obstacleCheck)
     {
-        _positionsToTarget = PositionUtils.GetPointsAlongLine(start, end, stepSize);
-        foreach (var point in _positionsToTarget)
+        var positionsToTarget = PositionUtils.GetPointsAlongLine(start, end, stepSize);
+        foreach (var point in positionsToTarget)
         {
             if (obstacleCheck(point))
             {
@@ -74,7 +68,7 @@ public class SimpleMovementStrategy : IMovementStrategy
         return false;
     }
 
-    public void FindTarget(SpriteObject target)
+    private void FindTarget(SpriteObject target)
     {
         var targetCenter = target.GetBox().Center.ToVector2();
         var thisObjectCenter = ThisObject.GetBox().Center.ToVector2();
@@ -82,29 +76,24 @@ public class SimpleMovementStrategy : IMovementStrategy
 
         if (distance < _minDist)
         {
+            _currentState = 3;
             return;
         }
 
         if (distance > _maxDist)
         {
-            State = 0;
+            _currentState = 0;
             return;
         }
 
         if (IsObstacleBetween(thisObjectCenter, targetCenter, 4, CheckForObstacle))
         {
-            if (PreviousState == 2)
-            {
-                _positionsToTarget = _lastPositionsToTarget;
-                State = 2;
-                return;
-            }
-            State = 1;
+            _currentState = 1;
             return;
         }
 
         _targetPosition = targetCenter;
-        State = 2;
+        _currentState = 2;
     }
 
     private bool CheckForObstacle(Vector2 position)
@@ -112,27 +101,24 @@ public class SimpleMovementStrategy : IMovementStrategy
         return TileMapManager.IsCollidingWith(position);
     }
 
-    private void MoveToTarget(float elapsedTime, List<SpriteObject> allies)
+    private void MoveToTarget(float elapsedTime, SpriteObject target, List<SpriteObject> allies)
     {
-        _movingTimer.StartIfInactive();
-        _movingTimer.Update(elapsedTime);
-        UpdatePosition(elapsedTime, allies);
+        UpdatePosition(elapsedTime, target, allies);
     }
 
-    private void OnMovementTimerElapsed()
-    {
-        _lastPositionsToTarget = _positionsToTarget;
-        State = 0;
-    }
 
-    private void UpdatePosition(float elapsedTime, List<SpriteObject> allies)
+    private void UpdatePosition(float elapsedTime, SpriteObject target, List<SpriteObject> allies)
     {
-        var targetPosition = _positionsToTarget[_positionsToTarget.Count - 1];
-        var direction = targetPosition - ThisObject.GetBox().Center.ToVector2();
-        var distance = direction.Length();
-
+        var direction = _targetPosition - ThisObject.GetBox().Center.ToVector2();
         direction = direction * ThisObject.Speed * elapsedTime;
         direction.Normalize();
+
+        if (direction.X is float.NaN || direction.Y is float.NaN)
+        {
+            _timer = 0f;
+            _currentState = 0;
+            return;
+        }
 
         var tempX = ThisObject.Position.X;
         var tempY = ThisObject.Position.Y;
@@ -150,6 +136,12 @@ public class SimpleMovementStrategy : IMovementStrategy
         {
             ThisObject.Position.Y = tempY;
         }
+
+        if (tempX == ThisObject.Position.X && tempY == ThisObject.Position.Y)
+        {
+            _currentState = 0;
+            return;
+        }
     }
 
     private bool DetectCollisionWithAllies(List<SpriteObject> allies)
@@ -163,25 +155,5 @@ public class SimpleMovementStrategy : IMovementStrategy
         }
 
         return false;
-    }
-
-    public void Draw()
-    {
-
-        if (State != 2)
-        {
-            return;
-        }
-
-        var offset = Camera.Position;
-        foreach (var position in _positionsToTarget)
-        {
-            SpriteManager.DrawPixel(
-                new Vector2(
-                    position.X + (int)offset.X,
-                    position.Y + (int)offset.Y
-                ), Color.OrangeRed
-            );
-        }
     }
 }

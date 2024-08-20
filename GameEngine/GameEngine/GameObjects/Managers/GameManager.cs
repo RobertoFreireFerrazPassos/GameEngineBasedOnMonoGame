@@ -54,10 +54,14 @@ public class GameManager : ISceneManager
         );
         Camera.LoadCamera();
         _player = new Player(22 * pixels, 20 * pixels);
-        _enemies.Add(new Enemy(30 * pixels, 13 * pixels));
-        _enemies.Add(new Enemy(31 * pixels, 13 * pixels));
-        _enemies.Add(new Enemy(30 * pixels, 14 * pixels));
-        _enemies.Add(new Enemy(31 * pixels, 14 * pixels));
+
+        for (int i = 27; i <= 35; i++)
+        {
+            for (int j = 11; j <= 17; j++)
+            {
+                _enemies.Add(new Enemy(i * pixels, j * pixels));
+            }
+        }
         _objects.Add(new StaticObject(22 * pixels, 18 * pixels));
 
         var melody = "B15G30G5F5E5D10C20";

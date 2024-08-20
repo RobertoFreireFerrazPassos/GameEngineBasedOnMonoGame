@@ -15,7 +15,7 @@ public class Enemy : SpriteObject
 
     public Enemy(int x, int y) : base(x, y)
     {
-        _movementStrategy = new SimpleMovementStrategy(this,1f, 40f, 250f);
+        _movementStrategy = new SimpleMovementStrategy(this,40f, 250f);
         Speed = 1;
         var animations = new Dictionary<AnimationEnum, Animation>
             {
@@ -48,7 +48,6 @@ public class Enemy : SpriteObject
 
     public override void Draw(SpriteBatch batch, GameTime gameTime)
     {
-        _movementStrategy.Draw();
         base.Draw(batch, gameTime);
     }
 }
