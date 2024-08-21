@@ -9,6 +9,7 @@
 
 ### Game Engine
 
+- add screen shake https://youtube.com/shorts/tOqJCSNkU-8?si=mMhzw7bJjlOtvoOU
 - Add circle box for detection collision. instead of only rectangle
 - Add shadows
 - Add Parallax camera https://youtu.be/ws-YJNBbEz0?si=STw217EvpAIF3y0G
