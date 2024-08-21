@@ -9,7 +9,6 @@
 
 ### Game Engine
 
-- Test this https://www.youtube.com/shorts/EBZt_2NQwp0
 
 #### Collision
 
@@ -25,7 +24,7 @@ add screen shake https://youtube.com/shorts/tOqJCSNkU-8?si=mMhzw7bJjlOtvoOU
 
 Break the animations into pieces to draw each part in a order. Add extra animation which it can be enabled/disabled like a weapon.
 
-- Tweens https://youtube.com/shorts/rOezOa39GLU?si=q4TzLH6qbC188odi
+Tweens https://youtube.com/shorts/rOezOa39GLU?si=q4TzLH6qbC188odi
 
 Player customization https://youtube.com/shorts/1X4Oq2X41ZU?si=taPF-d4oxcUTP4Vc
 
@@ -39,7 +38,7 @@ Add Parallax camera https://youtu.be/ws-YJNBbEz0?si=STw217EvpAIF3y0G
 
 #### Shaders
 
-- Shaders https://youtube.com/shorts/GC2VG7ksizk?si=0iPMm9yR7mdUTDZG
+Shaders https://youtube.com/shorts/GC2VG7ksizk?si=0iPMm9yR7mdUTDZG
 
 #### Normal Map Shaders
  https://youtube.com/shorts/rzm8v5gx7l0?si=hEAbQcPbMu-JaSf2
