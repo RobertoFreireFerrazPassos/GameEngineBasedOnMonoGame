@@ -109,7 +109,12 @@ public class SimpleMovementStrategy : IMovementStrategy
         if (_timer > 0.5f)
         {
             _timer = 0f;
-            FindTarget(target, _targetPosition);
+
+            if (FindTarget(target, _targetPosition) == 3)
+            {
+                _currentState = 3;
+                return;
+            }
         }
         UpdatePosition(elapsedTime, target, allies);
     }
@@ -133,14 +138,14 @@ public class SimpleMovementStrategy : IMovementStrategy
 
         ThisObject.Position.X += direction.X;
 
-        if (TileMapManager.IsCollidingWith(ThisObject.GetBox()) || DetectCollisionWithAllies(allies))
+        if (DetectCollisionWithTarget(target) || TileMapManager.IsCollidingWith(ThisObject.GetBox()) || DetectCollisionWithAllies(allies))
         {
             ThisObject.Position.X = tempX;
         }
 
         ThisObject.Position.Y += direction.Y;
 
-        if (TileMapManager.IsCollidingWith(ThisObject.GetBox()) || DetectCollisionWithAllies(allies))
+        if (DetectCollisionWithTarget(target) || TileMapManager.IsCollidingWith(ThisObject.GetBox()) || DetectCollisionWithAllies(allies))
         {
             ThisObject.Position.Y = tempY;
         }
@@ -150,6 +155,11 @@ public class SimpleMovementStrategy : IMovementStrategy
             _currentState = 0;
             return;
         }
+    }
+
+    private bool DetectCollisionWithTarget(SpriteObject target)
+    {
+        return ThisObject.GetBox().Intersects(target.GetBox());
     }
 
     private bool DetectCollisionWithAllies(List<SpriteObject> allies)
