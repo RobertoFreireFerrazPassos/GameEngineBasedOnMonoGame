@@ -9,9 +9,7 @@
 
 ### Game Engine
 
-- fix movements bug. sprite sometimes disappear. or after the enemy doesn't find the player anymore, it starts to jitter
-- make movement flexible, so different enemy can have different movements for each state
-- Add circle box for detection collision
+- Add circle box for detection collision. instead of only rectangle
 - Add shadows
 - Add Parallax camera https://youtu.be/ws-YJNBbEz0?si=STw217EvpAIF3y0G
 - Add light effect https://www.youtube.com/shorts/fAiDf8KXGXw
