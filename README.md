@@ -10,6 +10,11 @@
 ### Game Engine
 
 
+#### Background
+
+parallax background
+https://youtube.com/shorts/ok4Zst3R7aQ?si=SlLVWyY5OV8xrTBU
+
 #### Collision
 
 add a collision box/circle for the tilemap
