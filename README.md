@@ -24,7 +24,6 @@
 
 ### Game
 
-- Enemy not overlap, instead, deal damage.
 - Grass https://youtube.com/shorts/s10kVff7rCE?si=1pZn-A-FGa_70jJx
 - Shader damage effect
 
