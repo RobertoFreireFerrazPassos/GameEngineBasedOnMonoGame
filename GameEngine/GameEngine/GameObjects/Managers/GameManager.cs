@@ -5,7 +5,6 @@ using GameEngine.Enums;
 using GameEngine.GameObjects.Elements;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +12,6 @@ namespace GameEngine.GameObjects.Managers;
 
 public class GameManager : ISceneManager
 {
-    Vector3 lightDirection;
     private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();
     private List<StaticObject> _objects = new List<StaticObject>();
@@ -83,28 +81,12 @@ public class GameManager : ISceneManager
             eny.Update(deltaTime, _player, _enemies);
         }
         Camera.UpdateForFollowPosition(_player.GetBox().Center.ToVector2(), 0.05f);
-        // Set the Z component to a constant value, e.g., 1 for a fixed light direction
-        lightDirection = new Vector3(-0.1f, 0.1f, 1.0f);
-        lightDirection.Normalize();
     }
 
     public void Draw(float deltaTime)
     {
-
-        var normalMapEffect = TextureManager.Effects["normalMap"];
-        var spriteTexture = TextureManager.Texture2D["world"];
-        var normalMapTexture = TextureManager.Texture2D["normalMap"];
-
-        normalMapEffect.Parameters["TextureSampler"].SetValue(spriteTexture);
-        normalMapEffect.Parameters["NormalMapSampler"].SetValue(normalMapTexture);
-        normalMapEffect.Parameters["LightDirection"].SetValue(lightDirection);
-        normalMapEffect.Parameters["LightColor"].SetValue(new Vector3(1.0f, 1.0f, 1.0f));
-
-        var batch = SpriteManager.SpriteBatch;
-        batch.Begin(blendState : BlendState.AlphaBlend, samplerState : SamplerState.PointClamp, effect : normalMapEffect);
-
-        TileMapManager.Draw(MapLayerEnum.Background, batch, deltaTime);
-        TileMapManager.Draw(MapLayerEnum.Foreground, batch, deltaTime);
+        TileMapManager.Draw(MapLayerEnum.Background, deltaTime);
+        TileMapManager.Draw(MapLayerEnum.Foreground, deltaTime);
 
         var objSrites = new List<SpriteObject>();
         objSrites.Add(_player);
@@ -116,11 +98,9 @@ public class GameManager : ISceneManager
 
         foreach (var obj in objSrites)
         {
-            obj.Draw(batch, deltaTime);
+            obj.Draw(deltaTime);
         }
 
-        TileMapManager.Draw(MapLayerEnum.Parallax, batch, deltaTime);
-
-        batch.End();
+        TileMapManager.Draw(MapLayerEnum.Parallax, deltaTime);
     }
 }

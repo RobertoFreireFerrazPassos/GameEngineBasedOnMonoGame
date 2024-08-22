@@ -20,13 +20,15 @@ public abstract class SpriteObject
         Position = new Vector2(x, y);
     }
 
-    public virtual void Draw(SpriteBatch batch, float deltaTime, Color? newColor = null)
+    public virtual void Draw(float deltaTime, Color? newColor = null)
     {
         if (!AnimatedSprite.Visibility.Visible)
         {
             return;
         }
 
+        var batch = SpriteManager.SpriteBatch;
+        batch.Begin(samplerState: SamplerState.PointClamp);
 
         var color = newColor ?? AnimatedSprite.Color;
         var offset = Camera.Position;        
@@ -47,6 +49,8 @@ public abstract class SpriteObject
             AnimatedSprite.FlipHorizontally,
             0f
         );
+
+        batch.End();
     }
 
     public virtual Rectangle GetBox()

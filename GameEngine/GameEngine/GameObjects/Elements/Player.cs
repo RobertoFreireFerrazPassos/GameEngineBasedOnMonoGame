@@ -160,13 +160,13 @@ public class Player : SpriteObject
         _damageTime = 1f;
     }
 
-    public override void Draw(SpriteBatch batch, float deltaTime, Color? color = null)
+    public override void Draw(float deltaTime, Color? color = null)
     {
         if (_isTakingDamage)
         {
             color = new Color(220, 20, 60);
         }
 
-        base.Draw(batch, deltaTime, color);
+        base.Draw(deltaTime, color);
     }
 }

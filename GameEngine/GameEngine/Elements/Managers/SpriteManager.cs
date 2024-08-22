@@ -32,4 +32,24 @@ public static class SpriteManager
     {
         SpriteBatch.Draw(_pixelTexture, pointPosition, color);
     }
+
+    public static SpriteBatch GetSpriteBatchAndBeginWithLight()
+    {
+        var normalMapEffect = TextureManager.Effects["normalMap"];
+        var spriteTexture = TextureManager.Texture2D["world"];
+        var normalMapTexture = TextureManager.Texture2D["normalMap"];
+
+        var lightDirection = new Vector3(-0.1f, 0.1f, 1.0f);
+        lightDirection.Normalize();
+
+        normalMapEffect.Parameters["TextureSampler"].SetValue(spriteTexture);
+        normalMapEffect.Parameters["NormalMapSampler"].SetValue(normalMapTexture);
+        normalMapEffect.Parameters["LightDirection"].SetValue(lightDirection);
+        normalMapEffect.Parameters["LightColor"].SetValue(new Vector3(1.0f, 1.0f, 1.0f));
+
+        var batch = SpriteManager.SpriteBatch;
+        batch.Begin(blendState: BlendState.AlphaBlend, samplerState: SamplerState.PointClamp, effect: normalMapEffect);
+        
+        return batch;
+    }
 }

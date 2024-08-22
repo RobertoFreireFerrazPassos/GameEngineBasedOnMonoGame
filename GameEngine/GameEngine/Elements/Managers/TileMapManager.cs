@@ -57,8 +57,9 @@ public static class TileMapManager
         TileMaps.Add(name, tileMap);
     }
 
-    public static void Draw(MapLayerEnum layer, SpriteBatch batch, float deltaTime)
+    public static void Draw(MapLayerEnum layer, float deltaTime)
     {
+        var batch = SpriteManager.GetSpriteBatchAndBeginWithLight();
         var offset = Camera.Position;
 
         foreach (var map in TileMaps)
@@ -80,6 +81,8 @@ public static class TileMapManager
                 );
             }
         }
+
+        batch.End();
     }
 
     public static bool IsColliding(Func<Rectangle, bool> collisionCheck)

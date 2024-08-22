@@ -50,8 +50,8 @@ public class Enemy : SpriteObject
         }
     }
 
-    public override void Draw(SpriteBatch batch, float deltaTime, Color? color = null)
+    public override void Draw(float deltaTime, Color? color = null)
     {
-        base.Draw(batch, deltaTime);
+        base.Draw(deltaTime);
     }
 }
