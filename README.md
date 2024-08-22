@@ -11,6 +11,12 @@
 
 #### Shaders
 
+https://community.monogame.net/t/writing-your-own-2d-pixel-shader-in-monogame-for-absolute-beginners/10883
+
+https://gmjosack.github.io/posts/my-first-2d-pixel-shaders-part-1/
+https://gmjosack.github.io/posts/my-first-2d-pixel-shaders-part-2/
+https://gmjosack.github.io/posts/my-first-2d-pixel-shaders-part-3/
+
 Dynamic Lighting For Pixel Art Tutorial - Now You Know Too
 https://www.youtube.com/watch?v=vOXrrEvYUVg
 
