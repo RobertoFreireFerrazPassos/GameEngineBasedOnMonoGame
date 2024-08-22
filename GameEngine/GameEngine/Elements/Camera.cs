@@ -7,10 +7,6 @@ public static class Camera
 {
     public static Vector2 Position = new Vector2(0, 0);
 
-    public static int Column = 0;
-
-    public static int Row = 0;
-
     public static int GridSizeWidth;
 
     public static int GridSizeHeight;
@@ -27,10 +23,20 @@ public static class Camera
         GridSizeHeight = GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight;
     }
 
-    public static void Update(Vector2 position)
+    public static void UpdateForFollowPosition(Vector2 position, float smoothFactor)
     {
-        Column = (int) position.X / GridSizeWidth;
-        Row = (int)position.Y / GridSizeHeight;
-        Position = new Vector2(- Column * GridSizeWidth,- Row * GridSizeHeight);
+        var desiredPosition = new Vector2(
+            (-position.X + (GridSizeWidth / 2)),
+            (-position.Y + (GridSizeHeight / 2))
+        );
+
+        Position = Vector2.Lerp(Position, desiredPosition, smoothFactor);
+    }
+
+    public static void UpdateForGridCamera(Vector2 position)
+    {
+        var column = (int)position.X / GridSizeWidth;
+        var row = (int)position.Y / GridSizeHeight;
+        Position = new Vector2(-column * GridSizeWidth, -row * GridSizeHeight);
     }
 }

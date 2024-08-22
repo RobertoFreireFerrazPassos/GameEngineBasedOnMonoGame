@@ -81,7 +81,7 @@ public class GameManager : ISceneManager
         {
             eny.Update(gameTime, _player, _enemies);
         }
-        Camera.Update(_player.Position);
+        Camera.UpdateForFollowPosition(_player.GetBox().Center.ToVector2(), 0.05f);
     }
 
     public void Draw(GameTime gameTime)
