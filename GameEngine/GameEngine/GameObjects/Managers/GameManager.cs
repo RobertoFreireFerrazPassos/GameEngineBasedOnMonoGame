@@ -84,7 +84,7 @@ public class GameManager : ISceneManager
         }
         Camera.UpdateForFollowPosition(_player.GetBox().Center.ToVector2(), 0.05f);
         // Set the Z component to a constant value, e.g., 1 for a fixed light direction
-        lightDirection = new Vector3(-0.6f, 0.5f, 1.0f);
+        lightDirection = new Vector3(-0.1f, 0.1f, 1.0f);
         lightDirection.Normalize();
     }
 
