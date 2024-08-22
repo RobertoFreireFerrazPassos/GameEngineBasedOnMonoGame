@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace GameEngine.Elements.Sprites;
+﻿namespace GameEngine.Elements.Sprites;
 
 public class Animation
 {
     public int[] Frames;
 
-    public TimeSpan FrameDuration;
+    public float FrameDuration;
 
     public bool Loop;
 }

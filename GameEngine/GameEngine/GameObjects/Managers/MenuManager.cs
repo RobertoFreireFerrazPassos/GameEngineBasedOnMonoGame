@@ -12,7 +12,7 @@ public class MenuManager : ISceneManager
     {
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(float deltaTime)
     {
         if (InputUtils.IsKeyJustPressed(InputEnum.ENTER))
         {
@@ -20,7 +20,7 @@ public class MenuManager : ISceneManager
         }
     }
 
-    public void Draw(GameTime gameTime)
+    public void Draw(float deltaTime)
     {
         var batch = SpriteManager.SpriteBatch;
         batch.Begin(samplerState: SamplerState.PointClamp);

@@ -37,9 +37,8 @@ public class StartManager : ISceneManager
         _screenPosition = new Vector2(GlobalManager.GraphicsDeviceManager.PreferredBackBufferWidth / 2 - 160, GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight / 2 - 80);
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(float deltaTime)
     {
-        var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
         _timer += deltaTime;
 
         if (_imageNumber == 1)
@@ -100,7 +99,7 @@ public class StartManager : ISceneManager
         _opaque = _opaqueDefault;
     }
 
-    public void Draw(GameTime gameTime)
+    public void Draw(float deltaTime)
     {
         var color = new Color(255, 0, 0, 255) * _opaque;
         var batch = SpriteManager.SpriteBatch;

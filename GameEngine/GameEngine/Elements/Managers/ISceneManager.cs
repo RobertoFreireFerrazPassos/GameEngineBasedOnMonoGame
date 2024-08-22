@@ -1,12 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace GameEngine.Elements.Managers;
+﻿namespace GameEngine.Elements.Managers;
 
 public interface ISceneManager
 {
     public void LoadContent();
 
-    public void Update(GameTime gameTime);
+    public void Update(float elapsedTime);
 
-    public void Draw(GameTime gameTime);
+    public void Draw(float elapsedTime);
 }

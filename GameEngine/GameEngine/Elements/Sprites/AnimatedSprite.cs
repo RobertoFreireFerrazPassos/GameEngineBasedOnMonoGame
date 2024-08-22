@@ -36,7 +36,7 @@ public class AnimatedSprite
 
     private int _currentFrameIndex;
 
-    public TimeSpan _elapsedTime;
+    public float _elapsedTime;
 
     public AnimatedSprite(
         Color color,
@@ -47,17 +47,17 @@ public class AnimatedSprite
         Color = color;
         Animations = animations;
         State = state;
-        _elapsedTime = TimeSpan.Zero;
+        _elapsedTime = 0f;
         Texture = texture;
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(float deltaTime)
     {
         var animation = Animations.GetValueOrDefault(State);
 
         if (animation is null) return;
 
-        _elapsedTime += gameTime.ElapsedGameTime;
+        _elapsedTime += deltaTime;
 
         if (_elapsedTime >= animation.FrameDuration)
         {

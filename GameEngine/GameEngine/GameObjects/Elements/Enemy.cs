@@ -24,7 +24,7 @@ public class Enemy : SpriteObject
                     new Animation()
                     {
                         Frames = new int[] { 6 },
-                        FrameDuration = TimeSpan.FromMilliseconds(300),
+                        FrameDuration = 0.3f,
                         Loop = false
                     }
                 }
@@ -40,10 +40,9 @@ public class Enemy : SpriteObject
         CollisionBox = new CollisionBox(6, 17, 28, 18);
     }
 
-    public void Update(GameTime gameTime, Player player, List<Enemy> enemies)
+    public void Update(float deltaTime, Player player, List<Enemy> enemies)
     {
-        var elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        _movementStrategy.Update(elapsedTime, player, enemies.ConvertAll(e => (SpriteObject)e), AttackPlayer);
+        _movementStrategy.Update(deltaTime, player, enemies.ConvertAll(e => (SpriteObject)e), AttackPlayer);
 
         void AttackPlayer()
         {
@@ -51,8 +50,8 @@ public class Enemy : SpriteObject
         }
     }
 
-    public override void Draw(SpriteBatch batch, GameTime gameTime, Color? color = null)
+    public override void Draw(SpriteBatch batch, float deltaTime, Color? color = null)
     {
-        base.Draw(batch, gameTime);
+        base.Draw(batch, deltaTime);
     }
 }

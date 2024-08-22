@@ -5,7 +5,6 @@ using GameEngine.Enums;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using static GameEngine.GameConstants.Constants;
 
@@ -26,7 +25,7 @@ public class Player : SpriteObject
                     new Animation()
                     {
                         Frames = new int[] { 2 },
-                        FrameDuration = TimeSpan.FromMilliseconds(300),
+                        FrameDuration = 0.3f,
                         Loop = false
                     }
                 },
@@ -35,7 +34,7 @@ public class Player : SpriteObject
                     new Animation()
                     {
                         Frames = new int[] { 4, 5 },
-                        FrameDuration = TimeSpan.FromMilliseconds(300),
+                        FrameDuration = 0.3f,
                         Loop = true
                     }
                 },
@@ -44,7 +43,7 @@ public class Player : SpriteObject
                     new Animation()
                     {
                         Frames = new int[] { 2, 3 },
-                        FrameDuration = TimeSpan.FromMilliseconds(300),
+                        FrameDuration = 0.3f,
                         Loop = true
                     }
                 }
@@ -60,10 +59,11 @@ public class Player : SpriteObject
         CollisionBox = new CollisionBox(2, 2, 38, 36);
     }
 
-    public void Update(GameTime gameTime, List<Enemy> enemies)
+    public void Update(float deltaTime, List<Enemy> enemies)
     {
+        deltaTime = deltaTime / (float) Config.SixtyFramesASecond;
+
         var direction = Vector2.Zero;
-        var elapsedTime = (float)(gameTime.ElapsedGameTime.TotalSeconds / Config.SixtyFramesASecond);
 
         if (_damageTime <= 0f)
         {
@@ -72,7 +72,7 @@ public class Player : SpriteObject
         }
         else
         {
-            _damageTime-= elapsedTime;
+            _damageTime-= deltaTime;
         }
 
         SetDirection();
@@ -117,14 +117,14 @@ public class Player : SpriteObject
             var tempX = Position.X;
             var tempY = Position.Y;
 
-            Position.X += direction.X * Speed * elapsedTime;
+            Position.X += direction.X * Speed * deltaTime;
 
             if (TileMapManager.IsCollidingWith(GetBox()))
             {
                 Position.X = tempX;
             }
 
-            Position.Y += direction.Y * Speed * elapsedTime;
+            Position.Y += direction.Y * Speed * deltaTime;
 
             if (TileMapManager.IsCollidingWith(GetBox()))
             {
@@ -160,13 +160,13 @@ public class Player : SpriteObject
         _damageTime = 1f;
     }
 
-    public override void Draw(SpriteBatch batch, GameTime gameTime, Color? color = null)
+    public override void Draw(SpriteBatch batch, float deltaTime, Color? color = null)
     {
         if (_isTakingDamage)
         {
             color = new Color(220, 20, 60);
         }
 
-        base.Draw(batch, gameTime, color);
+        base.Draw(batch, deltaTime, color);
     }
 }

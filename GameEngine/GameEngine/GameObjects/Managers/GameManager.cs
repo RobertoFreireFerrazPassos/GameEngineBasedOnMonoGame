@@ -68,7 +68,7 @@ public class GameManager : ISceneManager
         MusicManager.AddMelody("Square", melody, Waveform.Square);
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(float deltaTime)
     {
         if (InputUtils.IsKeyJustPressed(InputEnum.ENTER))
         {
@@ -76,15 +76,15 @@ public class GameManager : ISceneManager
             GlobalManager.Scene = SceneEnum.MENU;
         }
 
-        _player.Update(gameTime, _enemies);
+        _player.Update(deltaTime, _enemies);
         foreach (var eny in _enemies)
         {
-            eny.Update(gameTime, _player, _enemies);
+            eny.Update(deltaTime, _player, _enemies);
         }
         Camera.UpdateForFollowPosition(_player.GetBox().Center.ToVector2(), 0.05f);
     }
 
-    public void Draw(GameTime gameTime)
+    public void Draw(float deltaTime)
     {
 
         var normalMapEffect = TextureManager.Effects["normalMap"];
@@ -99,8 +99,8 @@ public class GameManager : ISceneManager
         var batch = SpriteManager.SpriteBatch;
         batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, normalMapEffect);
 
-        TileMapManager.Draw(MapLayerEnum.Background, batch, gameTime);
-        TileMapManager.Draw(MapLayerEnum.Foreground, batch, gameTime);
+        TileMapManager.Draw(MapLayerEnum.Background, batch, deltaTime);
+        TileMapManager.Draw(MapLayerEnum.Foreground, batch, deltaTime);
 
         var objSrites = new List<SpriteObject>();
         objSrites.Add(_player);
@@ -112,10 +112,10 @@ public class GameManager : ISceneManager
 
         foreach (var obj in objSrites)
         {
-            obj.Draw(batch, gameTime);
+            obj.Draw(batch, deltaTime);
         }
 
-        TileMapManager.Draw(MapLayerEnum.Parallax, batch, gameTime);
+        TileMapManager.Draw(MapLayerEnum.Parallax, batch, deltaTime);
 
         batch.End();
     }

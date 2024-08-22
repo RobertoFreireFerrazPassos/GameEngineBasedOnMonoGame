@@ -29,12 +29,14 @@ public static class GlobalManager
 
     public static void Update(GameTime gameTime)
     {
-        Scenes[Scene].Update(gameTime);
+        var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        Scenes[Scene].Update(deltaTime);
         InputUtils.UpdatePreviousState();
     }
 
     public static void Draw(GameTime gameTime)
     {
-        Scenes[Scene].Draw(gameTime);
+        var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        Scenes[Scene].Draw(deltaTime);
     }
 }

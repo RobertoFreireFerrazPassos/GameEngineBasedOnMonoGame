@@ -20,7 +20,7 @@ public abstract class SpriteObject
         Position = new Vector2(x, y);
     }
 
-    public virtual void Draw(SpriteBatch batch, GameTime gameTime, Color? newColor = null)
+    public virtual void Draw(SpriteBatch batch, float deltaTime, Color? newColor = null)
     {
         var color = newColor ?? AnimatedSprite.Color;
 
@@ -30,7 +30,7 @@ public abstract class SpriteObject
         }
 
         var offset = Camera.Position;        
-        AnimatedSprite.Update(gameTime);
+        AnimatedSprite.Update(deltaTime);
         var position = new Vector2(
             Position.X + (int)offset.X,
             Position.Y + (int)offset.Y

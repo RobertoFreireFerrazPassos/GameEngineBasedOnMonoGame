@@ -2,7 +2,6 @@
 using GameEngine.Elements.Sprites;
 using GameEngine.Enums;
 using System.Collections.Generic;
-using System;
 using Microsoft.Xna.Framework;
 
 namespace GameEngine.GameObjects.Elements;
@@ -18,7 +17,7 @@ public class StaticObject : SpriteObject
                     new Animation()
                     {
                         Frames = new int[] { 17 },
-                        FrameDuration = TimeSpan.FromMilliseconds(300),
+                        FrameDuration = 0.3f,
                         Loop = false
                     }
                 }
