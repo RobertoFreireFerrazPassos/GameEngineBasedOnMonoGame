@@ -52,6 +52,14 @@ Add shadows
 
 ### Game
 
+#### Movement
+
+Create limit area for movement of enemy.
+
+If it reaches, goes back to origin. 
+
+Use new state and use target not as player. But as origin. Increase time to move for this method
+
 - add projectile https://youtube.com/shorts/bnPZLWi_-dk?si=5W2nvvhAytUqOJ57
 - Grass https://youtube.com/shorts/s10kVff7rCE?si=1pZn-A-FGa_70jJx
 - Shader damage effect
