@@ -34,6 +34,8 @@ namespace GameEngine
             GlobalManager.GraphicsDevice = GraphicsDevice;
             TextureManager.AddTexture("world","Sprite-0001");
             TextureManager.AddTexture("intro", "intro_sprite");
+            TextureManager.AddTexture("normalMap", "Sprite-normalmap");
+            TextureManager.AddEffect("normalMap", "shader");            
             SpriteManager.LoadSpriteBatch("Fonts/8bitOperatorPlus-Bold");
             GlobalManager.LoadContent();
         }

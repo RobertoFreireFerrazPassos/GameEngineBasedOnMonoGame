@@ -9,6 +9,19 @@
 
 ### Game Engine
 
+#### Shaders
+
+Dynamic Lighting For Pixel Art Tutorial - Now You Know Too
+https://www.youtube.com/watch?v=vOXrrEvYUVg
+
+Shaders https://youtube.com/shorts/GC2VG7ksizk?si=0iPMm9yR7mdUTDZG
+
+#### Normal Map Shaders
+ https://youtube.com/shorts/rzm8v5gx7l0?si=hEAbQcPbMu-JaSf2
+ https://youtu.be/vOXrrEvYUVg?si=t1oFBnv6f_NYA7IG
+ https://community.monogame.net/t/solved-normalmap-with-spritebatch/8543
+
+Add light effect https://www.youtube.com/shorts/fAiDf8KXGXw
 
 #### Background
 
@@ -36,21 +49,6 @@ Player customization https://youtube.com/shorts/1X4Oq2X41ZU?si=taPF-d4oxcUTP4Vc
 #### Shadows
 
 Add shadows
-
-#### Camera
-
-Add Parallax camera https://youtu.be/ws-YJNBbEz0?si=STw217EvpAIF3y0G
-
-#### Shaders
-
-Shaders https://youtube.com/shorts/GC2VG7ksizk?si=0iPMm9yR7mdUTDZG
-
-#### Normal Map Shaders
- https://youtube.com/shorts/rzm8v5gx7l0?si=hEAbQcPbMu-JaSf2
- https://youtu.be/vOXrrEvYUVg?si=t1oFBnv6f_NYA7IG
- https://community.monogame.net/t/solved-normalmap-with-spritebatch/8543
-
-Add light effect https://www.youtube.com/shorts/fAiDf8KXGXw
 
 ### Game
 

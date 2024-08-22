@@ -86,8 +86,18 @@ public class GameManager : ISceneManager
 
     public void Draw(GameTime gameTime)
     {
+
+        var normalMapEffect = TextureManager.Effects["normalMap"];
+        var spriteTexture = TextureManager.Texture2D["world"];
+        var normalMapTexture = TextureManager.Texture2D["normalMap"];
+
+        normalMapEffect.Parameters["TextureSampler"].SetValue(spriteTexture);
+        normalMapEffect.Parameters["NormalMapSampler"].SetValue(normalMapTexture);
+        normalMapEffect.Parameters["LightDirection"].SetValue(new Vector3(1.0f, 1.0f, 1.0f));
+        normalMapEffect.Parameters["LightColor"].SetValue(new Vector3(1.0f, 1.0f, 1.0f));
+
         var batch = SpriteManager.SpriteBatch;
-        batch.Begin(samplerState: SamplerState.PointClamp);
+        batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, normalMapEffect);
 
         TileMapManager.Draw(MapLayerEnum.Background, batch, gameTime);
         TileMapManager.Draw(MapLayerEnum.Foreground, batch, gameTime);
