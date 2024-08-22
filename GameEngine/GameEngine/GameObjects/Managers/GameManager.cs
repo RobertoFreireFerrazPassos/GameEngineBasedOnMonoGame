@@ -101,7 +101,7 @@ public class GameManager : ISceneManager
         normalMapEffect.Parameters["LightColor"].SetValue(new Vector3(1.0f, 1.0f, 1.0f));
 
         var batch = SpriteManager.SpriteBatch;
-        batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, normalMapEffect);
+        batch.Begin(blendState : BlendState.AlphaBlend, samplerState : SamplerState.PointClamp, effect : normalMapEffect);
 
         TileMapManager.Draw(MapLayerEnum.Background, batch, deltaTime);
         TileMapManager.Draw(MapLayerEnum.Foreground, batch, deltaTime);

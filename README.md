@@ -70,6 +70,8 @@ Shader damage effect
 
 - player is using 60fps value but enemy is not
 - Validate the need to unsubscribe from action events for the Timer objects. Maybe use IDipose
+- Normal map doesn't flip in x for player when player animation flips in x
+- red color effect doesn't work anymore after light shader
 
 ## References:
 

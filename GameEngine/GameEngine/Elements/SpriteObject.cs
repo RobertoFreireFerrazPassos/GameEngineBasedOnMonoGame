@@ -22,13 +22,13 @@ public abstract class SpriteObject
 
     public virtual void Draw(SpriteBatch batch, float deltaTime, Color? newColor = null)
     {
-        var color = newColor ?? AnimatedSprite.Color;
-
         if (!AnimatedSprite.Visibility.Visible)
         {
             return;
         }
 
+
+        var color = newColor ?? AnimatedSprite.Color;
         var offset = Camera.Position;        
         AnimatedSprite.Update(deltaTime);
         var position = new Vector2(
