@@ -21,7 +21,7 @@ namespace GameEngine
             GlobalManager.Scenes.Add(SceneEnum.MENU, new MenuManager());
             GlobalManager.Scenes.Add(SceneEnum.GAME, new GameManager());            
 
-            IsMouseVisible = false;
+            IsMouseVisible = true;
         }
 
         protected override void Initialize()

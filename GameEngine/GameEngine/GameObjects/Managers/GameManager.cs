@@ -13,6 +13,7 @@ namespace GameEngine.GameObjects.Managers;
 
 public class GameManager : ISceneManager
 {
+    Vector3 lightDirection;
     private Player _player;
     private List<Enemy> _enemies = new List<Enemy>();
     private List<StaticObject> _objects = new List<StaticObject>();
@@ -82,6 +83,9 @@ public class GameManager : ISceneManager
             eny.Update(deltaTime, _player, _enemies);
         }
         Camera.UpdateForFollowPosition(_player.GetBox().Center.ToVector2(), 0.05f);
+        // Set the Z component to a constant value, e.g., 1 for a fixed light direction
+        lightDirection = new Vector3(-0.6f, 0.5f, 1.0f);
+        lightDirection.Normalize();
     }
 
     public void Draw(float deltaTime)
@@ -93,7 +97,7 @@ public class GameManager : ISceneManager
 
         normalMapEffect.Parameters["TextureSampler"].SetValue(spriteTexture);
         normalMapEffect.Parameters["NormalMapSampler"].SetValue(normalMapTexture);
-        normalMapEffect.Parameters["LightDirection"].SetValue(new Vector3(1.0f, 1.0f, 1.0f));
+        normalMapEffect.Parameters["LightDirection"].SetValue(lightDirection);
         normalMapEffect.Parameters["LightColor"].SetValue(new Vector3(1.0f, 1.0f, 1.0f));
 
         var batch = SpriteManager.SpriteBatch;
