@@ -37,21 +37,21 @@ public class StartManager : ISceneManager
         _screenPosition = new Vector2(GlobalManager.GraphicsDeviceManager.PreferredBackBufferWidth / 2 - 160, GlobalManager.GraphicsDeviceManager.PreferredBackBufferHeight / 2 - 80);
     }
 
-    public void Update(float deltaTime)
+    public void Update()
     {
-        _timer += deltaTime;
+        _timer += GlobalManager.DeltaTime;
 
         if (_imageNumber == 1)
         {
-            firstImage(deltaTime);
+            firstImage();
         }
         else if (_imageNumber == 2)
         {
-            LastImage(deltaTime);
+            LastImage();
         }
     }
 
-    private void firstImage(float deltaTime)
+    private void firstImage()
     {
         if (_timer > _introSfxtimer && !_isIntroSfxPlaying)
         {
@@ -63,7 +63,7 @@ public class StartManager : ISceneManager
         {
             if (_fadeOutTween.Active)
             {
-                _opaque = _fadeOutTween.Update(deltaTime);
+                _opaque = _fadeOutTween.Update();
             }
         }
 
@@ -76,13 +76,13 @@ public class StartManager : ISceneManager
         }
     }
 
-    private void LastImage(float deltaTime)
+    private void LastImage()
     {
         if (_timer > _freezeTime)
         {
             if (_fadeOutTween.Active)
             {
-                _opaque = _fadeOutTween.Update(deltaTime);
+                _opaque = _fadeOutTween.Update();
             }
         }
 
@@ -99,7 +99,7 @@ public class StartManager : ISceneManager
         _opaque = _opaqueDefault;
     }
 
-    public void Draw(float deltaTime)
+    public void Draw()
     {
         var color = new Color(255, 0, 0, 255) * _opaque;
         var batch = SpriteManager.SpriteBatch;

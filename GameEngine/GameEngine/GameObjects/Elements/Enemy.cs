@@ -6,6 +6,7 @@ using System;
 using GameEngine.Enums;
 using GameEngine.Elements;
 using GameEngine.Elements.Strategies;
+using GameEngine.Elements.Managers;
 
 namespace GameEngine.GameObjects.Elements;
 
@@ -40,18 +41,18 @@ public class Enemy : SpriteObject
         CollisionBox = new CollisionBox(6, 17, 28, 18);
     }
 
-    public void Update(float deltaTime, Player player, List<Enemy> enemies)
+    public void Update(Player player, List<Enemy> enemies)
     {
-        _movementStrategy.Update(deltaTime, player, enemies.ConvertAll(e => (SpriteObject)e), AttackPlayer);
-
+        _movementStrategy.Update(player, enemies.ConvertAll(e => (SpriteObject)e), AttackPlayer);
+        
         void AttackPlayer()
         {
             player.ReceivesDamage();
         }
     }
 
-    public override void Draw(float deltaTime, Color? color = null)
+    public override void Draw(Color? color = null)
     {
-        base.Draw(deltaTime);
+        base.Draw();
     }
 }

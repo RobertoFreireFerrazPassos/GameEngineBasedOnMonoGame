@@ -52,7 +52,7 @@ namespace GameEngine
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            GlobalManager.Draw(gameTime);
+            GlobalManager.Draw();
             base.Draw(gameTime);
         }
     }

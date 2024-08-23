@@ -20,7 +20,7 @@ public abstract class SpriteObject
         Position = new Vector2(x, y);
     }
 
-    public virtual void Draw(float deltaTime, Color? newColor = null)
+    public virtual void Draw(Color? newColor = null)
     {
         if (!AnimatedSprite.Visibility.Visible)
         {
@@ -32,7 +32,7 @@ public abstract class SpriteObject
 
         var color = newColor ?? AnimatedSprite.Color;
         var offset = Camera.Position;        
-        AnimatedSprite.Update(deltaTime);
+        AnimatedSprite.Update();
         var position = new Vector2(
             Position.X + (int)offset.X,
             Position.Y + (int)offset.Y

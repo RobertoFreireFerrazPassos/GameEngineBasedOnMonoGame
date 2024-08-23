@@ -1,4 +1,5 @@
-﻿using GameEngine.Enums;
+﻿using GameEngine.Elements.Managers;
+using GameEngine.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -51,13 +52,13 @@ public class AnimatedSprite
         Texture = texture;
     }
 
-    public void Update(float deltaTime)
+    public void Update()
     {
         var animation = Animations.GetValueOrDefault(State);
 
         if (animation is null) return;
 
-        _elapsedTime += deltaTime;
+        _elapsedTime += GlobalManager.DeltaTime;
 
         if (_elapsedTime >= animation.FrameDuration)
         {

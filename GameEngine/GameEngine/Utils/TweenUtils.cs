@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Elements.Managers;
+using Microsoft.Xna.Framework;
 using System;
 
 namespace GameEngine.Utils;
@@ -21,9 +22,9 @@ public class TweenUtils
         _elapsedTime = 0f;
     }
 
-    public float Update(float deltaTime)
+    public float Update()
     {
-        _elapsedTime += deltaTime;
+        _elapsedTime += GlobalManager.DeltaTime;
         float t = MathHelper.Clamp(_elapsedTime / _duration, 0f, 1f);
         float easedT = _easingFunction(t);
         return MathHelper.Lerp(_startValue, _endValue, easedT);

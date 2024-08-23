@@ -5,5 +5,5 @@ namespace GameEngine.Elements.Strategies;
 
 public interface IMovementStrategy
 {
-    public void Update(float elapsedTime, SpriteObject target, List<SpriteObject> allies, Action action);
+    public void Update(SpriteObject target, List<SpriteObject> allies, Action action);
 }

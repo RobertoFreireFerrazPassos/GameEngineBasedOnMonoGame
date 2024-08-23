@@ -19,6 +19,8 @@ public static class GlobalManager
 
     public static Dictionary<SceneEnum, ISceneManager> Scenes = new Dictionary<SceneEnum, ISceneManager>();
 
+    public static float DeltaTime;
+
     public static void LoadContent()
     {
         foreach (var scene in Scenes)
@@ -29,14 +31,13 @@ public static class GlobalManager
 
     public static void Update(GameTime gameTime)
     {
-        var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        Scenes[Scene].Update(deltaTime);
+        DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        Scenes[Scene].Update();
         InputUtils.UpdatePreviousState();
     }
 
-    public static void Draw(GameTime gameTime)
+    public static void Draw()
     {
-        var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        Scenes[Scene].Draw(deltaTime);
+        Scenes[Scene].Draw();
     }
 }

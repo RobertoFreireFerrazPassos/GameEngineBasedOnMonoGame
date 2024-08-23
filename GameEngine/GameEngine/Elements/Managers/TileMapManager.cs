@@ -57,7 +57,7 @@ public static class TileMapManager
         TileMaps.Add(name, tileMap);
     }
 
-    public static void Draw(MapLayerEnum layer, float deltaTime)
+    public static void Draw(MapLayerEnum layer)
     {
         var batch = SpriteManager.GetSpriteBatchAndBeginWithLight();
         var offset = Camera.Position;

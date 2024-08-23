@@ -1,4 +1,5 @@
 ﻿using GameEngine.Elements.Managers;
+using GameEngine.GameConstants;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using System;
@@ -27,18 +28,19 @@ public class SimpleMovementStrategy : IMovementStrategy
         _maxDist = maxDist;
     }
 
-    public void Update(float elapsedTime, SpriteObject target, List<SpriteObject> allies, Action action)
+    public void Update(SpriteObject target, List<SpriteObject> allies, Action action)
     {
+        var deltaTime = GlobalManager.DeltaTime;
         if (_currentState == 2)
         {
-            _timer += elapsedTime;
-            MoveToTarget(elapsedTime, target, allies);
+            _timer += deltaTime;
+            MoveToTarget(deltaTime, target, allies);
             return;
         }
 
         if (_currentState == 3)
         {
-            _timer += elapsedTime;
+            _timer += deltaTime;
             if (_timer > 0.2f)
             {
                 _currentState = 0;
@@ -123,8 +125,8 @@ public class SimpleMovementStrategy : IMovementStrategy
     private void UpdatePosition(float elapsedTime, SpriteObject target, List<SpriteObject> allies)
     {
         var direction = _targetPosition - ThisObject.GetBox().Center.ToVector2();
-        direction = direction * ThisObject.Speed * elapsedTime;
         direction.Normalize();
+        direction = direction * ThisObject.Speed * elapsedTime * Constants.Config.SixtyFrames;
 
         if (direction.X is float.NaN || direction.Y is float.NaN)
         {

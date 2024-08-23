@@ -2,11 +2,11 @@
 using GameEngine.Elements.Managers;
 using GameEngine.Elements.Sprites;
 using GameEngine.Enums;
+using GameEngine.GameConstants;
 using GameEngine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using static GameEngine.GameConstants.Constants;
 
 namespace GameEngine.GameObjects.Elements;
 
@@ -59,10 +59,9 @@ public class Player : SpriteObject
         CollisionBox = new CollisionBox(2, 2, 38, 36);
     }
 
-    public void Update(float deltaTime, List<Enemy> enemies)
+    public void Update(List<Enemy> enemies)
     {
-        deltaTime = deltaTime / (float) Config.SixtyFramesASecond;
-
+        var deltaTime = GlobalManager.DeltaTime;
         var direction = Vector2.Zero;
 
         if (_damageTime <= 0f)
@@ -75,15 +74,14 @@ public class Player : SpriteObject
             _damageTime-= deltaTime;
         }
 
+        var speed = Speed;
         SetDirection();
         UpdateAnimation();
-
-        Speed = 2;
         foreach (var enemy in enemies)
         {
             if (GetBox().Intersects(enemy.GetBox()))
             {
-                Speed = 1;
+                speed = Speed / 2;
             }
         }
 
@@ -117,14 +115,14 @@ public class Player : SpriteObject
             var tempX = Position.X;
             var tempY = Position.Y;
 
-            Position.X += direction.X * Speed * deltaTime;
+            Position.X += direction.X * speed * deltaTime * Constants.Config.SixtyFrames;
 
             if (TileMapManager.IsCollidingWith(GetBox()))
             {
                 Position.X = tempX;
             }
 
-            Position.Y += direction.Y * Speed * deltaTime;
+            Position.Y += direction.Y * speed * deltaTime * Constants.Config.SixtyFrames;
 
             if (TileMapManager.IsCollidingWith(GetBox()))
             {
@@ -160,13 +158,13 @@ public class Player : SpriteObject
         _damageTime = 1f;
     }
 
-    public override void Draw(float deltaTime, Color? color = null)
+    public override void Draw(Color? color = null)
     {
         if (_isTakingDamage)
         {
             color = new Color(220, 20, 60);
         }
 
-        base.Draw(deltaTime, color);
+        base.Draw(color);
     }
 }

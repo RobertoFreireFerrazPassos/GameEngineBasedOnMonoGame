@@ -4,7 +4,7 @@ public interface ISceneManager
 {
     public void LoadContent();
 
-    public void Update(float elapsedTime);
+    public void Update();
 
-    public void Draw(float elapsedTime);
+    public void Draw();
 }

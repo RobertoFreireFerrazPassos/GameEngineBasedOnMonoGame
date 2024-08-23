@@ -67,7 +67,7 @@ public class GameManager : ISceneManager
         MusicManager.AddMelody("Square", melody, Waveform.Square);
     }
 
-    public void Update(float deltaTime)
+    public void Update()
     {
         if (InputUtils.IsKeyJustPressed(InputEnum.ENTER))
         {
@@ -75,18 +75,18 @@ public class GameManager : ISceneManager
             GlobalManager.Scene = SceneEnum.MENU;
         }
 
-        _player.Update(deltaTime, _enemies);
+        _player.Update(_enemies);
         foreach (var eny in _enemies)
         {
-            eny.Update(deltaTime, _player, _enemies);
+            eny.Update(_player, _enemies);
         }
         Camera.UpdateForFollowPosition(_player.GetBox().Center.ToVector2(), 0.05f);
     }
 
-    public void Draw(float deltaTime)
+    public void Draw()
     {
-        TileMapManager.Draw(MapLayerEnum.Background, deltaTime);
-        TileMapManager.Draw(MapLayerEnum.Foreground, deltaTime);
+        TileMapManager.Draw(MapLayerEnum.Background);
+        TileMapManager.Draw(MapLayerEnum.Foreground);
 
         var objSrites = new List<SpriteObject>();
         objSrites.Add(_player);
@@ -98,9 +98,9 @@ public class GameManager : ISceneManager
 
         foreach (var obj in objSrites)
         {
-            obj.Draw(deltaTime);
+            obj.Draw();
         }
 
-        TileMapManager.Draw(MapLayerEnum.Parallax, deltaTime);
+        TileMapManager.Draw(MapLayerEnum.Parallax);
     }
 }
