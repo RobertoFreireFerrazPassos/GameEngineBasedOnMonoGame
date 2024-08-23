@@ -13,6 +13,8 @@ public class SimpleMovementStrategy : IMovementStrategy
 
     private int _currentState; // 0- far 1- tilemap obstacle  2- found 3 - reached
 
+    public Vector2 _originalPosition;
+
     public Vector2 _targetPosition;
 
     private float _minDist;
@@ -24,6 +26,7 @@ public class SimpleMovementStrategy : IMovementStrategy
     public SimpleMovementStrategy(SpriteObject thisObject, float minDist, float maxDist)
     {
         ThisObject = thisObject;
+        _originalPosition = thisObject.GetBox().Center.ToVector2();
         _minDist = minDist;
         _maxDist = maxDist;
     }
@@ -31,6 +34,14 @@ public class SimpleMovementStrategy : IMovementStrategy
     public void Update(SpriteObject target, List<SpriteObject> allies, Action action)
     {
         var deltaTime = GlobalManager.DeltaTime;
+
+        if (_currentState == 0)
+        {
+            _timer += deltaTime;
+            _targetPosition = _originalPosition;
+            MoveToTarget(deltaTime, target, allies);
+        }
+
         if (_currentState == 2)
         {
             _timer += deltaTime;

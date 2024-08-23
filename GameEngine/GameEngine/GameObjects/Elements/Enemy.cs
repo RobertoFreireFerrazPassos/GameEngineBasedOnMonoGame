@@ -35,7 +35,7 @@ public class Enemy : SpriteObject
                 );
         AnimatedSprite.Ordering.Z = 2;
         CollisionBox = new CollisionBox(6, 17, 28, 18);
-        _movementStrategy = new SimpleMovementStrategy(this, 40f, 250f);
+        _movementStrategy = new SimpleMovementStrategy(this, 40f, 160f);
     }
 
     public void Update(Player player, List<Enemy> enemies)
