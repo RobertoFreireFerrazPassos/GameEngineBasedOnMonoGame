@@ -61,9 +61,7 @@ Add shadows
 #### Movement
 
 Create limit area for movement of enemy.
-
 If it reaches, goes back to origin. 
-
 Use new state and use target not as player. But as origin. Increase time to move for this method
 
 Add projectile https://youtube.com/shorts/bnPZLWi_-dk?si=5W2nvvhAytUqOJ57
