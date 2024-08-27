@@ -62,6 +62,9 @@ Add shadows
 
 ### Game
 
+Add another enemy. Each enemy moves differently. USe a different MovementStrategy class.
+Instead of load the entire map and enemies, it must load by chunks for optimization.
+
 #### Movement
 
 Add projectile https://youtube.com/shorts/bnPZLWi_-dk?si=5W2nvvhAytUqOJ57
