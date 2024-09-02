@@ -86,4 +86,6 @@ Shader damage effect
 https://docs.monogame.net/articles/tutorials.html
 
 https://www.youtube.com/watch?v=vR9pozv9bjM&list=PLkEsuRhhI3ne0BcsCmwAZG-shlHyDfvKc
+ https://github.com/aloisdeniel/awesome-monogame
 
+https://github.com/MonoGame/MonoGame.Samples
